@@ -1,0 +1,39 @@
+<!-- PAGE NAVIGATION -->
+  {% if is_paginated %}
+    <div class="page-navigation blue center">
+      <!-- CONTROL PREVIOUS -->
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">
+        <div class="slider-control big control-previous">
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon medium">
+            <use xlink:href="#svg-arrow-medium"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+      </a>
+      {% endif %}
+      <!-- /CONTROL PREVIOUS -->
+      {% for page_num in paginator.page_range %}
+        {% if page_obj.number == page_num %}
+        <a href="#0" class="page-navigation-item active">{{ page_num }}</a>
+        {% else %}
+        <a href="?page={{ page_num }}" class="page-navigation-item">{{ page_num }}</a>
+        {% endif %}
+      {% endfor %}
+      <!-- CONTROL PREVIOUS -->
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">
+        <div class="slider-control big control-next">
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon medium">
+            <use xlink:href="#svg-arrow-medium"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+      </a>
+      {% endif %}
+      <!-- /CONTROL PREVIOUS -->
+    </div>
+  {% endif %}
+<!-- /PAGE NAVIGATION -->
