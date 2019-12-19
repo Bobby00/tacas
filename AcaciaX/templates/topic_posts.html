@@ -13,10 +13,6 @@
     <!-- BANNER -->
     <div class="banner grid-limit cstm-width-50">
 
-      <!-- TAG ORNAMENT -->
-        <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">STOCK MARKETS</a>
-      <!-- /TAG ORNAMENT -->
-
       <h2 class="banner-title pad-tp_btm text-left">{{ topic.subject }}</h2>
 
           {% for post in topic.posts.all|slice:":1" %}
@@ -75,11 +71,7 @@
 
         <!-- FAQ ITEM CONTENT -->
         <div class="faq-item-content accordion-open">
-
-          <button class="plain-btn-3">STOCKS</button>
-          <button class="plain-btn-3">MARKETS</button>
-          <button class="plain-btn-3">COMMODITIES</button>
-
+          <br><br>
         </div>
         <!-- /FAQ ITEM CONTENT -->
       </div>

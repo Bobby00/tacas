@@ -14,6 +14,15 @@ from .models import Category, Topic, Post
 def home(request):
     return render(request, 'index.html')
 
+def economic_calendar(request):
+    return render(request, 'economic-calendar.html')
+
+def market_screener(request):
+    return render(request, 'market-screener.html')
+
+def real_time_widget(request):
+    return render(request, 'real-time-widget.html')
+
 class CategoryListView(ListView):
     model = Category
     context_object_name = 'categories'

@@ -4,6 +4,9 @@ import math
 from django.utils.html import mark_safe
 from markdown import markdown
 
+
+# FORUM AND ACCOUNT MODELS
+
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)

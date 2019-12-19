@@ -18,6 +18,8 @@ from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 
 from accounts import views as accounts_views
+from news import views as news_views
+from analysis import views as analysis_views
 from forum.views import CategoryListView, TopicListView, PostListView
 from forum import views
 
@@ -26,6 +28,11 @@ urlpatterns = [
     
     #WEB VIEWS URL PATTERNS
     path('', views.home, name='home'),
+    path('news/', news_views.news, name='news'),
+    path('analysis/', analysis_views.analysis, name='analysis'),
+    path('economic_calendar/', views.economic_calendar, name='economic_calendar'),
+    path('market_screener/', views.market_screener, name='market_screener'),
+    path('real_time_widget/', views.real_time_widget, name='real_time_widget'),
 
     #ACCOUNTS URL PATTERNS
     path('signup/', accounts_views.signup, name='signup'),
