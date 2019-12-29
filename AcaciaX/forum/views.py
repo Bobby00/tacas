@@ -9,10 +9,23 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 
 from .forms import NewTopicForm, PostForm
+
+from news.models import NewsArticle, NewsPost
 from .models import Category, Topic, Post
 
-def home(request):
-    return render(request, 'index.html')
+class HomeListView(ListView):
+    model = Post
+    context_object_name = 'home_posts'
+    template_name = 'index.html'
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['news_lists'] = NewsArticle.objects.all()
+        return context
+    
 
 def economic_calendar(request):
     return render(request, 'economic-calendar.html')

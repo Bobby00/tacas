@@ -17,19 +17,29 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 
-from accounts import views as accounts_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 from news import views as news_views
 from analysis import views as analysis_views
-from forum.views import CategoryListView, TopicListView, PostListView
+from accounts import views as accounts_views
+from forum.views import CategoryListView, TopicListView, PostListView, HomeListView
+from django.views.static import serve
 from forum import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     #WEB VIEWS URL PATTERNS
-    path('', views.home, name='home'),
+    path('', views.HomeListView.as_view(template_name='index.html'), name='home'),
     path('news/', news_views.news, name='news'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/$', news_views.news_posts, name='news_posts'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/reply/$', news_views.reply_news_article, name='reply_news_article'),
+
     path('analysis/', analysis_views.analysis, name='analysis'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/$', analysis_views.analysis_posts, name='analysis_posts'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/reply/$', analysis_views.reply_analysis_article, name='reply_analysis_article'),
+
     path('economic_calendar/', views.economic_calendar, name='economic_calendar'),
     path('market_screener/', views.market_screener, name='market_screener'),
     path('real_time_widget/', views.real_time_widget, name='real_time_widget'),
@@ -39,6 +49,12 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('settings/account/', accounts_views.UserUpdateView.as_view(), name='my_account'),
+
+    path('settings/account/profile_summary', accounts_views.ProfileSummaryView.as_view(), name='profile_summary'),
+    path('settings/account/profile_notifications', accounts_views.ProfileNotificationView.as_view(), name='profile_notifications'),
+    path('settings/account/profile_activity', accounts_views.ProfileActivityView.as_view(), name='profile_activity'),
+    path('settings/account/profile_messages', accounts_views.ProfileMessageView.as_view(), name='profile_messages'),
+    path('settings/account/profile_badges', accounts_views.ProfileBadgeView.as_view(), name='profile_badges'),
 
     path('settings/password/', auth_views.PasswordChangeView.as_view(template_name='password_change.html'),
     name='password_change'),
@@ -63,4 +79,5 @@ urlpatterns = [
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

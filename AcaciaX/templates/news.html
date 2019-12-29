@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 {% block title %}Acaciax | News{% endblock %}
 
 {% block content_news %}
@@ -33,14 +35,16 @@
     <div class="layout-body layout-item centered grid3-1col">
       <!-- LAYOUT ITEM -->
       <div class="layout-item cstm-grid-60 centered">
+
         <!-- POST PREVIEW -->
+        {% for news in news_list %}
         <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="post-v2.html">
             <div class="post-preview-img-wrap">
               <!-- POST PREVIEW IMG -->
               <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
+                <img src="{{ news.image.url }}">
               </figure>
               <!-- POST PREVIEW IMG -->
             </div>
@@ -48,353 +52,30 @@
           <!-- /POST PREVIEW IMG WRAP -->
 
           <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
+          <a href="news-v2.html" class="tag-ornament">{{ news.category }}</a>
           <!-- /TAG ORNAMENT -->
 
           <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
+          <a href="{% url 'news_posts' news.pk %}" class="post-preview-title">{{ news.title }}</a>
           <!-- POST AUTHOR INFO -->
           <div class="post-author-info-wrap">
             <!-- USER AVATAR -->
             <a href="search-results.html">
               <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
+                <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
               </figure>
             </a>
+
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
+            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ news.news_posts.count }} Comment(s)</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
+          <p class="post-preview-text">{{ news.description }}</p>
         </div>
+        {% endfor %}
         <!-- /POST PREVIEW -->
 
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-             
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-
-        <!-- LAYOUT ITEM -->
-      <div class="layout-item padded">
-        <a href="#">
-          <!-- PROMO BANNER -->
-          <div class="promo-banner">
-
-            
-          </div>
-          <!-- /PROMO BANNER -->
-        </a>
-      </div>
-      <!-- /LAYOUT ITEM -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
-
-        <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
-          <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
-            <div class="post-preview-img-wrap">
-              <!-- POST PREVIEW IMG -->
-              <figure class="post-preview-img liquid">
-                <img src="img/posts/16.jpg" alt="post-16">
-              </figure>
-              <!-- POST PREVIEW IMG -->
-
-              
-            </div>
-          </a>
-          <!-- /POST PREVIEW IMG WRAP -->
-
-          <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">STOCK MARKETS</a>
-          <!-- /TAG ORNAMENT -->
-
-          <!-- POST PREVIEW TITLE -->
-          <a href="post-v2.html" class="post-preview-title">I MUST TO YOU HOW ALL MISTAKEN IDEA.</a>
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="img/users/04.jpg" alt="user-04">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Reuters</a><span class="separator">|</span>January 07, 2020<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          </div>
-          <!-- /POST AUTHOR INFO -->
-          <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dutor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation loso laboris tempora aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...</p>
-        </div>
-        <!-- /POST PREVIEW -->
       </div>
       <!-- /LAYOUT ITEM -->
 
@@ -432,110 +113,7 @@
           </div>
         </div>
 
-      <!-- LAYOUT ITEM 1-1-1 -->
-      <div class="layout-item-1-1-1">
-        <!-- LAYOUT ITEM -->
-        <div class="layout-item">
-
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="img/posts/17.jpg" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
-
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-          </div>
-          <!-- /POST PREVIEW -->
-          
-        </div>
-        <!-- /LAYOUT ITEM -->
-
-        <!-- LAYOUT ITEM -->
-        <div class="layout-item">
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="img/posts/17.jpg" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
-
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-          </div>
-          <!-- /POST PREVIEW -->
-        </div>
-        <!-- /LAYOUT ITEM -->
-        <div class="layout-item">
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="img/posts/17.jpg" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
-
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-          </div>
-          <!-- /POST PREVIEW -->
-        </div>
-      </div>
-      <!-- /LAYOUT ITEM 1-1-1 -->
+      {% include 'includes/analysis-app.html' %}
       
     </div>
     <!-- /LAYOUT BODY -->

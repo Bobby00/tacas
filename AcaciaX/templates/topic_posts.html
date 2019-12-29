@@ -8,31 +8,7 @@
 {% block title %}Acaciax | Topic posts{% endblock %}
 
 {% block content_topic_posts %}
-  <!-- BANNER WRAP -->
-  <div class="banner-wrap game-review">
-    <!-- BANNER -->
-    <div class="banner grid-limit cstm-width-50">
-
-      <h2 class="banner-title pad-tp_btm text-left">{{ topic.subject }}</h2>
-
-          {% for post in topic.posts.all|slice:":1" %}
-          <!-- POST AUTHOR INFO -->
-          <div class="post-author-info-wrap">
-            <!-- USER AVATAR -->
-            <a href="search-results.html">
-              <figure class="user-avatar tiny liquid">
-                <img src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
-              </figure>
-            </a>
-            <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author">{{ post.created_by.username }}</a><span class="separator">|</span>{{ post.created_at }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
-          {% endfor %}
-          </div>
-          <br>
-    </div>
-    <!-- /BANNER -->
-  </div>
-  <!-- /BANNER WRAP -->
+  
 
 
   <!-- LAYOUT CONTENT 1 -->
@@ -218,111 +194,331 @@
               <!-- /BUTTON -->
           </div>
         </div>
-        <!-- LAYOUT ITEM 1-1-1 -->
-      <div class="layout-item-1-1-1">
-        <!-- LAYOUT ITEM -->
-        <div class="layout-item">
+        {% include 'includes/analysis-app.html' %}
+      </div>
 
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="{% static 'img/posts/17.jpg' %}" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
 
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
+        <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full layout-item grid-limit cstm-width-70 gutter-big">
+    <!-- FILTERS ROW -->
+    <div class="filters-row">
+      <!-- DROPDOWN SIMPLE WRAP -->
+      <div class="dropdown-simple-wrap">
+        <!-- DP CURRENT OPTION -->
+        <div id="filter-01-dropdown-trigger" class="dp-current-option">
+          <!-- DP CURRENT OPTION VALUE -->
+          <div id="filter-01-dropdown-option-value" class="dp-current-option-value">
+            <p class="dp-option-text">All Categories</p>
           </div>
-          <!-- /POST PREVIEW -->
+          <!-- /DP CURRENT OPTION VALUE -->
+
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon">
+            <use xlink:href="#svg-arrow"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+        <!-- /DP CURRENT OPTION -->
+
+        <!-- DP OPTIONS -->
+        <div id="filter-01-dropdown" class="dp-options small">
+          
+          <!-- DP OPTION -->
+          <div class="dp-option">
+            <p class="dp-option-text">{{ topic.category }}</p>
+          </div>
+          <!-- /DP OPTION -->
           
         </div>
-        <!-- /LAYOUT ITEM -->
-
-        <!-- LAYOUT ITEM -->
-        <div class="layout-item">
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="{% static 'img/posts/17.jpg' %}" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
-
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-          </div>
-          <!-- /POST PREVIEW -->
-        </div>
-
-        <!-- /LAYOUT ITEM -->
-        <div class="layout-item">
-          <!-- POST PREVIEW -->
-          <div class="post-preview gaming-news img-toggle">
-            <!-- POST PREVIEW IMG WRAP -->
-            <a href="post-v1.html">
-              <div class="post-preview-img-wrap">
-                <!-- POST PREVIEW IMG -->
-                <figure class="post-preview-img liquid">
-                  <img src="{% static 'img/posts/17.jpg' %}" alt="post-17">
-                </figure>
-                <!-- /POST PREVIEW IMG -->
-              </div>
-            </a>
-            <!-- /POST PREVIEW IMG WRAP -->
-
-            <!-- TAG ORNAMENT -->
-            <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-            <!-- /TAG ORNAMENT -->
-
-            <!-- POST PREVIEW TITLE -->
-            <a href="post-v1.html" class="post-preview-title">SOYBEANS AT A 16-MONTH HIGH</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>December 15th, 2018</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <!-- POST PREVIEW TEXT -->
-            <p class="post-preview-text">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-          </div>
-          <!-- /POST PREVIEW -->
-        </div>
+        <!-- /DP OPTIONS -->
       </div>
-      <!-- /LAYOUT ITEM 1-1-1 -->
+      <!-- /DROPDOWN SIMPLE WRAP -->
+
+
+      <!-- OPTION LIST -->
+      <div class="option-list">
+        <!-- OPTION LIST ITEM -->
+        <p class="option-list-item selected">Latest Topics</p>
+        <!-- /OPTION LIST ITEM -->
+
       </div>
+      <!-- /OPTION LIST -->
+
+      <!-- FORUM ACTIONS -->
+      <div class="forum-actions">
+        <!-- DROPDOWN SIMPLE WRAP -->
+        <div class="dropdown-simple-wrap">
+          <!-- CURRENT OPTION -->
+          <div id="forums-search-dropdown-trigger" class="current-option">
+            <!-- BUTTON -->
+            <p class="button small red">Search Forums</p>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /CURRENT OPTION -->
+  
+          <!-- DP OPTIONS -->
+          <div id="forums-search-dropdown" class="dp-options medium">
+            <!-- FORM WRAP -->
+            <form class="form-wrap">
+              <!-- FORM ROW -->
+              <div class="form-row">
+                <!-- FORM ITEM -->
+                <div class="form-item">
+                  <!-- SUBMIT INPUT -->
+                  <div class="submit-input red">
+                    <input type="text" id="forum_search_input" name="forum_search_input" placeholder="What are you looking for?...">
+                    <button class="submit-input-button">
+                      <!-- ARROW ICON -->
+                      <svg class="arrow-icon medium">
+                        <use xlink:href="#svg-arrow-medium"></use>
+                      </svg>
+                      <!-- /ARROW ICON -->
+                    </button>
+                  </div>
+                  <!-- /SUBMIT INPUT -->
+                </div>
+                <!-- /FORM ITEM -->
+              </div>
+              <!-- /FORM ROW -->
+
+              <!-- FORM CONFIRM ROW -->
+              <div class="form-confirm-row">
+                <!-- CHECKBOX ITEM -->
+                <div class="checkbox-item">
+                  <input type="checkbox" id="f_search_cat_only" name="f_search_cat_only" value="only" checked>
+                  <!-- CHECKBOX BOX -->
+                  <div class="checkbox-box blue">
+                    <!-- CROSS ICON -->
+                    <svg class="cross-cb-icon small">
+                      <use xlink:href="#svg-cross-cb-small"></use>
+                    </svg>
+                    <!-- /CROSS ICON -->
+                  </div>
+                  <!-- CHECKBOX BOX -->
+                  <label for="f_search_cat_only" class="rl-label">Search this category only</label>
+                </div>
+                <!-- /CHECKBOX ITEM -->
+
+                <!-- DECORATED LINK -->
+                <p class="decorated-link red popup-advanced-search-trigger">Advanced Search</p>
+                <!-- /DECORATED LINK -->
+              </div>
+              <!-- /FORM CONFIRM ROW -->
+            </form>
+            <!-- FORM WRAP -->
+          </div>
+          <!-- /DP OPTIONS -->
+        </div>
+        <!-- /DROPDOWN SIMPLE WRAP -->
+
+        <!-- BUTTON -->
+        <p class="button small blue popup-create-topic-trigger">Create Topic</p>
+        <!-- /BUTTON -->
+
+        
+      </div>
+      <!-- /FORUM ACTIONS -->
+    </div>
+    <!-- /FILTERS ROW -->
+
+    <!-- TOPIC WRAP -->
+    <div class="topic-wrap">
+      
+
+      <!-- TOPIC HEADER -->
+      <div class="topic-header">
+        <!-- TOPIC TITLE -->
+        <p class="topic-title">{{ topic.subject }}</p>
+        <!-- /TOPIC TITLE -->
+
+        <!-- TAG ORNAMENT -->
+        <a href="news-v2.html" class="tag-ornament">{{ topic.category.name }}</a>
+      <!-- /TAG ORNAMENT -->
+
+        
+      </div>
+      <!-- /TOPIC HEADER -->
+
+      <!-- TOPIC BODY -->
+      <div class="topic-body">
+        <!-- TOPIC COMMENT -->
+
+        {% for post in posts %}
+
+        <div class="topic-comment">
+          <!-- TOPIC COMMENT USER -->
+          <div class="topic-comment-user">
+            <!-- USER AVATAR -->
+            <a href="profile-summary.html">
+              <img class="user-avatar medium" src="{% static 'img/users/09.jpg' %}" alt="user-09">
+            </a>
+            <!-- /USER AVATAR -->
+            
+          </div>
+          <!-- /TOPIC COMMENT USER -->
+
+          <!-- TOPIC COMMENT CONTENT WRAP -->
+          <div class="topic-comment-content-wrap">
+            <!-- TOPIC COMMENT CONTENT -->
+            <div class="topic-comment-content">
+              <!-- TOPIC COMMENT CONTENT HEADER -->
+              <div class="topic-comment-content-header">
+                <!-- TOPIC COMMENT USERNAME -->
+                <a href="profile-summary.html" class="topic-comment-username">{{ post.created_by.username }}</a>
+                <!-- /TOPIC COMMENT USERNAME -->
+
+                <!-- TOPIC COMMENT INFO -->
+                <div class="topic-comment-info">
+                  <!-- TOPIC COMMENT TIMESTAMP -->
+                  <p class="topic-comment-timestamp">{{ post.created_at|naturaltime }}</p>
+                  <!-- /TOPIC COMMENT TIMESTAMP -->
+                </div>
+                <!-- /TOPIC COMMENT INFO -->
+              </div>
+              <!-- /TOPIC COMMENT CONTENT HEADER -->
+
+              <!-- TOPIC COMMENT TEXT -->
+              <p class="topic-comment-text">
+                {{ post.get_message_as_markdown }}
+              </p>
+
+              <!-- /TOPIC COMMENT TEXT -->
+
+            {% if post.created_by == user %}
+            <div class="mt-3">
+              <a href="{% url 'edit_post' post.topic.category.pk post.topic.pk post.pk %}"
+                 class="btn btn-primary btn-sm"
+                 role="button">Edit</a>
+            </div>
+            {% endif %}
+            
+            </div>
+            <!-- /TOPIC COMMENT CONTENT -->
+
+            <!-- TOPIC COMMENT ACTIONS -->
+            <div class="topic-comment-actions">
+              <!-- TOPIC ACTIONS -->
+              <div class="topic-actions">
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament cyan">
+                    <i class="icon-like like-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">26</p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable red">
+                    <i class="icon-dislike dislike-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">0</p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+              </div>
+              <!-- /TOPIC ACTIONS -->
+
+              <!-- TOPIC ACTIONS -->
+              <div class="topic-actions">
+                <!-- TOPIC ACTION -->
+                <div class="topic-action inverted">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable blue popup-quick-reply-trigger">
+                    <i class="icon-action-undo reply-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">5 Replies</p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+                
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable black">
+                    <i class="icon-link share-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable red">
+                    <i class="icon-fire report-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+                </div>
+                <!-- /TOPIC ACTION -->
+              </div>
+              <!-- /TOPIC ACTIONS -->
+            </div>
+            <!-- /TOPIC COMMENT ACTIONS -->
+          </div>
+          <!-- /TOPIC COMMENT CONTENT WRAP -->
+        </div>
+        <!-- /TOPIC COMMENT -->
+
+        {% endfor %}
+
+      </div>
+      <!-- /TOPIC BODY -->
+      <br><br>
+    {% include 'includes/pagination.html' %}
+    </div>
+    <!-- /TOPIC WRAP -->
+<div class="layout-content-full grid-limit grid3-1col centered">
+  <div class="layout-item-2-1 mgn_top_10pc">
+          <div class="layout-item">
+              <!-- SECTION TITLE WRAP -->
+            <div class="section-title-wrap light-gray">
+              <h2 class="">ANALYSIS AND OPINION</h2>
+              <div class="section-title-separator"></div>
+            </div>
+            <!-- /SECTION TITLE WRAP -->
+          </div>
+
+          <div class="layout-item">
+            <!-- BUTTON -->
+              <button class="button light-gray cstm_fit_content mgn_left-40">
+                MORE ANALYSIS
+                <!-- BUTTON ORNAMENT -->
+                <span class="button-ornament">
+                  <!-- ARROW ICON -->
+                  <svg class="arrow-icon medium">
+                    <use xlink:href="#svg-arrow-medium"></use>
+                  </svg>
+                  <!-- /ARROW ICON -->
+
+                  <!-- CROSS ICON -->
+                  <svg class="cross-icon small">
+                    <use xlink:href="#svg-cross-small"></use>
+                  </svg>
+                  <!-- /CROSS ICON -->
+                </span>
+                <!-- /BUTTON ORNAMENT -->
+              </button>
+              <!-- /BUTTON -->
+          </div>
+        </div>
+        {% include 'includes/analysis-app.html' %}
+      </div>
+    
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
 
 {% endblock content_topic_posts %}

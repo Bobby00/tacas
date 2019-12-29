@@ -153,7 +153,7 @@
             <!-- CURRENT OPTION VALUE -->
             <div class="current-option-value">
               <img class="widget-option-img user-avatar micro" src="{% static 'img/users/05.jpg' %}" alt="avatar-01">
-              <p class="widget-option-text">{{ user.username }}</p>
+              <p class="widget-option-text cstm-camel-case">{{ user.username }}</p>
             </div>
             <!-- /CURRENT OPTION VALUE -->
 
@@ -174,7 +174,7 @@
             <!-- /WIDGET OPTION HEADING -->
 
             <!-- WIDGET OPTION -->
-            <a href="account-settings.html" class="widget-option">
+            <a href="{% url 'my_account' %}" class="widget-option">
               <p class="widget-option-text">Account Settings</p>
             </a>
             <!-- /WIDGET OPTION -->
@@ -187,40 +187,35 @@
             <!-- /WIDGET OPTION HEADING -->
 
             <!-- WIDGET OPTION -->
-            <a href="profile-summary.html" class="widget-option">
+            <a href="{% url 'profile_summary' %}" class="widget-option">
               <p class="widget-option-text">Summary</p>
             </a>
             <!-- /WIDGET OPTION -->
 
             <!-- WIDGET OPTION -->
-            <a href="profile-activity.html" class="widget-option">
-              <p class="widget-option-text">Activity</p>
+            <a href="{% url 'profile_activity' %}" class="widget-option">
+              <p class="widget-option-text">My Activity</p>
             </a>
             <!-- /WIDGET OPTION -->
 
             <!-- WIDGET OPTION -->
-            <a href="profile-notifications.html" class="widget-option">
-              <p class="widget-option-text">Notifications</p>
+            <a href="{% url 'profile_notifications' %}" class="widget-option">
+              <p class="widget-option-text">My Notifications</p>
             </a>
             <!-- /WIDGET OPTION -->
 
             <!-- WIDGET OPTION -->
-            <a href="profile-messages.html" class="widget-option">
-              <p class="widget-option-text">Messages</p>
+            <a href="{% url 'profile_messages' %}" class="widget-option">
+              <p class="widget-option-text">My Messages</p>
             </a>
             <!-- /WIDGET OPTION -->
 
             <!-- WIDGET OPTION -->
-            <a href="profile-badges.html" class="widget-option">
-              <p class="widget-option-text">Profile Badges</p>
+            <a href="{% url 'profile_badges' %}" class="widget-option">
+              <p class="widget-option-text">My Badges</p>
             </a>
             <!-- /WIDGET OPTION -->
 
-            <!-- WIDGET OPTION -->
-            <a href="profile-settings.html" class="widget-option">
-              <p class="widget-option-text">Settings</p>
-            </a>
-            <!-- /WIDGET OPTION -->
           </div>
           <!-- /WIDGET OPTIONS -->
         </div>

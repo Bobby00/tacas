@@ -51,3 +51,12 @@ class Post(models.Model):
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
+
+
+class Comment(models.Model):
+    message = models.TextField(max_length=1000)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True)
+    created_by = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)

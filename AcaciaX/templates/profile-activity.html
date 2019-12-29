@@ -1,0 +1,471 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Acaciax | Profile Activity{% endblock %}
+
+{% block content_profile_activity %}
+
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit">
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+      <!-- PROFILE USER -->
+      <div class="profile-user">
+        <!-- USER AVATAR -->
+        <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+        <!-- /USER AVATAR -->
+
+        <!-- PROFILE USER NAME -->
+        <p class="profile-user-name">{{ user.username }}</p>
+        <!-- /PROFILE USER NAME -->
+
+        <!-- PROFILE USER INFO -->
+        <p class="profile-user-info">2540 Posts</p>
+        <!-- /PROFILE USER INFO -->
+
+        <!-- BADGE LIST -->
+        <div class="badge-list">
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/legendary_user_small.png' %}" alt="legendary_user_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/user_level_02_small.png' %}" alt="user_level_02_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/liked_user_small.png' %}" alt="liked_user_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/master_reviewer_small.png' %}" alt="master_reviewer_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/caffeinated_small.png' %}" alt="caffeinated_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/super_forum_traveller_small.png' %}" alt="super_forum_traveller_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/ultra_powered_small.png' %}" alt="ultra_powered_small">
+          </a>
+          <!-- /BADGE IMG -->
+
+          <!-- BADGE IMG -->
+          <a href="profile-badges.html">
+            <img class="badge-img" src="{% static 'img/badges/super_writer_small.png' %}" alt="super_writer_small">
+          </a>
+          <!-- /BADGE IMG -->
+        </div>
+        <!-- /BADGE LIST -->
+      </div>
+      <!-- /PROFILE USER -->
+
+      <!-- BUTTON -->
+      <a href="#" class="button small cyan">Send Message</a>
+      <!-- /BUTTON -->
+    </div>
+    <!-- /PROFILE HEADER -->
+
+    <!-- TAB WRAP -->
+    <div class="tab-wrap">
+      <!-- TAB HEADER -->
+      <div class="tab-header items-6">
+        <!-- TAB HEADER ITEM -->
+        <a href="{% url 'profile_summary' %}" class="tab-header-item blue">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Summary</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </a>
+        <!-- /TAB HEADER ITEM -->
+
+        <!-- TAB HEADER ITEM -->
+        <div class="tab-header-item blue selected">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Activity</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </div>
+        <!-- /TAB HEADER ITEM -->
+
+        <!-- TAB HEADER ITEM -->
+        <a href="{% url 'profile_notifications' %}" class="tab-header-item blue">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Notifications</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </a>
+        <!-- /TAB HEADER ITEM -->
+
+        <!-- TAB HEADER ITEM -->
+        <a href="{% url 'profile_messages' %}" class="tab-header-item blue">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Messages</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </a>
+        <!-- /TAB HEADER ITEM -->
+
+        <!-- TAB HEADER ITEM -->
+        <a href="{% url 'profile_badges' %}" class="tab-header-item blue">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Badges</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </a>
+        <!-- /TAB HEADER ITEM -->
+
+        <!-- TAB HEADER ITEM -->
+        <a href="{% url 'my_account' %}" class="tab-header-item blue">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">Settings</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </a>
+        <!-- /TAB HEADER ITEM -->
+      </div>
+      <!-- /TAB HEADER -->
+
+      <!-- TAB BODY -->
+      <div class="tab-body">
+        <!-- TAB ITEM -->
+        <div class="tab-item spaced">
+          <!-- LAYOUT CONTENT 4 -->
+          <div class="layout-content-4 v2 layout-item-1-3">
+            <!-- LAYOUT SIDEBAR -->
+            <div class="layout-sidebar">
+              <!-- DROPDOWN LIST -->
+              <ul class="dropdown-list void centered">
+                <!-- DROPDOWN LIST ITEM -->
+                <li class="dropdown-list-item active">
+                  <a href="#" class="dropdown-list-item-link">All Activity</a>
+                </li>
+                <!-- /DROPDOWN LIST ITEM -->
+              </ul>
+              <!-- /DROPDOWN LIST -->
+            </div>
+            <!-- /LAYOUT SIDEBAR -->
+
+            <!-- LAYOUT BODY -->
+            <div class="layout-body">
+              <!-- ACTIVITY ITEMS -->
+              <div class="activity-items">
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/05.jpg" alt="user-05">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Benjamin Rodgers was casted for the "Tigerman" main role</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">2 hours ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text cyan">Movies</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/05.jpg" alt="user-05">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Post your best GTE V Online character photos and vote for the best</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">1 day ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text red">The Arcade</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/07.jpg" alt="user-07">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Post your best GTE V Online character photos and vote for the best</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">4 days ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text red">The Arcade</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+
+                  <!-- ACTIVITY ITEM STAT -->
+                  <div class="activity-item-stat">
+                    <!-- LIKE ICON -->
+                    <i class="icon-like like-icon"></i>
+                    <!-- /LIKE ICON -->
+
+                    <!-- USER AVATAR -->
+                    <img class="user-avatar micro" src="img/users/05.jpg" alt="user-05">
+                    <!-- /USER AVATAR -->
+                  </div>
+                  <!-- /ACTIVITY ITEM STAT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/05.jpg" alt="user-05">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Show us your modded gaming pc and win awesome prizes!</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">5 days ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text blue">Pixel Community</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/14.jpg" alt="user-14">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Power Studios announced three "Game of Dragons" universe pilots</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">1 week ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text violet">TV Shows</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+
+                  <!-- ACTIVITY ITEM STAT -->
+                  <div class="activity-item-stat">
+                    <!-- DISLIKE ICON -->
+                    <i class="icon-dislike dislike-icon"></i>
+                    <!-- /DISLIKE ICON -->
+
+                    <!-- USER AVATAR -->
+                    <img class="user-avatar micro" src="img/users/05.jpg" alt="user-05">
+                    <!-- /USER AVATAR -->
+                  </div>
+                  <!-- /ACTIVITY ITEM STAT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+
+                <!-- ACTIVITY ITEM -->
+                <div class="activity-item">
+                  <!-- USER AVATAR -->
+                  <img class="user-avatar" src="img/users/13.jpg" alt="user-13">
+                  <!-- /USER AVATAR -->
+
+                  <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+                  <div class="activity-item-dropdown-button">
+                    <!-- ARROW ICON -->
+                    <svg class="arrow-icon medium">
+                      <use xlink:href="#svg-arrow-medium"></use>
+                    </svg>
+                    <!-- /ARROW ICON -->
+                  </div>
+                  <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+                  <!-- ACTIVITY ITEM ROW -->
+                  <div class="activity-item-row">
+                    <!-- ACTIVITY ITEM TITLE -->
+                    <a href="topic.html" class="activity-item-title">Show us your modded gaming pc and win awesome prizes!</a>
+                    <!-- /ACTIVITY ITEM TITLE -->
+
+                    <!-- ACTIVITY ITEM TIMESTAMP -->
+                    <p class="activity-item-timestamp">1 week ago</p>
+                    <!-- /ACTIVITY ITEM TIMESTAMP -->
+                  </div>
+                  <!-- /ACTIVITY ITEM ROW -->
+
+                  <!-- FORUM CATEGORY TEXT -->
+                  <a href="forum-categories.html" class="forum-category-text blue">Pixel Community</a>
+                  <!-- /FORUM CATEGORY TEXT -->
+
+                  <!-- ACTIVITY ITEM TEXT -->
+                  <p class="activity-item-text">Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi...</p>
+                  <!-- /ACTIVITY ITEM TEXT -->
+
+                  <!-- ACTIVITY ITEM STAT -->
+                  <div class="activity-item-stat">
+                    <!-- LIKE ICON -->
+                    <i class="icon-like like-icon"></i>
+                    <!-- /LIKE ICON -->
+
+                    <!-- USER AVATAR -->
+                    <img class="user-avatar micro" src="img/users/05.jpg" alt="user-05">
+                    <!-- /USER AVATAR -->
+                  </div>
+                  <!-- /ACTIVITY ITEM STAT -->
+                </div>
+                <!-- /ACTIVITY ITEM -->
+              </div>
+              <!-- /ACTIVITY ITEMS -->
+
+              <!-- PAGE NAVIGATION -->
+              <div class="page-navigation blue spaced right">
+                <!-- CONTROL PREVIOUS -->
+                <div class="slider-control big control-previous">
+                  <!-- ARROW ICON -->
+                  <svg class="arrow-icon medium">
+                    <use xlink:href="#svg-arrow-medium"></use>
+                  </svg>
+                  <!-- /ARROW ICON -->
+                </div>
+                <!-- /CONTROL PREVIOUS -->
+                <a href="#" class="page-navigation-item">1</a>
+                <a href="#" class="page-navigation-item active">2</a>
+                <a href="#" class="page-navigation-item">3</a>
+                <a href="#" class="page-navigation-item">...</a>
+                <a href="#" class="page-navigation-item">8</a>
+                <!-- CONTROL PREVIOUS -->
+                <div class="slider-control big control-next">
+                  <!-- ARROW ICON -->
+                  <svg class="arrow-icon medium">
+                    <use xlink:href="#svg-arrow-medium"></use>
+                  </svg>
+                  <!-- /ARROW ICON -->
+                </div>
+                <!-- /CONTROL PREVIOUS -->
+              </div>
+              <!-- /PAGE NAVIGATION -->
+            </div>
+            <!-- /LAYOUT BODY -->
+          </div>
+          <!-- /LAYOUT CONTENT 4 -->
+        </div>
+        <!-- /TAB ITEM -->
+      </div>
+      <!-- /TAB BODY -->
+    </div>
+    <!-- /TAB WRAP -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+
+  {% endblock content_profile_activity %}

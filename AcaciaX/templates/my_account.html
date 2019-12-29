@@ -12,13 +12,13 @@
     <div class="banner grid-limit">
       <h2 class="banner-title">Your Account</h2>
       <p class="banner-sections">
-        <span class="banner-section">Home</span>
+        <a href="{% url 'home' %}" class="banner-section clr-whte">Home</a>
         <!-- ARROW ICON -->
         <svg class="arrow-icon">
           <use xlink:href="#svg-arrow"></use>
         </svg>
         <!-- /ARROW ICON -->
-        <span class="banner-section">James_Spiegel</span>
+        <span class="banner-section cstm-camel-case"><strong>{{ user.username }}</strong></span>
       </p>
     </div>
     <!-- /BANNER -->
@@ -36,11 +36,11 @@
         <!-- /USER AVATAR -->
 
         <!-- ACCOUNT INFO USERNAME -->
-        <p class="account-info-username">James_Spiegel</p>
+        <p class="account-info-username">{{ user.username }}</p>
         <!-- /ACCOUNT INFO USERNAME -->
 
         <!-- ACCOUNT INFO NAME -->
-        <p class="account-info-name">James Spiegel</p>
+        <p class="account-info-name">@{{ user.username }}</p>
         <!-- /ACCOUNT INFO NAME -->
 
         <!-- ACCOUNT INFO STATS -->
@@ -69,17 +69,6 @@
           </div>
           <!-- /ACCOUNT INFO STAT -->
 
-          <!-- ACCOUNT INFO STAT -->
-          <div class="account-info-stat">
-            <!-- ACCOUNT INFO STAT VALUE -->
-            <p class="account-info-stat-value">5</p>
-            <!-- /ACCOUNT INFO STAT VALUE -->
-
-            <!-- ACCOUNT INFO STAT TITLE -->
-            <p class="account-info-stat-title">Orders</p>
-            <!-- /ACCOUNT INFO STAT TITLE -->
-          </div>
-          <!-- /ACCOUNT INFO STAT -->
         </div>
         <!-- /ACCOUNT INFO STATS -->
 

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load humanize %}
 
 {% block content_home %}
 
@@ -347,6 +348,8 @@
                       <div id="postslide-1" class="postslide">
                         <!-- NEWS PREVIEW -->
                         <div class="news-preview slider-items">
+
+                          {% for news_list in news_lists %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture big geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -354,7 +357,7 @@
                               <div class="post-preview-img-wrap">
                                 <!-- POST PREVIEW IMG -->
                                 <figure class="post-preview-img liquid">
-                                  <img src="img/posts/18.jpg" alt="post-18">
+                                  <img src="{{ news_list.image.url }}" alt="{{ news_list.title }}">
                                 </figure>
                                 <!-- /POST PREVIEW IMG -->
 
@@ -365,9 +368,9 @@
                                   <!-- /TAG ORNAMENT -->
 
                                   <!-- POST PREVIEW TITLE -->
-                                  <p class="post-preview-title">"U.S. Markets Recover Losses After Trade Reassurances</p>
+                                  <p class="post-preview-title">{{ news_list.title }}</p>
                                   <!-- POST PREVIEW TEXT -->
-                                  <p class="post-preview-text">U.S. Markets Recover Losses After Trade Reassurances.</p>
+                                  <p class="post-preview-text">{{ news_list.description }}</p>
                                 </div>
                                 <!-- /POST PREVIEW OVERLAY -->
 
@@ -379,7 +382,7 @@
                             <!-- /POST PREVIEW IMG WRAP -->
                           </div>
                           <!-- /POST PREVIEW -->
-
+                          {% endfor %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture big game-review">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -516,25 +519,26 @@
 
                         <!-- NEWS ROSTER -->
                         <div class="news-roster slider-roster">
+                          {% for news_list in news_lists %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture short geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
                             <div class="post-preview-img-wrap">
                               <!-- POST PREVIEW IMG -->
                               <figure class="post-preview-img liquid">
-                                <img src="img/posts/18.jpg" alt="post-18">
+                                <img src="{{ news_list.image.url }}" alt="{{ news_list.title }}">
                               </figure>
                               <!-- /POST PREVIEW IMG -->
 
                               <!-- POST PREVIEW OVERLAY -->
                               <div class="post-preview-overlay">
                                 <!-- POST PREVIEW TITLE -->
-                                <p class="post-preview-title">U.S. Markets Recover Losses After Trade Reassurances</p>
+                                <p class="post-preview-title">{{ news_list.title }}</p>
                               </div>
                               <!-- /POST PREVIEW OVERLAY -->
 
                               <!-- TAG ORNAMENT -->
-                              <span class="tag-ornament">STOCK MARKET</span>
+                              <span class="tag-ornament">{{ news_list.category }}</span>
                               <!-- /TAG ORNAMENT -->
                             </div>
                             <!-- /POST PREVIEW IMG WRAP -->
@@ -548,6 +552,7 @@
                             <!-- /OVERLAY -->
                           </div>
                           <!-- /POST PREVIEW -->
+                          {% endfor %}
 
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture short game-review">
@@ -751,110 +756,9 @@
                       </div>
                     </div>
 
-                  <!-- LAYOUT ITEM 1-1-1 -->
-                  <div class="layout-item-1-1-1">
-                    <!-- LAYOUT ITEM -->
-                    <div class="layout-item">
+                  
+                    {% include 'includes/analysis-app.html' %}
 
-                      <!-- POST PREVIEW -->
-                      <div class="post-preview gaming-news img-toggle">
-                        <!-- POST PREVIEW IMG WRAP -->
-                        <a href="post-v1.html">
-                          <div class="post-preview-img-wrap">
-                            <!-- POST PREVIEW IMG -->
-                            <figure class="post-preview-img liquid">
-                              <img src="img/posts/17.jpg" alt="post-17">
-                            </figure>
-                            <!-- /POST PREVIEW IMG -->
-                          </div>
-                        </a>
-                        <!-- /POST PREVIEW IMG WRAP -->
-
-                        <!-- TAG ORNAMENT -->
-                        <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-                        <!-- /TAG ORNAMENT -->
-
-                        <!-- POST PREVIEW TITLE -->
-                        <a href="post-v1.html" class="post-preview-title">SOYBEANS AT 16-MONTH HIGH</a>
-                        <!-- POST AUTHOR INFO -->
-                        <div class="post-author-info-wrap">
-                          <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>January 07, 2018</p>
-                        </div>
-                        <!-- /POST AUTHOR INFO -->
-                        <!-- POST PREVIEW TEXT -->
-                        <p class="post-preview-text base-color">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-                      </div>
-                      <!-- /POST PREVIEW -->
-                      
-                    </div>
-                    <!-- /LAYOUT ITEM -->
-
-                    <!-- LAYOUT ITEM -->
-                    <div class="layout-item">
-                      <!-- POST PREVIEW -->
-                      <div class="post-preview gaming-news img-toggle">
-                        <!-- POST PREVIEW IMG WRAP -->
-                        <a href="post-v1.html">
-                          <div class="post-preview-img-wrap">
-                            <!-- POST PREVIEW IMG -->
-                            <figure class="post-preview-img liquid">
-                              <img src="img/posts/17.jpg" alt="post-17">
-                            </figure>
-                            <!-- /POST PREVIEW IMG -->
-                          </div>
-                        </a>
-                        <!-- /POST PREVIEW IMG WRAP -->
-
-                        <!-- TAG ORNAMENT -->
-                        <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-                        <!-- /TAG ORNAMENT -->
-
-                        <!-- POST PREVIEW TITLE -->
-                        <a href="post-v1.html" class="post-preview-title">SOYBEANS AT 16-MONTH HIGH</a>
-                        <!-- POST AUTHOR INFO -->
-                        <div class="post-author-info-wrap">
-                          <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>January 07, 2018</p>
-                        </div>
-                        <!-- /POST AUTHOR INFO -->
-                        <!-- POST PREVIEW TEXT -->
-                        <p class="post-preview-text base-color">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-                      </div>
-                      <!-- /POST PREVIEW -->
-                    </div>
-                    <!-- /LAYOUT ITEM -->
-                    <div class="layout-item">
-                      <!-- POST PREVIEW -->
-                      <div class="post-preview gaming-news img-toggle">
-                        <!-- POST PREVIEW IMG WRAP -->
-                        <a href="post-v1.html">
-                          <div class="post-preview-img-wrap">
-                            <!-- POST PREVIEW IMG -->
-                            <figure class="post-preview-img liquid">
-                              <img src="img/posts/17.jpg" alt="post-17">
-                            </figure>
-                            <!-- /POST PREVIEW IMG -->
-                          </div>
-                        </a>
-                        <!-- /POST PREVIEW IMG WRAP -->
-
-                        <!-- TAG ORNAMENT -->
-                        <a href="news-v1.html" class="tag-ornament">COMMODITIES WEEKLY</a>
-                        <!-- /TAG ORNAMENT -->
-
-                        <!-- POST PREVIEW TITLE -->
-                        <a href="post-v1.html" class="post-preview-title">SOYBEANS AT 16-MONTH HIGH</a>
-                        <!-- POST AUTHOR INFO -->
-                        <div class="post-author-info-wrap">
-                          <p class="post-author-info small light">By <a href="search-results.html" class="post-author">Vellatrix</a><span class="separator">|</span>January 07, 2018</p>
-                        </div>
-                        <!-- /POST AUTHOR INFO -->
-                        <!-- POST PREVIEW TEXT -->
-                        <p class="post-preview-text base-color">Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur bere adipisicing elit, sed do eiusmod tempor lorem incididunt ut labore et dolore magna.</p>
-                      </div>
-                      <!-- /POST PREVIEW -->
-                    </div>
-                  </div>
-                  <!-- /LAYOUT ITEM 1-1-1 -->
 
                   <div class="layout-item-2-1 display-flex mgn_top_10pc">
                       <div class="layout-item">
@@ -1018,6 +922,7 @@
                     <div class="activity-items">
 
                       <!-- ACTIVITY ITEM -->
+                      {% for home_post in home_posts %}
                       <div class="activity-item">
                         <!-- USER AVATAR -->
                         <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
@@ -1036,159 +941,28 @@
                         <!-- ACTIVITY ITEM ROW -->
                         <div class="activity-item-row">
                           <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">Chubby Monkey</a>
+                          <a href="topic.html" class="activity-item-title secondary-color">{{ home_post.created_by }}</a>
                           <!-- /ACTIVITY ITEM TITLE -->
 
                           <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">2 hours ago</p>
+                          <p class="activity-item-timestamp">{{ home_post.created_at|naturaltime }}</p>
                           <!-- /ACTIVITY ITEM TIMESTAMP -->
                         </div>
                         <!-- /ACTIVITY ITEM ROW -->
 
                         <!-- ACTIVITY ITEM TEXT -->
-                        <p class="activity-item-text base-color">I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish....</p>
+                    <p class="activity-item-text base-color">{{ home_post.message }}</p>
                         <!-- /ACTIVITY ITEM TEXT -->
                       </div>
-                      <!-- /ACTIVITY ITEM -->
-
-                      <!-- ACTIVITY ITEM -->
-                      <div class="activity-item">
-                        <!-- USER AVATAR -->
-                        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                        <!-- /USER AVATAR -->
-
-                        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-                        <div class="activity-item-dropdown-button">
-                          <!-- ARROW ICON -->
-                          <svg class="arrow-icon medium">
-                            <use xlink:href="#svg-arrow-medium"></use>
-                          </svg>
-                          <!-- /ARROW ICON -->
-                        </div>
-                        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-                        <!-- ACTIVITY ITEM ROW -->
-                        <div class="activity-item-row">
-                          <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">Chubby Monkey</a>
-                          <!-- /ACTIVITY ITEM TITLE -->
-
-                          <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">2 hours ago</p>
-                          <!-- /ACTIVITY ITEM TIMESTAMP -->
-                        </div>
-                        <!-- /ACTIVITY ITEM ROW -->
-
-                        <!-- ACTIVITY ITEM TEXT -->
-                        <p class="activity-item-text base-color">I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish....</p>
-                        <!-- /ACTIVITY ITEM TEXT -->
-                      </div>
-                      <!-- /ACTIVITY ITEM -->
-
-                      <!-- ACTIVITY ITEM -->
-                      <div class="activity-item">
-                        <!-- USER AVATAR -->
-                        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                        <!-- /USER AVATAR -->
-
-                        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-                        <div class="activity-item-dropdown-button">
-                          <!-- ARROW ICON -->
-                          <svg class="arrow-icon medium">
-                            <use xlink:href="#svg-arrow-medium"></use>
-                          </svg>
-                          <!-- /ARROW ICON -->
-                        </div>
-                        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-                        <!-- ACTIVITY ITEM ROW -->
-                        <div class="activity-item-row">
-                          <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">Chubby Monkey</a>
-                          <!-- /ACTIVITY ITEM TITLE -->
-
-                          <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">2 hours ago</p>
-                          <!-- /ACTIVITY ITEM TIMESTAMP -->
-                        </div>
-                        <!-- /ACTIVITY ITEM ROW -->
-
-                        <!-- ACTIVITY ITEM TEXT -->
-                        <p class="activity-item-text base-color">I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish....</p>
-                        <!-- /ACTIVITY ITEM TEXT -->
-                      </div>
-                      <!-- /ACTIVITY ITEM -->
-
-                      <!-- ACTIVITY ITEM -->
-                      <div class="activity-item">
-                        <!-- USER AVATAR -->
-                        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                        <!-- /USER AVATAR -->
-
-                        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-                        <div class="activity-item-dropdown-button">
-                          <!-- ARROW ICON -->
-                          <svg class="arrow-icon medium">
-                            <use xlink:href="#svg-arrow-medium"></use>
-                          </svg>
-                          <!-- /ARROW ICON -->
-                        </div>
-                        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-                        <!-- ACTIVITY ITEM ROW -->
-                        <div class="activity-item-row">
-                          <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">Chubby Monkey</a>
-                          <!-- /ACTIVITY ITEM TITLE -->
-
-                          <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">2 hours ago</p>
-                          <!-- /ACTIVITY ITEM TIMESTAMP -->
-                        </div>
-                        <!-- /ACTIVITY ITEM ROW -->
-
-                        <!-- ACTIVITY ITEM TEXT -->
-                        <p class="activity-item-text base-color">I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish...</p>
-                        <!-- /ACTIVITY ITEM TEXT -->
-                      </div>
-                      <!-- /ACTIVITY ITEM -->
-
-                      <!-- ACTIVITY ITEM -->
-                      <div class="activity-item">
-                        <!-- USER AVATAR -->
-                        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                        <!-- /USER AVATAR -->
-
-                        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-                        <div class="activity-item-dropdown-button">
-                          <!-- ARROW ICON -->
-                          <svg class="arrow-icon medium">
-                            <use xlink:href="#svg-arrow-medium"></use>
-                          </svg>
-                          <!-- /ARROW ICON -->
-                        </div>
-                        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-                        <!-- ACTIVITY ITEM ROW -->
-                        <div class="activity-item-row">
-                          <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">Chubby Monkey</a>
-                          <!-- /ACTIVITY ITEM TITLE -->
-
-                          <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">2 hours ago</p>
-                          <!-- /ACTIVITY ITEM TIMESTAMP -->
-                        </div>
-                        <!-- /ACTIVITY ITEM ROW -->
-
-                        <!-- ACTIVITY ITEM TEXT -->
-                        <p class="activity-item-text base-color">I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish.I went for a hard buy in apple stocks and managed to get good returns, my predictons were right the market was going to be bearish....</p>
-                        <!-- /ACTIVITY ITEM TEXT -->
-                      </div>
+                      {% endfor %}
                       <!-- /ACTIVITY ITEM -->
                     </div>
                   </div>
-
+                  <br>
+                  <br>
+                  <!-- PAGE NAVIGATION -->
+                    {% include 'includes/pagination.html' %}
+                    <!-- /PAGE NAVIGATION -->
                   </div>
                   <!-- /LAYOUT ITEM -->
 

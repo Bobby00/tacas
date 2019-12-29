@@ -11,7 +11,7 @@
   <div class="banner-wrap game-review">
     <!-- BANNER -->
     <div class="banner grid-limit cstm-width-60">
-      <h2 class="banner-title text-left">ACACIAX FORUMs</h2>
+      <h2 class="banner-title text-left">ACACIAX FORUMS</h2>
       <p class="banner-sections text-left">
         <a href="{% url 'home' %}">
           <span class="clr-whte banner-section">Home</span>
@@ -133,145 +133,7 @@
         </div>
         <!-- /DROPDOWN SIMPLE WRAP -->
 
-        <!-- DROPDOWN SIMPLE WRAP -->
-        <div class="dropdown-simple-wrap">
-          <!-- CURRENT OPTION -->
-          <div id="forums-user-dropdown-trigger" class="current-option">
-            <!-- USER AVATAR WRAP -->
-            <figure class="user-avatar-wrap">
-              <!-- USER AVATAR -->
-              <img class="user-avatar smaller" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-              <!-- /USER AVATAR -->
-
-              <!-- USER AVATAR DECORATION -->
-              <div class="user-avatar-decoration">
-                <!-- USER AVATAR DECORATION TEXT -->
-                <p class="user-avatar-decoration-text">2</p>
-                <!-- /USER AVATAR DECORATION TEXT -->
-              </div>
-              <!-- /USER AVATAR DECORATION -->
-            </figure>
-            <!-- /USER AVATAR WRAP -->
-          </div>
-          <!-- /CURRENT OPTION -->
-  
-          <!-- DP OPTIONS -->
-          <div id="forums-user-dropdown" class="dp-options medium no-padding-bottom">
-            <!-- USER DROPDOWN -->
-            <div class="user-dropdown">
-              <!-- USER DROPDOWN HEADER -->
-              <div class="user-dropdown-header">
-                <!-- USER DROPDOWN HEADER TEXT -->
-                <a href="profile-summary.html" class="user-dropdown-header-text">James_Spiegel</a>
-                <!-- /USER DROPDOWN HEADER TEXT -->
-
-                <!-- USER DROPDOWN HEADER ACTIONS -->
-                <div class="user-dropdown-header-actions">
-                  <!-- USER DROPDOWN HEADER ACTION -->
-                  <a href="profile-messages.html" class="user-dropdown-header-action">
-                    <i class="icon-envelope"></i>
-                  </a>
-                  <!-- /USER DROPDOWN HEADER ACTION -->
-
-                  <!-- USER DROPDOWN HEADER ACTION -->
-                  <a href="profile-settings.html" class="user-dropdown-header-action">
-                    <i class="icon-settings"></i>
-                  </a>
-                  <!-- /USER DROPDOWN HEADER ACTION -->
-                </div>
-                <!-- /USER DROPDOWN HEADER ACTIONS -->
-              </div>
-              <!-- /USER DROPDOWN HEADER -->
-
-              <!-- USER DROPDOWN BODY -->
-              <div class="user-dropdown-body">
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">3 Replies <span class="highlight">The American league movie is around the corner! Here's the last trailer</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <p class="notification-item-icon">@</p>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Beardman-Returns <span class="highlight">Power studios announced three "Game of Dragons" universe pilots</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo read"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">1 Reply <span class="highlight">Post your best GTE V online character photos and vote for the best</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-envelope"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Dexter Danvers <span class="highlight">Inquiry about the forum rules</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-like"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Thunder-Gamer <span class="highlight">The american league movie is around the corner! Here's the last trailer</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo read"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">5 Replies <span class="highlight">Introduce yourself and show us your cosplays!</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-              </div>
-              <!-- /USER DROPDOWN BODY -->
-
-              <!-- MORE ITEMS LOADER -->
-              <a href="profile-notifications.html" class="more-items-loader">
-                <div class="square"></div>
-                <div class="square"></div>
-                <div class="square"></div>
-              </a>
-              <!-- /MORE ITEMS LOADER -->
-            </div>
-            <!-- /USER DROPDOWN -->
-          </div>
-          <!-- /DP OPTIONS -->
-        </div>
-        <!-- /DROPDOWN SIMPLE WRAP -->
+        
       </div>
       <!-- /FORUM ACTIONS -->
     </div>
@@ -301,7 +163,7 @@
                   </td>
                   <td class="topics-count fnt-w8-800 text-center" data-title="Topics"> {{ category.topics.count }} </td>
                   <td class="forum-posts-count fnt-w8-800 text-center" data-title="Posts">{{ category.get_posts_count }} </td>
-                  <td class="forum-latest fnt-w8-500 clr_black" data-title="Actual">
+                  <td class="forum-latest fnt-w8-500 clr_black" data-title="Latest">
                     {% with post=category.get_last_post %}
                       {% if post %}
                         <p>{{ post.message|truncatechars:30 }} <span style="font-size: 10px; color: #777;"> {{ post.created_at|naturaltime|truncatechars:8 }}</span></p>

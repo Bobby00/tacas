@@ -1,27 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class AnalysisCategory(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-
-    def __str__(self):
-        return self.name
-
 class AnalysisArticle(models.Model):
+	ANALYSIS_ARTICLE_CATEGORY = (
+		('COMMODITIES WEEKLY', 'COMMODITIES WEEKLY'),
+	)
 	title = models.CharField(max_length=255)
-	photo = models.ImageField()
-	description = models.CharField(max_length=255)
-	created_at = models.DateTimeField(auto_now_add=True)
+	description = models.TextField(max_length=4000)
+	category = models.CharField(max_length=255, choices=ANALYSIS_ARTICLE_CATEGORY, default='COMMODITIES WEEKLY')
+	image = models.ImageField(blank=True, upload_to='analysis')
 	last_updated = models.DateTimeField(auto_now_add=True)
-	updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-	news_category = models.ForeignKey(AnalysisCategory, related_name='analysis', on_delete=models.CASCADE)
-	starter = models.ForeignKey(User, related_name='analysis', on_delete=models.CASCADE)
+	starter = models.ForeignKey(User, related_name='analysis_articles', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.title
 
 
 class AnalysisPost(models.Model):
-    message = models.TextField(max_length=4000)
-    analysis_article = models.ForeignKey(AnalysisArticle, related_name='analysis_posts', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='analysis_posts', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
+	message = models.TextField(max_length=4000)
+	analysis_article = models.ForeignKey(AnalysisArticle, related_name='analysis_posts', on_delete=models.CASCADE)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(null=True)
+	created_by = models.ForeignKey(User, related_name='analysis_posts', on_delete=models.CASCADE)
+	updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.created_by

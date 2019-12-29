@@ -46,6 +46,10 @@
 	font-weight: 500;
 }
 
+.cstm-camel-case {
+	text-transform: capitalize;
+}
+
 .invalid-feedback {
 	font-size: 14px;
 	color: red;
@@ -611,6 +615,15 @@ button.accent-color-bg {
 	.navigation .logo {
 		
 	}
+	.cstm-post-img-width {
+		width: 100%!important;
+	}
+	.cstm-width-50 {
+		width: 80%;
+	}
+	.icon-cstm-width {
+		width: 25%;
+	}
 	.hidden-md {
 		display: block;
 	}
@@ -640,5 +653,11 @@ button.accent-color-bg {
 	}
 	.posts_header_text {
 		padding: 10px 20px!important;
+	}
+	.cstm-width-70 {
+		width: 90%!important;
+	}
+	.filters-row {
+		padding: unset;
 	}
 }
