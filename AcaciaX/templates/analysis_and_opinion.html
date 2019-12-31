@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 {% block title %}Acaciax | Analysis and Opinions{% endblock %}
 
 {% block content_analysis %}
@@ -34,14 +36,14 @@
       <!-- LAYOUT ITEM -->
       <div class="layout-item cstm-grid-60 centered">
         <!-- POST PREVIEW -->
-        <div class="post-preview landscape big game-review">
           {% for analysis in analysis_list %}
+          <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="post-v2.html">
             <div class="post-preview-img-wrap">
               <!-- POST PREVIEW IMG -->
               <figure class="post-preview-img liquid">
-                <img src="{% static 'img/posts/16.jpg' %}" alt="post-16">
+                <img src="{{ analysis.image.url }}" alt="post-16">
               </figure>
               <!-- POST PREVIEW IMG -->
             </div>
@@ -63,17 +65,21 @@
               </figure>
             </a>
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">28 Comments</a></p>
+            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ analysis.analysis_posts.count }} Comments</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
           <p class="post-preview-text">{{ analysis.description }}</p>
-
-          {% endfor %}
         </div>
+        {% endfor %}
         <!-- /POST PREVIEW -->
-
       </div>
+
+<br><br>
+<!-- PAGE NAVIGATION -->
+{% include 'includes/pagination.html' %}
+<!-- /PAGE NAVIGATION -->
+
       <!-- /LAYOUT ITEM -->
       
     </div>

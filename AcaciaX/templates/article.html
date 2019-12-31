@@ -4,14 +4,14 @@
 
 {% load humanize %}
 
-{% block title %}Acaciax | News{% endblock %}
+{% block title %}Acaciax | Articles{% endblock %}
 
-{% block content_news %}
+{% block content_article %}
   <!-- BANNER WRAP -->
   <div class="banner-wrap game-review">
     <!-- BANNER -->
     <div class="banner grid-limit cstm-width-60">
-      <h2 class="banner-title text-left">LATEST NEWS</h2>
+      <h2 class="banner-title text-left">MAIN ARTICLES</h2>
       <p class="banner-sections text-left">
         <a class="bread-crumb-home" href="{% url 'home' %}">
           <span class="banner-section">HOME</span>
@@ -21,7 +21,7 @@
           <use xlink:href="#svg-arrow"></use>
         </svg>
         <!-- /ARROW ICON -->
-        <span class="banner-section">LATEST NEWS</span>
+        <span class="banner-section">ARTICLES</span>
       </p>
     </div>
     <!-- /BANNER -->
@@ -37,14 +37,14 @@
       <div class="layout-item cstm-grid-60 centered">
 
         <!-- POST PREVIEW -->
-        {% for news in news_list %}
+        {% for article in article_list %}
         <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="post-v2.html">
             <div class="post-preview-img-wrap">
               <!-- POST PREVIEW IMG -->
               <figure class="post-preview-img liquid">
-                <img src="{{ news.image.url }}">
+                <img src="{{ article.image.url }}">
               </figure>
               <!-- POST PREVIEW IMG -->
             </div>
@@ -52,11 +52,11 @@
           <!-- /POST PREVIEW IMG WRAP -->
 
           <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">{{ news.category }}</a>
+          <a href="news-v2.html" class="tag-ornament">{{ article.category }}</a>
           <!-- /TAG ORNAMENT -->
 
           <!-- POST PREVIEW TITLE -->
-          <a href="{% url 'news_posts' news.pk %}" class="post-preview-title">{{ news.title }}</a>
+          <a href="{% url 'article_posts' article.pk %}" class="post-preview-title">{{ article.title }}</a>
           <!-- POST AUTHOR INFO -->
           <div class="post-author-info-wrap">
             <!-- USER AVATAR -->
@@ -67,11 +67,11 @@
             </a>
 
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ news.news_posts.count }} Comment(s)</a></p>
+            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ article.article_posts.count }} Comment(s)</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">{{ news.description }}</p>
+          <p class="post-preview-text">{{ article.description|truncatechars:350 }}</p>
         </div>
         {% endfor %}
         <!-- /POST PREVIEW -->
@@ -139,11 +139,11 @@
               <!-- /POST PREVIEW IMG WRAP -->
 
               <!-- TAG ORNAMENT -->
-              <a href="news-v1.html" class="tag-ornament">{{ analysis.category }}</a>
+              <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
               <!-- /TAG ORNAMENT -->
 
               <!-- POST PREVIEW TITLE -->
-              <a href="post-v1.html" class="post-preview-title">{{ analysis.title }}</a>
+              <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
               <!-- POST AUTHOR INFO -->
               <div class="post-author-info-wrap">
                 <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}</p>
@@ -163,4 +163,4 @@
     <!-- /LAYOUT BODY -->
   </div>
   <!-- /LAYOUT CONTENT 1 -->
-{% endblock content_news %}
+{% endblock content_article %}

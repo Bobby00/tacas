@@ -4,19 +4,19 @@
 
 {% load humanize %}
 
-{% block title %}Acaciax | News Posts{% endblock %}
+{% block title %}Acaciax | Article Posts{% endblock %}
 
-{% block content_news_posts %}
+{% block content_article_posts %}
   <!-- BANNER WRAP -->
   <div class="banner-wrap game-review">
   <!-- BANNER -->
   <div class="banner grid-limit cstm-width-50">
 
   <!-- TAG ORNAMENT -->
-    <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">{{ news_article.category }}</a>
+    <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">{{ article.category }}</a>
   <!-- /TAG ORNAMENT -->
 
-  <h2 class="banner-title pad-tp_btm text-left">{{ news_article.title }}</h2>
+  <h2 class="banner-title pad-tp_btm text-left">{{ article.title }}</h2>
   <!-- POST AUTHOR INFO -->
       <div class="post-author-info-wrap">
         <!-- USER AVATAR -->
@@ -27,7 +27,7 @@
         </a>
         
         <!-- /USER AVATAR -->
-        <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case clr-whte">{{ news_article.starter }}</a><span class="separator">|</span>{{ news_article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count clr-whte">{{ news_article.news_posts.count }} Comment(s)</a></p>
+        <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case clr-whte">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count clr-whte">{{ article.article_posts.count }} Comment(s)</a></p>
         
       </div>
       <br>
@@ -58,17 +58,17 @@
     <div class="cstm-post-title">
       <div class="post_section">
       <div class="posts_header_text">
-        <h1>{{ news_article.title }}</h1>
+        <h1>{{ article.title }}</h1>
       </div>
       <div class="posts_text cstm-width-80">
-        <p>{{ news_article.description }}</p>
+        <p>{{ article.description }}</p>
       </div>
     </div>
     </div>
     <!-- FAQ ITEM CONTENT -->
     <div class="faq-item-content">
       <!-- FAQ ITEM IMG -->
-      <img class="faq-item-img cstm-post-img-width" src="{{ news_article.image.url }}" alt="{{ news_article.title }}">
+      <img class="faq-item-img cstm-post-img-width" src="{{ article.image.url }}" alt="{{ article.title }}">
       <!-- /FAQ ITEM IMG -->
 
       
@@ -119,7 +119,7 @@
   <!--  POST ITEM SHARE-->
   <div class="activity-items">
 
-      {% for news_post in news_article.news_posts.all %}
+      {% for article_post in article.article_posts.all %}
       <!-- ACTIVITY ITEM -->
       <div class="activity-item">
         <!-- USER AVATAR -->
@@ -139,20 +139,20 @@
         <!-- ACTIVITY ITEM ROW -->
         <div class="activity-item-row">
           <!-- ACTIVITY ITEM TITLE -->
-          <a href="topic.html" class="activity-item-title secondary-color">{{ news_post.created_by }}</a>
+          <a href="topic.html" class="activity-item-title secondary-color">{{ article_post.created_by }}</a>
           <!-- /ACTIVITY ITEM TITLE -->
 
           <!-- ACTIVITY ITEM TIMESTAMP -->
-          <p class="activity-item-timestamp">{{ news_post.created_at|naturaltime }}</p>
+          <p class="activity-item-timestamp">{{ article_post.created_at|naturaltime }}</p>
           <!-- /ACTIVITY ITEM TIMESTAMP -->
         </div>
         <!-- /ACTIVITY ITEM ROW -->
 
         <!-- ACTIVITY ITEM TEXT -->
-        <p class="activity-item-text base-color">{{ news_post.message }}</p>
+        <p class="activity-item-text base-color">{{ article_post.message }}</p>
         <!-- /ACTIVITY ITEM TEXT -->
 
-        {% if news_post.created_by == user %}
+        {% if article_post.created_by == user %}
             <div class="mt-3">
               <a href="#"
                  class="btn btn-primary btn-sm"
@@ -185,6 +185,7 @@
 
       <div class="layout-item">
         <!-- BUTTON -->
+        <a href="{% url 'analysis' %}">
           <button class="button light-gray cstm_fit_content mgn_left-40">
             MORE ANALYSIS
             <!-- BUTTON ORNAMENT -->
@@ -203,11 +204,13 @@
             </span>
             <!-- /BUTTON ORNAMENT -->
           </button>
+        </a>
           <!-- /BUTTON -->
       </div>
     </div>
+  
 
-  <!-- LAYOUT ITEM 1-1-1 -->
+    <!-- LAYOUT ITEM 1-1-1 -->
         <div class="layout-item-1-1-1">
           <!-- LAYOUT ITEM -->
           {% for analysis in analysis_objects|slice:":3" %}
@@ -246,7 +249,7 @@
           {% endfor %}
         </div>
         <!-- /LAYOUT ITEM 1-1-1 -->
-
+  
   </div>
 
-  {% endblock content_news_posts %}
+  {% endblock content_article_posts %}

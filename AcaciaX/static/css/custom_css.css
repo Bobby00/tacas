@@ -7,6 +7,11 @@
 .text_left {
 	text-align: left;
 }
+
+.slider-item {
+	box-shadow: inset 100px -400px 269px -80px rgba(1, 1, 1, 1)!important;
+}
+
 .banner-slider .slider-item-wrap {
 	width: 60%;
 }

@@ -48,7 +48,7 @@
           <!-- ACCOUNT INFO STAT -->
           <div class="account-info-stat">
             <!-- ACCOUNT INFO STAT VALUE -->
-            <p class="account-info-stat-value">69</p>
+            <p class="account-info-stat-value">0</p>
             <!-- /ACCOUNT INFO STAT VALUE -->
 
             <!-- ACCOUNT INFO STAT TITLE -->
@@ -60,7 +60,7 @@
           <!-- ACCOUNT INFO STAT -->
           <div class="account-info-stat">
             <!-- ACCOUNT INFO STAT VALUE -->
-            <p class="account-info-stat-value">165</p>
+            <p class="account-info-stat-value">0</p>
             <!-- /ACCOUNT INFO STAT VALUE -->
 
             <!-- ACCOUNT INFO STAT TITLE -->
@@ -95,69 +95,23 @@
       </div>
       <!-- /SECTION TITLE WRAP -->
 
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <br>
+        <button style="font-size: 15px;" type="submit" class="button small blue">Save changes</button>
+      </form>
+
+      <br><br>
       <!-- ACCOUNT SETTINGS FORM -->
       <form class="account-settings-form">
-        <!-- FORM ROW -->
-        <div class="form-row">
-          <!-- FORM ITEM -->
-          <div class="form-item half blue">
-            <label for="as_first_name" class="rl-label">First Name</label>
-            <input type="text" id="as_first_name" name="as_first_name" placeholder="Enter your first name here..." value="James">
-          </div>
-          <!-- /FORM ITEM -->
-
-          <!-- FORM ITEM -->
-          <div class="form-item half blue">
-            <label for="as_last_name" class="rl-label">Last Name</label>
-            <input type="text" id="as_last_name" name="as_last_name" placeholder="Enter your last name here..." value="Spiegel">
-          </div>
-          <!-- /FORM ITEM -->
-        </div>
-        <!-- /FORM ROW -->
 
         <!-- FORM ROW -->
         <div class="form-row">
           <!-- FORM ITEM -->
-          <div class="form-item blue">
-            <label for="as_username" class="rl-label">Username</label>
-            <input type="text" id="as_username" name="as_username" placeholder="Enter your username here..." value="James_Spiegel">
-            <!-- FORM ITEM MESSAGE -->
-            <p class="form-item-message">people can mention you as <span class="highlight">@james_spiegel</span></p>
-            <!-- /FORM ITEM MESSAGE -->
-          </div>
-          <!-- /FORM ITEM -->
-        </div>
-        <!-- /FORM ROW -->
-
-        <!-- FORM ROW -->
-        <div class="form-row">
-          <!-- FORM ITEM -->
-          <div class="form-item blue">
-            <label for="as_email" class="rl-label">Email</label>
-            <input type="text" id="as_email" name="as_email" placeholder="Enter your email here..." value="jspiegel@yourmail.com">
-            <!-- FORM ITEM MESSAGE -->
-            <p class="form-item-message">this is never shown to the public</p>
-            <!-- /FORM ITEM MESSAGE -->
-          </div>
-          <!-- /FORM ITEM -->
-        </div>
-        <!-- /FORM ROW -->
-
-        <!-- FORM ROW -->
-        <div class="form-row">
-          <!-- FORM ITEM -->
-          <div class="form-item half blue">
-            <label for="as_pwd" class="rl-label">Change Password</label>
-            <input type="password" id="as_pwd" name="as_pwd" placeholder="Enter your new password here...">
-          </div>
-          <!-- /FORM ITEM -->
-
-          <!-- FORM ITEM -->
-          <div class="form-item half blue">
-            <label for="as_pwd_repeat" class="rl-label">Repeat Password</label>
-            <input type="password" id="as_pwd_repeat" name="as_pwd_repeat" placeholder="Repeat your new password here...">
-          </div>
-          <!-- /FORM ITEM -->
+          <label for="as_password" class="rl-label">Password</label>
+          <br>
+            <a style="font-size: 15px;" href="{% url 'password_change' %}" class="button small red">Change Password</a>
         </div>
         <!-- /FORM ROW -->
 

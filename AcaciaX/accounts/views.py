@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 
 from django.urls import reverse_lazy
-from .forms import SignUpForm
+from accounts.models import Profile
+from .forms import SignUpForm, ProfileForm
 
 def signup(request):
     if request.method == 'POST':
@@ -20,9 +21,25 @@ def signup(request):
     return render(request, 'register.html', {'form': form})
 
 @method_decorator(login_required, name='dispatch')
+def update_profile(request):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, _('Your profile photo was successfully updated!'))
+            return redirect('my_account')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'my_account.html', {
+        'profile_form': profile_form
+    })
+
+@method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
     model = User
-    fields = ('first_name', 'last_name', 'email', )
+    fields = ('first_name', 'last_name', 'email', 'username' )
     template_name = 'my_account.html'
     success_url = reverse_lazy('my_account')
 

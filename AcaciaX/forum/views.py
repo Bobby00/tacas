@@ -10,8 +10,10 @@ from django.urls import reverse_lazy, reverse
 
 from .forms import NewTopicForm, PostForm
 
+from analysis.models import AnalysisArticle
+from SliderArticles.models import SliderArticle
 from news.models import NewsArticle, NewsPost
-from .models import Category, Topic, Post
+from .models import Category, Topic, Post, Preference
 
 class HomeListView(ListView):
     model = Post
@@ -24,8 +26,9 @@ class HomeListView(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['news_lists'] = NewsArticle.objects.all()
-        return context
-    
+        context['slider_lists'] = SliderArticle.objects.all()
+        context['analysis_objects'] = AnalysisArticle.objects.all()
+        return context    
 
 def economic_calendar(request):
     return render(request, 'economic-calendar.html')
@@ -75,13 +78,17 @@ class PostListView(ListView):
             self.topic.views += 1
             self.topic.save()
             self.request.session[session_key] = True
-
         kwargs['topic'] = self.topic
+        context = super().get_context_data(**kwargs)
+        context['analysis_objects'] = AnalysisArticle.objects.all()
+        context['category_list'] = Category.objects.all()
+        return context
+
         return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, category__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
-        queryset = self.topic.posts.order_by('created_at')
+        queryset = self.topic.posts.order_by('-created_at')
         return queryset
 
 # def topic_posts(request, pk, topic_pk):
@@ -154,3 +161,79 @@ class PostUpdateView(UpdateView):
         post.updated_at = timezone.now()
         post.save()
         return redirect('topic_posts', pk=post.topic.category.pk, topic_pk=post.topic.pk)
+
+
+@login_required
+def postpreference(request, pk, topic_pk, post_pk, userpreference):
+        
+    if request.method == "POST":
+            eachpost= get_object_or_404(Post, id=post_pk)
+            obj=''
+            valueobj=''
+            try:
+                obj= Preference.objects.get(user= request.user, post=eachpost)
+                valueobj= obj.value #value of userpreference
+                valueobj= int(valueobj)
+                userpreference= int(userpreference)
+        
+                if valueobj != userpreference:
+
+                        obj.delete()
+                        upref= Preference()
+                        upref.user= request.user
+                        upref.post= eachpost
+                        upref.value= userpreference
+
+                        if userpreference == 1 and valueobj != 1:
+                                eachpost.likes += 1
+                                eachpost.dislikes -=1
+                        elif userpreference == 2 and valueobj != 2:
+                                eachpost.dislikes += 1
+                                eachpost.likes -= 1
+                        
+                        upref.save()
+                        eachpost.save()
+                
+                        context= {'eachpost': eachpost,
+                          'post_pk': post_pk}
+
+                        return render (request, 'topic_posts.html', context)
+
+                elif valueobj == userpreference:
+                        obj.delete()
+                
+                        if userpreference == 1:
+                                eachpost.likes -= 1
+                        elif userpreference == 2:
+                                eachpost.dislikes -= 1
+
+                        eachpost.save()
+
+                        context= {'eachpost': eachpost,
+                          'post_pk': post_pk}
+
+                        return render (request, 'topic_posts.html', context)
+                            
+            except Preference.DoesNotExist:
+                    upref= Preference()
+                    upref.user= request.user
+                    upref.post= eachpost
+                    upref.value= userpreference
+                    userpreference= int(userpreference)
+
+                    if userpreference == 1:
+                            eachpost.likes += 1
+                    elif userpreference == 2:
+                            eachpost.dislikes +=1
+
+                    upref.save()
+                    eachpost.save()                            
+                    context= {'eachpost': eachpost,
+                      'post_pk': post_pk}
+                    return render (request, 'topic_posts.html', context)
+
+    else:
+        eachpost= get_object_or_404(Post, id=post_pk)
+        context= {'eachpost': eachpost,
+                  'post_pk': post_pk}
+        return render (request, 'topic_posts.html', context)

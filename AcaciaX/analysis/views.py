@@ -1,12 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView, ListView
 from .models import AnalysisArticle, AnalysisPost
 
 from analysis.forms import PostForm
 
-def analysis(request):
-	analysis_list = AnalysisArticle.objects.all()
-	return render(request, 'analysis_and_opinion.html', {'analysis_list': analysis_list})
+class AnalysisListView(ListView):
+    model = AnalysisArticle
+    context_object_name = 'analysis_list'
+    template_name = 'analysis_and_opinion.html'
+    paginate_by = 10
+
 
 def analysis_posts(request, analysis_article_pk):
 	analysis_article = get_object_or_404(AnalysisArticle, pk=analysis_article_pk)

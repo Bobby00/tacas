@@ -4,19 +4,19 @@
 
 {% load humanize %}
 
-{% block title %}Acaciax | News Posts{% endblock %}
+{% block title %}Acaciax | Analysis Posts{% endblock %}
 
-{% block content_news_posts %}
+{% block content_analysis_posts %}
   <!-- BANNER WRAP -->
   <div class="banner-wrap game-review">
   <!-- BANNER -->
   <div class="banner grid-limit cstm-width-50">
 
   <!-- TAG ORNAMENT -->
-    <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">{{ news_article.category }}</a>
+    <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">{{ analysis_article.category }}</a>
   <!-- /TAG ORNAMENT -->
 
-  <h2 class="banner-title pad-tp_btm text-left">{{ news_article.title }}</h2>
+  <h2 class="banner-title pad-tp_btm text-left">{{ analysis_article.title }}</h2>
   <!-- POST AUTHOR INFO -->
       <div class="post-author-info-wrap">
         <!-- USER AVATAR -->
@@ -25,10 +25,8 @@
             <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
           </figure>
         </a>
-        
         <!-- /USER AVATAR -->
-        <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case clr-whte">{{ news_article.starter }}</a><span class="separator">|</span>{{ news_article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count clr-whte">{{ news_article.news_posts.count }} Comment(s)</a></p>
-        
+        <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case clr-whte">{{ analysis_article.starter }}</a><span class="separator">|</span>{{ analysis_article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count clr-whte">{{ analysis_article.analysis_posts.count }} Comment(s)</a></p>
       </div>
       <br>
       <!-- /POST AUTHOR INFO -->
@@ -58,17 +56,17 @@
     <div class="cstm-post-title">
       <div class="post_section">
       <div class="posts_header_text">
-        <h1>{{ news_article.title }}</h1>
+        <h1>{{ analysis_article.title }}</h1>
       </div>
       <div class="posts_text cstm-width-80">
-        <p>{{ news_article.description }}</p>
+        <p>{{ analysis_article.description }}</p>
       </div>
     </div>
     </div>
     <!-- FAQ ITEM CONTENT -->
     <div class="faq-item-content">
       <!-- FAQ ITEM IMG -->
-      <img class="faq-item-img cstm-post-img-width" src="{{ news_article.image.url }}" alt="{{ news_article.title }}">
+      <img class="faq-item-img cstm-post-img-width" src="{{ analysis_article.image.url }}" alt="{{ analysis_article.title }}">
       <!-- /FAQ ITEM IMG -->
 
       
@@ -83,9 +81,6 @@
     <!-- FAQ ITEM CONTENT -->
     <div class="faq-item-content accordion-open">
 
-      <button class="plain-btn-3">STOCKS</button>
-      <button class="plain-btn-3">MARKETS</button>
-      <button class="plain-btn-3">COMMODITIES</button>
 
     </div>
     <!-- /FAQ ITEM CONTENT -->
@@ -206,47 +201,7 @@
           <!-- /BUTTON -->
       </div>
     </div>
-
-  <!-- LAYOUT ITEM 1-1-1 -->
-        <div class="layout-item-1-1-1">
-          <!-- LAYOUT ITEM -->
-          {% for analysis in analysis_objects|slice:":3" %}
-          <div class="layout-item">
-            <!-- POST PREVIEW -->
-            <div class="post-preview gaming-news img-toggle">
-              <!-- POST PREVIEW IMG WRAP -->
-              <a href="{% url 'analysis_posts' analysis.pk %}">
-                <div class="post-preview-img-wrap">
-                  <!-- POST PREVIEW IMG -->
-                  <figure class="post-preview-img liquid">
-                    <img src="{{ analysis.image.url }}" alt="{{ analysis.title }}">
-                  </figure>
-                  <!-- /POST PREVIEW IMG -->
-                </div>
-              </a>
-              <!-- /POST PREVIEW IMG WRAP -->
-
-              <!-- TAG ORNAMENT -->
-              <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
-              <!-- /TAG ORNAMENT -->
-
-              <!-- POST PREVIEW TITLE -->
-              <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
-              <!-- POST AUTHOR INFO -->
-              <div class="post-author-info-wrap">
-                <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}</p>
-              </div>
-              <!-- /POST AUTHOR INFO -->
-              <!-- POST PREVIEW TEXT -->
-              <p class="post-preview-text base-color">{{ analysis.description|truncatechars:200 }}.</p>
-            </div>
-            <!-- /POST PREVIEW -->
-          </div>
-          <!-- /LAYOUT ITEM -->
-          {% endfor %}
-        </div>
-        <!-- /LAYOUT ITEM 1-1-1 -->
-
+  {% include 'includes/analysis-app.html' %}
   </div>
 
-  {% endblock content_news_posts %}
+  {% endblock content_analysis_posts %}

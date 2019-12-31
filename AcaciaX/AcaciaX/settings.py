@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
-
+    #slider_app
+    'SliderArticles',
     #news_app
     'news',
     #analysis_and_opinion app

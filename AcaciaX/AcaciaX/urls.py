@@ -22,8 +22,9 @@ from django.conf.urls.static import static
 
 from news import views as news_views
 from analysis import views as analysis_views
+from SliderArticles import views as article_views
 from accounts import views as accounts_views
-from forum.views import CategoryListView, TopicListView, PostListView, HomeListView
+from forum.views import CategoryListView, TopicListView, PostListView, HomeListView, postpreference
 from django.views.static import serve
 from forum import views
 
@@ -32,11 +33,15 @@ urlpatterns = [
     
     #WEB VIEWS URL PATTERNS
     path('', views.HomeListView.as_view(template_name='index.html'), name='home'),
-    path('news/', news_views.news, name='news'),
+    path('news/', news_views.NewsListView.as_view(), name='news'),
     re_path(r'^news/(?P<news_article_pk>\d+)/$', news_views.news_posts, name='news_posts'),
     re_path(r'^news/(?P<news_article_pk>\d+)/reply/$', news_views.reply_news_article, name='reply_news_article'),
 
-    path('analysis/', analysis_views.analysis, name='analysis'),
+    path('articles/', article_views.ArticleListView.as_view(), name='article'),
+    re_path(r'^articles/(?P<article_pk>\d+)/$', article_views.article_posts, name='article_posts'),
+
+
+    path('analysis/', analysis_views.AnalysisListView.as_view(), name='analysis'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/$', analysis_views.analysis_posts, name='analysis_posts'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/reply/$', analysis_views.reply_analysis_article, name='reply_analysis_article'),
 
@@ -79,5 +84,8 @@ urlpatterns = [
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
+
+    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/preference/(?P<userpreference>\d+)/$', postpreference, name='postpreference'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
