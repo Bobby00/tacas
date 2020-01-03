@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 
 from django.urls import reverse_lazy
-from accounts.models import Profile
 from .forms import SignUpForm
 
 def signup(request):
