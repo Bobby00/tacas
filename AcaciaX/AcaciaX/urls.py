@@ -24,7 +24,7 @@ from news import views as news_views
 from analysis import views as analysis_views
 from SliderArticles import views as article_views
 from accounts import views as accounts_views
-from forum.views import CategoryListView, TopicListView, PostListView, HomeListView, postpreference
+from forum.views import CategoryListView, TopicListView, PostListView, HomeListView
 from django.views.static import serve
 from forum import views
 
@@ -39,7 +39,12 @@ urlpatterns = [
 
     path('articles/', article_views.ArticleListView.as_view(), name='article'),
     re_path(r'^articles/(?P<article_pk>\d+)/$', article_views.article_posts, name='article_posts'),
-
+    re_path(r'^articles/(?P<article_pk>\d+)/reply/$', article_views.reply_article, name='reply_article'),
+    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/edit/$', article_views.ArticlePostUpdateView.as_view(), name='edit_article_post'),
+    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/reply/$', article_views.reply_article_post, name='reply_article_post'),
+    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/edit/$', article_views.ArticleCommentUpdateView.as_view(), name='edit_article_comment'),
+    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/reply/$', article_views.reply_article_comment, name='reply_article_comment2'),
+    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/edit/$', article_views.ArticleComment2UpdateView.as_view(), name='edit_article_comment2'),
 
     path('analysis/', analysis_views.AnalysisListView.as_view(), name='analysis'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/$', analysis_views.analysis_posts, name='analysis_posts'),
@@ -83,9 +88,13 @@ urlpatterns = [
     re_path(r'^forum/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
+    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/reply/$', views.reply_post, name='reply_post'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
+    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/edit/$', views.CommentUpdateView.as_view(), name='edit_comment'),
 
-    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/preference/(?P<userpreference>\d+)/$', postpreference, name='postpreference'),
+    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/reply/$', views.reply_comment, name='reply_comment'),
 
-
+    re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/comments2/(?P<comment2_pk>\d+)/edit/$', views.Comment2UpdateView.as_view(), name='edit_comment2'),
+    re_path(r'^api/forum/posts/(?P<post_id>\d+)/preference/$', views.preference_view), 
+    re_path(r'^api/forum/posts/', views.ListPosts.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

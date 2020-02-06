@@ -8,12 +8,20 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse_lazy, reverse
 
-from .forms import NewTopicForm, PostForm
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import decorators
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+
+from .forms import NewTopicForm, PostForm, CommentForm, Comment2Form
 
 from analysis.models import AnalysisArticle
 from SliderArticles.models import SliderArticle
 from news.models import NewsArticle, NewsPost
-from .models import Category, Topic, Post, Preference
+from .models import Category, Topic, Post, Comment, Comment2, Preference
+from .serializers import PreferenceSerializer, PostSerializer
 
 class HomeListView(ListView):
     model = Post
@@ -25,24 +33,39 @@ class HomeListView(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
+        context['home_posts2'] = Post.objects.all()
         context['news_lists'] = NewsArticle.objects.all()
+        context['topic_lists'] = Topic.objects.all()
         context['slider_lists'] = SliderArticle.objects.all()
         context['analysis_objects'] = AnalysisArticle.objects.all()
         return context    
 
 def economic_calendar(request):
-    return render(request, 'economic-calendar.html')
+    analysis_objects = AnalysisArticle.objects.all()
+    context = {'analysis_objects':analysis_objects}
+    return render(request, 'economic-calendar.html', context)
 
 def market_screener(request):
-    return render(request, 'market-screener.html')
+    analysis_objects = AnalysisArticle.objects.all()
+    context = {'analysis_objects':analysis_objects}
+    return render(request, 'market-screener.html', context)
 
 def real_time_widget(request):
-    return render(request, 'real-time-widget.html')
+    analysis_objects = AnalysisArticle.objects.all()
+    context = {'analysis_objects':analysis_objects}
+    return render(request, 'real-time-widget.html', context)
 
 class CategoryListView(ListView):
     model = Category
     context_object_name = 'categories'
     template_name = 'forum.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['topic_lists'] = Topic.objects.all()
+        return context  
 
 
 class TopicListView(ListView):
@@ -54,6 +77,13 @@ class TopicListView(ListView):
     def get_context_data(self, **kwargs):
         kwargs['category'] = self.category
         return super().get_context_data(**kwargs)
+
+    def get_context_data2(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['post_list'] = Post.objects.all()
+        return context  
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, pk=self.kwargs.get('pk'))
@@ -80,6 +110,8 @@ class PostListView(ListView):
             self.request.session[session_key] = True
         kwargs['topic'] = self.topic
         context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        context['comments2'] = Comment2.objects.all()
         context['analysis_objects'] = AnalysisArticle.objects.all()
         context['category_list'] = Category.objects.all()
         return context
@@ -88,7 +120,7 @@ class PostListView(ListView):
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, category__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
-        queryset = self.topic.posts.order_by('-created_at')
+        queryset = self.topic.posts.order_by('created_at')
         return queryset
 
 # def topic_posts(request, pk, topic_pk):
@@ -136,11 +168,56 @@ def reply_topic(request, pk, topic_pk):
                 id=post.pk,
                 page=topic.get_page_count()
             )
-
             return redirect(topic_post_url)
     else:
         form = PostForm()
     return render(request, 'reply_topic.html', {'topic': topic, 'form': form})
+
+
+@login_required
+def reply_post(request, pk, topic_pk, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.created_by = request.user
+            comment.save()
+
+            topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
+            topic_post_url = '{url}?page={page}#{id}'.format(
+                url=topic_url,
+                id=post.pk,
+                page=post.get_page_count()
+            )
+            return redirect(topic_post_url)
+    else:
+        form = CommentForm()
+    return render(request, 'reply_post.html', {'post':post, 'form':form})
+
+
+@login_required
+def reply_comment(request, pk, topic_pk, post_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.method == 'POST':
+        form = Comment2Form(request.POST)
+        if form.is_valid():
+            comment2 = form.save(commit=False)
+            comment2.comment = comment
+            comment2.created_by = request.user
+            comment2.save()
+
+            topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
+            topic_post_url = '{url}?page={page}#{id}'.format(
+                url=topic_url,
+                id=comment.pk,
+                page=comment.get_page_count()
+            )
+            return redirect(topic_post_url)
+    else:
+        form = Comment2Form()
+    return render(request, 'reply_comment.html', {'comment':comment, 'form':form})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -161,6 +238,46 @@ class PostUpdateView(UpdateView):
         post.updated_at = timezone.now()
         post.save()
         return redirect('topic_posts', pk=post.topic.category.pk, topic_pk=post.topic.pk)
+
+
+@method_decorator(login_required, name='dispatch')
+class CommentUpdateView(UpdateView):
+    model = Comment
+    fields = ('message', )
+    template_name = 'edit_comment.html'
+    pk_url_kwarg = 'comment_pk'
+    context_object_name = 'comment'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(created_by=self.request.user)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.updated_by = self.request.user
+        comment.updated_at = timezone.now()
+        comment.save()
+        return redirect('topic_posts', pk=comment.post.topic.category.pk, topic_pk=comment.post.topic.pk)
+
+
+@method_decorator(login_required, name='dispatch')
+class Comment2UpdateView(UpdateView):
+    model = Comment2
+    fields = ('message', )
+    template_name = 'edit_comment2.html'
+    pk_url_kwarg = 'comment2_pk'
+    context_object_name = 'comment2'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(created_by=self.request.user)
+
+    def form_valid(self, form):
+        comment2 = form.save(commit=False)
+        comment2.updated_by = self.request.user
+        comment2.updated_at = timezone.now()
+        comment2.save()
+        return redirect('topic_posts', pk=comment2.comment.post.topic.category.pk, topic_pk=comment2.comment.post.topic.pk)
 
 
 @login_required
@@ -237,3 +354,42 @@ def postpreference(request, pk, topic_pk, post_pk, userpreference):
         context= {'eachpost': eachpost,
                   'post_pk': post_pk}
         return render (request, 'topic_posts.html', context)
+
+
+@decorators.api_view(['POST', 'GET'])
+@decorators.authentication_classes([SessionAuthentication])
+def preference_view(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'GET':
+        preferences = post.preference.all()
+        resp = {
+            'likes': preferences.filter(value=1).count(),
+            'dislikes': preferences.filter(value=-1).count()
+        }
+        return Response(resp)
+
+    if not request.user.is_authenticated:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+    try:
+        preference = Preference.objects.get(post=post, user=request.user)
+    except:
+        preference=None
+
+    ser = PreferenceSerializer(preference, data=request.data, 
+        context={'request': request, 'post': post})
+    if not ser.is_valid():
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    ser.save()
+    preferences = post.preference.all()
+    resp = {
+        'likes': preferences.filter(value=1).count(),
+        'dislikes': preferences.filter(value=-1).count()
+    }
+    return Response(resp)
+
+
+class ListPosts(ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()

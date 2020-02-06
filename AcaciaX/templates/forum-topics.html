@@ -177,31 +177,39 @@
                     <td class="topics-count fnt-w8-800" data-title="Topics"> 
                       <!-- FORUM USER LIST -->
                       <div class="forum-user-list">
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
+
+
+                        {% for post in post_list %}
+                            
+                            {% with posts=post.get_topic_participants %}
+                            {% for post in posts %}
+                                {% if post %}
+                                  <a href="profile-summary.html">
+                                    <!-- USER AVATAR -->
+                                    <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+                                    <!-- /USER AVATAR -->
+                                  </a>
+                                {% else %}
+                                  <p>No Posts yet</p>
+                                {% endif %}
+                              {% endfor %}
+                            {% endwith %}
+
+                        {% endfor %}
+
+
+                        
+
                       </div>
                       <!-- /FORUM USER LIST -->
                     </td>
                     <td class="forum-posts-count fnt-sze-14 text-center" data-title="Posts">
                       {{ topic.replies }}
                     </td>
-                    <td class="forum-latest fnt-sze-14 clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
                       {{ topic.views }}
                     </td>
-                    <td class="forum-latest fnt-sze-14 clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
                       {{ topic.last_updated|naturaltime }}
                     </td>
                   </tr>

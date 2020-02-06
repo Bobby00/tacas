@@ -2,9 +2,24 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% load humanize %}
 
 {% block title %}Acaciax | Article Posts{% endblock %}
+
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE({forceSync: true});
+  </script>
+{% endblock %}
+
 
 {% block content_article_posts %}
   <!-- BANNER WRAP -->
@@ -22,12 +37,12 @@
         <!-- USER AVATAR -->
         <a href="search-results.html">
           <figure class="user-avatar tiny liquid">
-            <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
+            <img src="{{ article.starter|gravatar }}" alt="{{ article.starter }}">
           </figure>
         </a>
         
         <!-- /USER AVATAR -->
-        <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case clr-whte">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count clr-whte">{{ article.article_posts.count }} Comment(s)</a></p>
+        <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case clr-whte">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="#op-comments" class="post-comment-count clr-whte">{{ article.article_posts.count }} Comment(s)</a></p>
         
       </div>
       <br>
@@ -98,7 +113,7 @@
       <div class="cstm-post-title">
         <div class="post_section">
           
-            <h3 class="pad-tp_btm_post">Share with your friends</h3>
+            <h3 class="pad-tp_btm_post">Share this article</h3>
           
           <div class="posts_social-icons cstm-width-80">
             <div class="layout-item-2-1">
@@ -112,60 +127,328 @@
                 
               </div>
             </div>
+
+
+<br><br><br>
+
+<!-- POST COMMENT FORM WRAP -->
+  <div class="post-comment-form-wrap">
+    <!-- SECTION TITLE WRAP -->
+    <div class="section-title-wrap blue">
+      <h2 class="section-title medium">Write a comment</h2>
+      <div class="section-title-separator"></div>
+    </div>
+    <!-- /SECTION TITLE WRAP -->
+
+      {% if user.is_authenticated %}
+                <!-- FORM ROW -->
+                <div class="form-row">
+                  <!-- FORM WRAP -->
+                    <form method="post">
+                    {% csrf_token %}
+                    
+                    {% include 'includes/form.html' %}
+
+                    <button type="submit" class="button blue full">Post your comment</button>
+                  </form>
+                        <!-- /FORM WRAP -->
+                </div>
+                <!-- /FORM ROW -->
+                {% else %}
+                <br><br>
+                  <h4>Please Sign in or Register to share a comment</h4>
+                  <br><br>
+                  <!-- BUTTON -->
+                  <a href="{% url 'login' %}">
+                    <button style="font-size: 15px;" class="button blue cstm_fit_content">
+                      SIGN IN
+                      <!-- BUTTON ORNAMENT -->
+                      <span class="button-ornament">
+                        <!-- ARROW ICON -->
+                        <svg class="arrow-icon medium">
+                          <use xlink:href="#svg-arrow-medium"></use>
+                        </svg>
+                        <!-- /ARROW ICON -->
+
+                        <!-- CROSS ICON -->
+                        <svg class="cross-icon small">
+                          <use xlink:href="#svg-cross-small"></use>
+                        </svg>
+                        <!-- /CROSS ICON -->
+                      </span>
+                      <!-- /BUTTON ORNAMENT -->
+                    </button>
+                  </a>
+                    <!-- /BUTTON -->
+
+                    <!-- BUTTON -->
+                    <a href="{% url 'signup' %}">
+                      <button style="font-size: 15px;" class="button accent-color-bg cstm_fit_content">
+                        CREATE ACCOUNT
+                        <!-- BUTTON ORNAMENT -->
+                        <span class="button-ornament">
+                          <!-- ARROW ICON -->
+                          <svg class="arrow-icon medium">
+                            <use xlink:href="#svg-arrow-medium"></use>
+                          </svg>
+                          <!-- /ARROW ICON -->
+
+                          <!-- CROSS ICON -->
+                          <svg class="cross-icon small">
+                            <use xlink:href="#svg-cross-small"></use>
+                          </svg>
+                          <!-- /CROSS ICON -->
+                        </span>
+                        <!-- /BUTTON ORNAMENT -->
+                      </button>
+                    </a>
+                    <!-- /BUTTON -->
+
+                {% endif %}
+  </div>
+  <!-- /POST COMMENT FORM WRAP -->
+
+<br><br><br><br><br><br><br>
+
+            <!-- POST COMMENT THREAD -->
+                <div id="op-comments" class="post-comment-thread">
+                  <!-- SECTION TITLE WRAP -->
+                  <div class="section-title-wrap blue">
+                    <h2 class="section-title medium">Comments ({{ article.article_posts.count }})</h2>
+                    <div class="section-title-separator"></div>
+                  </div>
+                  <!-- /SECTION TITLE WRAP -->
+
+{% for article_post in article.article_posts.all reversed %}
+                  <!-- POST COMMENT -->
+                  <div class="post-comment">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ article_post.created_by|gravatar }}" alt="{{ article_post.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ article_post.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ article_post.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ article_post.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if article_post.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_article_post' article_post.article.pk article_post.pk %}"
+                         class="button small blue"
+                         role="button">Edit Post?</a>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable cyan">
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable red">
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                      <!-- REPLY BUTTON -->
+                      <a style="margin-left: 40px;" href="{% url 'reply_article_post' article_post.article.pk article_post.pk %}">
+                        <div class="reply-button bubble-ornament {% if article_post.article_comments.count <= 0 %} hoverable {% endif %}blue">
+                          <i class="icon-action-undo reply-icon"></i>
+                        </div>
+                      </a>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p id="replies_count-{{ article_post.pk }}" class="likes-count">{{ article_post.article_comments.count }} Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+
+
+
+                    <!-- POST 1ST CHILD COMMENT -->
+                  {% for article_comment in article_post.article_comments.all reversed %}
+                  <div class="post-comment">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ article_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ article_comment.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ article_comment.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ article_comment.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if article_comment.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_article_comment' article_comment.article_post.article.pk article_comment.article_post.pk article_comment.pk %}"
+                         class="button small blue"
+                         role="button">Edit Post?</a>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable cyan">
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable red">
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                      <!-- REPLY BUTTON -->
+                      <a style="margin-left: 40px;" href="{% url 'reply_article_post' article_post.article.pk article_post.pk %}">
+                        <div class="reply-button hoverable bubble-ornament blue">
+                          <i class="icon-action-undo reply-icon"></i>
+                        </div>
+                      </a>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p id="replies_count-{{ article_comment.pk }}" class="likes-count">{{ article_comment.article_comments2.count }} Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+
+
+                    <!-- POST 2ND CHILD COMMENT -->
+                  {% for article_comment2 in article_comment.article_comments2.all reversed %}
+                  <div class="post-comment">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ article_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ article_comment2.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ article_comment2.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ article_comment2.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if article_comment2.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_article_comment2' article_comment2.article_comment.article_post.article.pk article_comment2.article_comment.article_post.pk article_comment2.article_comment.pk article_comment2.pk %}"
+                         class="button small blue"
+                         role="button">Edit Post?</a>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable cyan">
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable red">
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+                      
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 2ND CHILD COMMENT -->
+
+
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 1ST CHILD COMMENT -->
+
+
+                  </div>
+                  <!-- /POST COMMENT -->
+
+{% endfor %}
+
+                </div>
+                <!-- /POST COMMENT THREAD -->
+
           </div>
       </div>
     </div>
   </div>
-  <!--  POST ITEM SHARE-->
-  <div class="activity-items">
 
-      {% for article_post in article.article_posts.all %}
-      <!-- ACTIVITY ITEM -->
-      <div class="activity-item">
-        <!-- USER AVATAR -->
-        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-        <!-- /USER AVATAR -->
-
-        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-        <div class="activity-item-dropdown-button">
-          <!-- ARROW ICON -->
-          <svg class="arrow-icon medium">
-            <use xlink:href="#svg-arrow-medium"></use>
-          </svg>
-          <!-- /ARROW ICON -->
-        </div>
-        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-        <!-- ACTIVITY ITEM ROW -->
-        <div class="activity-item-row">
-          <!-- ACTIVITY ITEM TITLE -->
-          <a href="topic.html" class="activity-item-title secondary-color">{{ article_post.created_by }}</a>
-          <!-- /ACTIVITY ITEM TITLE -->
-
-          <!-- ACTIVITY ITEM TIMESTAMP -->
-          <p class="activity-item-timestamp">{{ article_post.created_at|naturaltime }}</p>
-          <!-- /ACTIVITY ITEM TIMESTAMP -->
-        </div>
-        <!-- /ACTIVITY ITEM ROW -->
-
-        <!-- ACTIVITY ITEM TEXT -->
-        <p class="activity-item-text base-color">{{ article_post.message }}</p>
-        <!-- /ACTIVITY ITEM TEXT -->
-
-        {% if article_post.created_by == user %}
-            <div class="mt-3">
-              <a href="#"
-                 class="btn btn-primary btn-sm"
-                 role="button">Edit
-               </a>
-            </div>
-        {% endif %}
-
-      </div>
-      {% endfor %}
-      <!-- /ACTIVITY ITEM -->
-      
-    </div>
 
   </div>
   <!-- /FAQ ITEMS -->

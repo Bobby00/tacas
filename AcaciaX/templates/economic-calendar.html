@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}Acaciax | Economic Calendar{% endblock %}
 
@@ -82,7 +83,45 @@
         </div>
       </div>
 
-    {% include 'includes/analysis-app.html' %}
+    <!-- LAYOUT ITEM 1-1-1 -->
+      <div class="layout-item-1-1-1">
+        <!-- LAYOUT ITEM -->
+        {% for analysis in analysis_objects|slice:":3" %}
+        <div class="layout-item">
+          <!-- POST PREVIEW -->
+          <div class="post-preview gaming-news img-toggle">
+            <!-- POST PREVIEW IMG WRAP -->
+            <a href="">
+              <div class="post-preview-img-wrap">
+                <!-- POST PREVIEW IMG -->
+                <figure class="post-preview-img liquid">
+                  <img src="{{ analysis.image.url }}" alt="{{ analysis.title }}">
+                </figure>
+                <!-- /POST PREVIEW IMG -->
+              </div>
+            </a>
+            <!-- /POST PREVIEW IMG WRAP -->
+
+            <!-- TAG ORNAMENT -->
+            <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
+            <!-- /TAG ORNAMENT -->
+
+            <!-- POST PREVIEW TITLE -->
+            <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
+            <!-- POST AUTHOR INFO -->
+            <div class="post-author-info-wrap">
+              <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}</p>
+            </div>
+            <!-- /POST AUTHOR INFO -->
+            <!-- POST PREVIEW TEXT -->
+            <p class="post-preview-text base-color">{{ analysis.description|truncatechars:200 }}.</p>
+          </div>
+          <!-- /POST PREVIEW -->
+        </div>
+        <!-- /LAYOUT ITEM -->
+        {% endfor %}
+      </div>
+      <!-- /LAYOUT ITEM 1-1-1 -->
     
   </div>
   <!-- /LAYOUT BODY -->

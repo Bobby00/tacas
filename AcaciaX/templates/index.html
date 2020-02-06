@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load gravatar %}
+
 {% load humanize %}
 
 {% block content_home %}
@@ -15,7 +17,7 @@
       <div style="background: url('{{ MEDIA }}{{ slider.image.url }}'); background-repeat: no-repeat; background-size: cover; " class="slider-item">
         <div class="slider-item-wrap">
           <!-- POST PREVIEW -->
-          <div class="post-preview huge gaming-news">
+          <div class="post-preview huge gaming-news cstm-bg-transparent">
             <!-- TAG ORNAMENT -->
             <a href="news-v1.html" class="tag-ornament">{{ slider.category }}
             <!-- /TAG ORNAMENT -->
@@ -27,11 +29,11 @@
               <!-- USER AVATAR -->
               <a href="search-results.html">
                 <figure class="user-avatar tiny liquid">
-                  <img src="{% static 'img/users/01.jpg' %}" alt="user-01">
+                  <img src="{{ slider.starter|gravatar }}" alt="{{ slider.starter }}">
                 </figure>
               </a>
               <!-- /USER AVATAR -->
-              <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ slider.starter }}</a><span class="separator">|</span>{{ slider.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v1.html#op-comments" class="post-comment-count">{{ slider.article_posts.count }} Comment(s)</a></p>
+              <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ slider.starter }}</a><span class="separator">|</span>{{ slider.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'article_posts' slider.pk %}#op-comments" class="post-comment-count">{{ slider.article_posts.count }} Comment(s)</a></p>
             </div>
             <!-- /POST AUTHOR INFO -->
             <div class="break"></div>
@@ -513,48 +515,160 @@
 
                   <!-- LAYOUT ITEM -->
                   <div class="layout-item padded own-grid">
-                    
-                    <div class="grid3-1col cstm-col-1">
-                     <!-- ACTIVITY ITEMS -->
-                    <div class="activity-items">
 
-                      <!-- ACTIVITY ITEM -->
-                      {% for home_post in home_posts %}
-                      <div class="activity-item">
+                      {% for topic in topic_lists %}
+
+                      <!-- TOPIC WRAP -->
+                <div class="topic-wrap">
+
+                  <!-- TOPIC HEADER -->
+                  <div class="topic-header">
+                    <!-- TOPIC TITLE -->
+                    <p class="topic-title">{{ topic.subject }}</p>
+                    <!-- /TOPIC TITLE -->
+
+                    <!-- TAG ORNAMENT -->
+                    <a href="news-v2.html" class="tag-ornament">{{ topic.category }}</a>
+                  <!-- /TAG ORNAMENT -->
+
+                    
+                  </div>
+                  <!-- /TOPIC HEADER -->
+
+                  <!-- TOPIC BODY -->
+                  <div class="topic-body">
+                    <!-- TOPIC COMMENT -->
+                    <div class="topic-comment">
+                      <!-- TOPIC COMMENT USER -->
+                      <div class="topic-comment-user">
                         <!-- USER AVATAR -->
-                        <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+                        <a href="profile-summary.html">
+                          <img class="user-avatar medium" src="{{ topic.starter|gravatar }}" alt="{{ topic.starter.username }}">
+                        </a>
                         <!-- /USER AVATAR -->
 
-                        <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
-                        <div class="activity-item-dropdown-button">
-                          <!-- ARROW ICON -->
-                          <svg class="arrow-icon medium">
-                            <use xlink:href="#svg-arrow-medium"></use>
-                          </svg>
-                          <!-- /ARROW ICON -->
-                        </div>
-                        <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
-
-                        <!-- ACTIVITY ITEM ROW -->
-                        <div class="activity-item-row">
-                          <!-- ACTIVITY ITEM TITLE -->
-                          <a href="topic.html" class="activity-item-title secondary-color">{{ home_post.created_by }}</a>
-                          <!-- /ACTIVITY ITEM TITLE -->
-
-                          <!-- ACTIVITY ITEM TIMESTAMP -->
-                          <p class="activity-item-timestamp">{{ home_post.created_at|naturaltime }}</p>
-                          <!-- /ACTIVITY ITEM TIMESTAMP -->
-                        </div>
-                        <!-- /ACTIVITY ITEM ROW -->
-
-                        <!-- ACTIVITY ITEM TEXT -->
-                    <p class="activity-item-text base-color">{{ home_post.message }}</p>
-                        <!-- /ACTIVITY ITEM TEXT -->
+                        <!-- TOPIC COMMENT USER TEXT -->
+                        <a hreF="profile-activity.html" class="topic-comment-user-text">{{ topic.posts.count }} Posts</a>
+                        <!-- /TOPIC COMMENT USER TEXT -->
                       </div>
+                      <!-- /TOPIC COMMENT USER -->
+
+                      {% for post in home_posts2|slice:":1" %}
+
+                      <!-- TOPIC COMMENT CONTENT WRAP -->
+                      <div class="topic-comment-content-wrap">
+                        <!-- TOPIC COMMENT CONTENT -->
+                        <div class="topic-comment-content">
+                          <!-- TOPIC COMMENT CONTENT HEADER -->
+                          <div class="topic-comment-content-header">
+                            <!-- TOPIC COMMENT USERNAME -->
+                            <a href="profile-summary.html" class="topic-comment-username">{{ post.created_by }}</a>
+                            <!-- /TOPIC COMMENT USERNAME -->
+
+                            <!-- TOPIC COMMENT INFO -->
+                            <div class="topic-comment-info">
+                              <!-- TOPIC COMMENT TIMESTAMP -->
+                              <p class="topic-comment-timestamp">{{ post.created_at|naturaltime }}</p>
+                              <!-- /TOPIC COMMENT TIMESTAMP -->
+                            </div>
+                            <!-- /TOPIC COMMENT INFO -->
+                          </div>
+                          <!-- /TOPIC COMMENT CONTENT HEADER -->
+
+                          <!-- TOPIC COMMENT TEXT -->
+                          <p class="topic-comment-text">
+                            {{ post.message }}
+                          </p>
+                          <!-- /TOPIC COMMENT TEXT -->
+
+                        </div>
+                        <!-- /TOPIC COMMENT CONTENT -->
+
+                        <!-- TOPIC COMMENT ACTIONS -->
+                        <div class="topic-comment-actions">
+                          <!-- TOPIC ACTIONS -->
+                          <div class="topic-actions">
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament cyan">
+                                <i class="icon-like like-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">26</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable red">
+                                <i class="icon-dislike dislike-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">0</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                          </div>
+                          <!-- /TOPIC ACTIONS -->
+
+                          <!-- TOPIC ACTIONS -->
+                          <div class="topic-actions">
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action inverted">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable blue popup-quick-reply-trigger">
+                                <i class="icon-action-undo reply-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">5 Replies</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                            
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable black">
+                                <i class="icon-link share-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable red">
+                                <i class="icon-fire report-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                          </div>
+                          <!-- /TOPIC ACTIONS -->
+                        </div>
+                        <!-- /TOPIC COMMENT ACTIONS -->
+                      </div>
+                      <!-- /TOPIC COMMENT CONTENT WRAP -->
+
                       {% endfor %}
-                      <!-- /ACTIVITY ITEM -->
+
                     </div>
+                    <!-- /TOPIC COMMENT -->
                   </div>
+                </div>
+                <br>
+                {%  endfor %}
+                     
                   <br>
                   <br>
                   <!-- PAGE NAVIGATION -->

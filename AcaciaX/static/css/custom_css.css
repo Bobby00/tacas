@@ -8,6 +8,103 @@
 	text-align: left;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
+.bg-main-thread {
+	background-color: #f9f9f9;
+}
+
+.cstm-bg-transparent {
+	padding: 15px;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.topic-comment-timestamp {
+	font-weight: 700;
+}
+
+span {
+	font-family: "Exo",sans-serif!important;
+	letter-spacing: 0.2px;
+}
+
+p {
+	font-size: 1.0em;
+	padding-top: 8px;
+	font-family: "Exo",sans-serif!important;
+	letter-spacing: 0.2px;
+}
+
+li {
+	font-size: 1.0em;
+	font-family: "Exo",sans-serif!important;
+	padding-left: 10px;
+	color: #777;
+}
+
+li:first-child {
+	font-size: 1.0em;
+	font-family: "Roboto",sans-serif;
+	padding-left: 10px;
+	color: #777;
+	padding-top: 10px;
+}
+
+.topic-comment-username {
+	font-size: 18px;
+}
+
+.darkr-bdr-btm {
+	border-bottom: 1px solid #464444;
+}
+
+.line-separator-cstm {
+	margin-top: 3%;
+	border: 1px solid #464444;
+}
+
+.client-reaction {
+	font-size: 11px;
+	color: gray;
+}
+
+.bubble-ornament .heart-icon, .bubble-ornament .like-icon, .bubble-ornament .dislike-icon {
+	font-size: 20px;
+}
+
+.bubble-ornament .reply-icon, .bubble-ornament .share-icon {
+	font-size: 20px;
+}
+
+.bubble-ornament .report-icon {
+	font-size: 20px;
+}
+
+.tag-ornament {
+	background-color: #ffb400;
+}
+
+.faq-item .faq-item-img {
+	height: 100%;
+	width: 100%;
+}
+
+.creator-tag {
+	font-size: 10px;
+	color: #10caff;
+	padding-left: 10px;
+}
+
+.activity-item-timestamp {
+	font-size: 12px;
+}
+
+.widget-options-wrap .current-option-value .widget-option-text {
+	line-height: 35px;
+}
+
 .slider-item {
 	box-shadow: inset 100px -400px 269px -80px rgba(1, 1, 1, 1)!important;
 }
@@ -28,6 +125,21 @@
 	left: 8px!important;
 	width: 5px;
 	height: 7px;
+}
+
+.topics-count {
+	font-size: 14px;
+	color: gray;
+}
+
+.forum-posts-count {
+	color: gray;
+	font-size: 13px;
+}
+
+.forum-latest {
+	color: gray;
+	font-size: 13px;
 }
 
 .button.full {
@@ -137,9 +249,7 @@
 .fnt-sze-14 {
 	font-size: 14px;
 }
-.section-title-wrap .section-title-separator {
-	height: unset;
-}
+
 .section-title-wrap .section-title-separator:before {
 	height: 5px;	
 }
@@ -310,6 +420,9 @@ label {
 .fnt-16 {
 	font-size: 16px!important;
 }
+.fnt-18 {
+	font-size: 18px!important;
+}
 .table-row-header-title {
 	font-size: 18px!important;
 }
@@ -457,7 +570,7 @@ button.accent-color-bg {
 	border: 2px solid cadetblue;
 	border-bottom-left-radius: 30px;
 	border-bottom-right-radius: 30px;
-	font-family: "Roboto",sans-serif;
+	font-family: "Exo", sans-serif!important;
 }
 
 .editor-toolbar {
@@ -474,10 +587,17 @@ button.accent-color-bg {
 	min-height: 150px;
 }
 
+.reply-comment {
+	font-size: 11px;
+	color: gray;
+	font-family: "Exo", sans-serif!important;
+}
+
 .form-box {
 	padding: 34px 0px;
 	max-width: 445px;
 }
+
 
 .fnt-sze-12 {
 	font-size: 12px;

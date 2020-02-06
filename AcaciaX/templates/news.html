@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% load humanize %}
 
 {% block title %}Acaciax | News{% endblock %}
@@ -62,12 +64,12 @@
             <!-- USER AVATAR -->
             <a href="search-results.html">
               <figure class="user-avatar tiny liquid">
-                <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
+                <img src="{{ news.starter|gravatar }}" alt="{{ news.starter }}">
               </figure>
             </a>
 
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ news.news_posts.count }} Comment(s)</a></p>
+            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'news_posts' news.pk %}#op-comments" class="post-comment-count">{{ news.news_posts.count }} Comment(s)</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->

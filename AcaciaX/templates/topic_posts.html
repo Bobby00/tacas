@@ -9,7 +9,88 @@
 
 {% block content_topic_posts %}
 
+{% for post in posts %}
+  <!-- POPUP WRAP -->
+  <div id="popup-quick-reply" class="popup-wrap full">
+    <!-- QUICK FORM WRAP -->
+    <div class="quick-form-wrap">
+      <!-- QUICK FORM -->
+      <div class="quick-form grid-limit">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap blue">
+          <h2 class="section-title medium">Quick Reply</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
 
+        <!-- TOPIC COMMENT REPLY USER -->
+        <div class="topic-comment-reply-user">
+          <!-- TOPIC COMMENT REPLY ICON -->
+          <i class="topic-comment-reply-icon icon-action-redo"></i>
+          <!-- /TOPIC COMMENT REPLY ICON -->
+
+          <!-- USER AVATAR -->
+          <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
+          <!-- /USER AVATAR -->
+
+          <!-- TOPIC COMMENT REPLY NAME -->
+          <p class="topic-comment-reply-name">{{ post.created_by.username }}</p>
+          <!-- /TOPIC COMMENT REPLY NAME -->
+        </div>
+        <!-- /TOPIC COMMENT REPLY USER -->
+
+        <!-- FORM WRAP -->
+        <form class="form-wrap">
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item blue">
+              <label for="quick_reply_text" class="rl-label">Write your reply</label>
+              <textarea name="quick_reply_text" id="quick_reply_text" placeholder="Write your reply here..."></textarea>
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+
+          <!-- FORM ACTIONS -->
+          <div class="form-actions right">
+            <!-- BUTTON -->
+            <p class="button gray no-decoration popup-quick-reply-trigger">Discard all</p>
+            <!-- /BUTTON -->
+  
+            <!-- BUTTON -->
+            <button class="button blue">
+              Post your comment
+              <!-- BUTTON ORNAMENT -->
+              <span class="button-ornament">
+                <!-- ARROW ICON -->
+                <svg class="arrow-icon medium">
+                  <use xlink:href="#svg-arrow-medium"></use>
+                </svg>
+                <!-- /ARROW ICON -->
+        
+                <!-- CROSS ICON -->
+                <svg class="cross-icon small">
+                  <use xlink:href="#svg-cross-small"></use>
+                </svg>
+                <!-- /CROSS ICON -->
+              </span>
+              <!-- /BUTTON ORNAMENT -->
+            </button>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /FORM ACTIONS -->
+        </form>
+        <!-- /FORM WRAP -->
+      </div>
+      <!-- /QUICK FORM -->
+    </div>
+    <!-- /QUICK FORM WRAP -->
+  </div>
+  <!-- /POPUP WRAP -->
+
+  {% endfor %}
+  
   <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full layout-item grid-limit cstm-width-70 gutter-big">
     <!-- FILTERS ROW -->
@@ -63,7 +144,7 @@
           <!-- CURRENT OPTION -->
           <div id="forums-search-dropdown-trigger" class="current-option">
             <!-- BUTTON -->
-            <p class="button small red">Search Forums</p>
+            <p class="button small red">Search Topic</p>
             <!-- /BUTTON -->
           </div>
           <!-- /CURRENT OPTION -->
@@ -124,7 +205,7 @@
         <!-- /DROPDOWN SIMPLE WRAP -->
 
         <!-- BUTTON -->
-        <a href="" class="button small blue popup-create-topic-trigger">Create Topic</a>
+        <a href="{% url 'reply_topic' topic.category.pk topic.pk %}" class="button small blue popup-create-topic-trigger">Make a post</a>
         <!-- /BUTTON -->
 
         
@@ -146,23 +227,26 @@
         <!-- TAG ORNAMENT -->
         <a href="news-v2.html" class="tag-ornament">{{ topic.category.name }}</a>
       <!-- /TAG ORNAMENT -->
-
-        
       </div>
       <!-- /TOPIC HEADER -->
 
+      <div>
+        <hr class="line-separator-cstm">
+      </div>
+
       <!-- TOPIC BODY -->
       <div class="topic-body">
-        <!-- TOPIC COMMENT -->
+        <!-- TOPIC Comment -->
 
+        <input style="display: none;" id="posts" value="{% for p in posts %}{{ p.pk }},{% endfor %}">
         {% for post in posts %}
 
-        <div class="topic-comment">
+        <div class="topic-comment {% if forloop.first %} darkr-bdr-btm {% endif %} " onload="alert();">
           <!-- TOPIC COMMENT USER -->
           <div class="topic-comment-user">
             <!-- USER AVATAR -->
             <a href="profile-summary.html">
-              <img class="user-avatar medium" src="{% static 'img/users/09.jpg' %}" alt="user-09">
+              <img class="user-avatar medium" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
             </a>
             <!-- /USER AVATAR -->
             
@@ -176,7 +260,7 @@
               <!-- TOPIC COMMENT CONTENT HEADER -->
               <div class="topic-comment-content-header">
                 <!-- TOPIC COMMENT USERNAME -->
-                <a href="profile-summary.html" class="topic-comment-username">{{ post.created_by.username }}</a>
+                <a href="profile-summary.html" class="topic-comment-username">{{ post.created_by.username }} {% if forloop.first %} <span class="creator-tag">CREATOR</span> {% endif %}</a> 
                 <!-- /TOPIC COMMENT USERNAME -->
 
                 <!-- TOPIC COMMENT INFO -->
@@ -215,26 +299,27 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <a href="#0" onClick="document.getElementById('likebutton').submit()">
+                  <a href="#0" onClick="doLike(event, {{post.pk}});">
                     <div class="topic-action-icon bubble-ornament cyan">
                       <i class="icon-like like-icon"></i>
                     </div>
+                    <span class="client-reaction"><span id="post-{{post.pk}}-like">0</span> Thumbs up</span>
                   </a>
                   <!-- /TOPIC ACTION ICON -->
-        
-                  <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{{eachpost.likes}} </p>
-                  <!-- /TOPIC ACTION TEXT -->
+      
                 </div>
                 <!-- /TOPIC ACTION -->
 
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                 <a href="#0" onClick="document.getElementById('dislikebutton').submit()">
-                    <div class="topic-action-icon bubble-ornament hoverable red">
+                 <a href="#0" onClick="doDislike(event, {{post.pk}});">
+                    <div class="topic-action-icon bubble-ornament red">
                       <i class="icon-dislike dislike-icon"></i>
                     </div>
+                    <span class="client-reaction">
+                    <span id="post-{{post.pk}}-dislike">0</span>
+                    Thumbs down</span>
                  </a>
                   <!-- /TOPIC ACTION ICON -->
         
@@ -258,20 +343,28 @@
 
               <!-- TOPIC ACTIONS -->
               <div class="topic-actions">
+
+                {% if forloop.first %}
+
+                {% else %}
                 <!-- TOPIC ACTION -->
                 <div class="topic-action inverted">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament hoverable blue popup-quick-reply-trigger">
-                    <i class="icon-action-undo reply-icon"></i>
+                  <div class="topic-action-icon bubble-ornament hoverable blue">
+                    <a href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">
+                      <i class="icon-action-undo reply-icon"></i>
+                    </a>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
         
                   <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">5 Replies</p>
+                  <p class="topic-action-text">{{ post.comments.count }} Comments</p>
                   <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
+                 {% endif %}
                 
+                 {% if forloop.first %}
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
@@ -281,6 +374,7 @@
                   <!-- /TOPIC ACTION ICON -->
                 </div>
                 <!-- /TOPIC ACTION -->
+                {% endif %}
 
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
@@ -295,10 +389,136 @@
               <!-- /TOPIC ACTIONS -->
             </div>
             <!-- /TOPIC COMMENT ACTIONS -->
+
+
+            {% if forloop.first %}
+
+            {% else %}
+
+              {% for comment in post.comments.all %}
+               <div id="op-comments" class="post-comment-thread">
+                  <!-- POST COMMENT -->
+                <div class="post-comment">
+                  <!-- USER AVATAR -->
+                  <figure class="user-avatar medium liquid">
+                    <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by.username }}">
+                  </figure>
+                  <!-- /USER AVATAR -->
+            
+                  <!-- POST COMMENT USERNAME -->
+                  <p class="post-comment-username">{{ comment.created_by.username }}</p>
+                  <!-- /POST COMMENT USERNAME -->
+            
+                  <!-- POST COMMENT TIMESTAMP -->
+                  <p class="post-comment-timestamp">{{ comment.created_at|naturaltime }}</p>
+                  <!-- /POST COMMENT TIMESTAMP -->
+            
+                  <!-- REPORT BUTTON -->
+                  <a href="#" class="report-button">Report</a>
+                  <!-- /REPORT BUTTON -->
+            
+                  <!-- POST COMMENT TEXT -->
+                  <p class="post-comment-text">{{ comment.get_message_as_markdown }}</p>
+                  <!-- /POST COMMENT TEXT -->
+
+                  {% if comment.created_by == user %}
+                  <br>
+                  <div class="mt-3">
+                    <a href="{% url 'edit_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}"
+                       class="button small blue"
+                       role="button">Edit Comment?</a>
+                  </div>
+                  {% endif %}
+            
+                  <!-- POST COMMENT ACTIONS -->
+                  <div class="post-comment-actions">
+                    <!-- REPLY BUTTON -->
+                    <a href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
+                      <div class="reply-button bubble-ornament blue">
+                        <i class="icon-action-undo reply-icon"></i>
+                      </div>
+                    </a>
+                    <span class="reply-comment">{{ comment.comments2.count }} Comments</span>
+
+                    <!-- /REPLY BUTTON -->
+            
+                    <!-- LIKE BUTTON -->
+                    <div class="like-button bubble-ornament hoverable cyan">
+                      <i class="icon-like like-icon"></i>
+                    </div>
+                    <!-- /LIKE BUTTON -->
+            
+                    <!-- LIKES COUNT -->
+                    <p class="likes-count">0 Thumbs Up</p>
+                    <!-- /LIKES COUNT -->
+                  </div>
+                  <!-- /POST COMMENT ACTIONS -->
+
+                  {% for comment2 in comment.comments2.all %}
+                    <!-- POST COMMENT -->
+                      <div class="post-comment">
+                        <!-- USER AVATAR -->
+                        <figure class="user-avatar medium liquid">
+                          <img src="{{ comment2.created_by|gravatar }}" alt="{{ comment2.created_by.username }}">
+                        </figure>
+                        <!-- /USER AVATAR -->
+                  
+                        <!-- POST COMMENT USERNAME -->
+                        <p class="post-comment-username">{{ comment2.created_by.username }}</p>
+                        <!-- /POST COMMENT USERNAME -->
+                  
+                        <!-- POST COMMENT TIMESTAMP -->
+                        <p class="post-comment-timestamp">{{ comment2.created_at|naturaltime }}</p>
+                        <!-- /POST COMMENT TIMESTAMP -->
+                  
+                        <!-- REPORT BUTTON -->
+                        <a href="#" class="report-button">Report</a>
+                        <!-- /REPORT BUTTON -->
+                  
+                        <!-- POST COMMENT TEXT -->
+                        <p class="post-comment-text">{{ comment2.get_message_as_markdown }}</p>
+                        <!-- /POST COMMENT TEXT -->
+
+                          {% if comment2.created_by == user %}
+                            <br>
+                            <div class="mt-3">
+                              <a href="{% url 'edit_comment2' comment2.comment.post.topic.category.pk comment2.comment.post.topic.pk comment2.comment.post.pk comment2.comment.pk comment2.pk %}"
+                                 class="button small blue"
+                                 role="button">Edit Comment?</a>
+                            </div>
+                          {% endif %}
+                  
+                        <!-- POST COMMENT ACTIONS -->
+                        <div class="post-comment-actions">
+                         
+                  
+                          <!-- LIKE BUTTON -->
+                          <div class="like-button bubble-ornament hoverable cyan">
+                            <i class="icon-like like-icon"></i>
+                          </div>
+                          <!-- /LIKE BUTTON -->
+                  
+                          <!-- LIKES COUNT -->
+                          <p class="likes-count">0 Thumbs Up</p>
+                          <!-- /LIKES COUNT -->
+                        </div>
+                        <!-- /POST COMMENT ACTIONS -->
+                      </div>
+                      <!-- /POST COMMENT -->
+                      {% endfor %}
+
+                </div>
+                <!-- /POST COMMENT -->
+              </div>
+              {% endfor %}
+
+
+            {% endif %}
+
+            </div>
+            <!-- /TOPIC COMMENT CONTENT WRAP -->
           </div>
-          <!-- /TOPIC COMMENT CONTENT WRAP -->
-        </div>
-        <!-- /TOPIC COMMENT -->
+          <!-- /TOPIC COMMENT -->
 
         {% endfor %}
 
@@ -306,8 +526,50 @@
       <!-- /TOPIC BODY -->
       <br><br>
     {% include 'includes/pagination.html' %}
+
     </div>
     <!-- /TOPIC WRAP -->
+
+      <div class="post-comment-form-wrap">
+    <!-- SECTION TITLE WRAP -->
+    <div class="section-title-wrap blue">
+      <h2 class="section-title medium">Write a post in this topic</h2>
+      <div class="section-title-separator"></div>
+    </div>
+    <!-- /SECTION TITLE WRAP -->
+
+    <!-- POST COMMENT FORM -->
+    <form class="post-comment-form">
+
+      <!-- SUBMIT BUTTON WRAP -->
+      <div class="submit-button-wrap right">
+        <!-- SUBMIT BUTTON -->
+        <a href="{% url 'reply_topic' topic.category.pk topic.pk %}" class="button blue">
+          Write a post
+          <!-- BUTTON ORNAMENT -->
+          <span class="button-ornament">
+            <!-- ARROW ICON -->
+            <svg class="arrow-icon medium">
+              <use xlink:href="#svg-arrow-medium"></use>
+            </svg>
+            <!-- /ARROW ICON -->
+    
+            <!-- CROSS ICON -->
+            <svg class="cross-icon small">
+              <use xlink:href="#svg-cross-small"></use>
+            </svg>
+            <!-- /CROSS ICON -->
+          </span>
+          <!-- /BUTTON ORNAMENT -->
+        </a>
+        <!-- /SUBMIT BUTTON -->
+      </div>
+      <!-- /SUBMIT BUTTON WRAP -->
+    </form>
+    <!-- /POST COMMENT FORM -->
+  </div>
+  <!-- /POST COMMENT FORM WRAP -->
+
 <div class="layout-content-full grid-limit grid3-1col centered">
   <div class="layout-item-2-1 mgn_top_10pc">
           <div class="layout-item">
@@ -389,5 +651,68 @@
     
   </div>
   <!-- LAYOUT CONTENT FULL -->
+  <script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    function doPref(postID, value) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      var payload = {value: value};
+      var headers = {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json'
+      };
+
+      fetch(url, {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify(payload)
+      }).then(function(resp) {
+        return resp.json();
+      }).then(function(data){
+        updatePreferences(data, postID);
+      })
+    }
+
+    function doLike(e, postID) {
+      e.preventDefault();
+      doPref(postID, 1);
+    }
+
+    function doDislike(e, postID) {
+      e.preventDefault();
+      doPref(postID, -1);
+    }
+
+    function updatePreferences(payload, postID) {
+      var base = '#post-' + postID + '-';
+      $(base + 'like').text(payload['likes']);
+      $(base + 'dislike').text(payload['dislikes']);
+    }
+
+    function getPref(postID) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      fetch(url).then(function(resp) { return resp.json() })
+      .then(function(data) { updatePreferences(data, postID)} );
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        $('#posts').val().split(',').forEach(function(i) { getPref(i)});
+    })
+  </script>
 
 {% endblock content_topic_posts %}

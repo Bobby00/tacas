@@ -1,4 +1,6 @@
 {% load static %}
+{% load gravatar %}
+
   <!-- MOBILE MENU WRAP -->
   <div class="mobile-menu-wrap">
 
@@ -26,7 +28,7 @@
     <!-- MOBILE MENU -->
     <ul class="mobile-menu">
       <!-- MOBILE MENU ITEM -->
-      <li class="mobile-menu-item">
+      <li style="padding-top: 0px;" class="mobile-menu-item">
         <a href="index.html" class="mobile-menu-item-link accent-color">Home</a>
       </li>
       <!-- /MOBILE MENU ITEM -->
@@ -152,7 +154,7 @@
           <div id="account-dropdown-trigger" class="current-option">
             <!-- CURRENT OPTION VALUE -->
             <div class="current-option-value">
-              <img class="widget-option-img user-avatar micro" src="{% static 'img/users/05.jpg' %}" alt="avatar-01">
+              <img class="widget-option-img user-avatar micro" src="{{ user|gravatar }}" alt="avatar-01">
               <p class="widget-option-text cstm-camel-case">{{ user.username }}</p>
             </div>
             <!-- /CURRENT OPTION VALUE -->
@@ -360,7 +362,7 @@
       <!-- MAIN MENU --><title>{% block title %}Django Boards{% endblock %}</title>
       <ul class="main-menu">
         <!-- MAIN MENU ITEM -->
-        <li class="main-menu-item">
+        <li style="padding-top: 0px;" class="main-menu-item">
           <a href="{% url 'home' %}" class="main-menu-item-link accent-color">Home</a>
         </li>
         <!-- /MAIN MENU ITEM -->
@@ -470,6 +472,12 @@
             <!-- /SUBMENU ITEM -->
           </ul>
           <!-- /SUBMENU -->
+        </li>
+        <!-- /MAIN MENU ITEM -->
+
+        <!-- MAIN MENU ITEM -->
+        <li class="main-menu-item">
+          <a href="{% url 'news' %}" class="main-menu-item-link accent-color">News</a>
         </li>
         <!-- /MAIN MENU ITEM -->
 

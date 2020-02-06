@@ -21,7 +21,7 @@
         <!-- /PROFILE USER NAME -->
 
         <!-- PROFILE USER INFO -->
-        <p class="profile-user-info">2540 Posts</p>
+        <p class="profile-user-info">{{ user.posts.count }} Posts</p>
         <!-- /PROFILE USER INFO -->
 
         <!-- BADGE LIST -->
@@ -170,7 +170,7 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">73</p>
+                  <p class="featured-stat-title">{{ user.topics.count }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
@@ -182,23 +182,11 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">2540</p>
+                  <p class="featured-stat-title">{{ user.posts.count }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
                   <p class="featured-stat-text">Posts</p>
-                  <!-- /FEATURED STAT TEXT -->
-                </div>
-                <!-- /FEATURED STAT WRAP -->
-
-                <!-- FEATURED STAT WRAP -->
-                <div class="featured-stat-wrap medium">
-                  <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">9.6k</p>
-                  <!-- /FEATURED STAT TITLE -->
-
-                  <!-- FEATURED STAT TEXT -->
-                  <p class="featured-stat-text">Posts Read</p>
                   <!-- /FEATURED STAT TEXT -->
                 </div>
                 <!-- /FEATURED STAT WRAP -->
@@ -275,17 +263,7 @@
                 </div>
                 <!-- /FEATURED STAT WRAP -->
 
-                <!-- FEATURED STAT WRAP -->
-                <div class="featured-stat-wrap medium">
-                  <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">769</p>
-                  <!-- /FEATURED STAT TITLE -->
-
-                  <!-- FEATURED STAT TEXT -->
-                  <p class="featured-stat-text">Days Visited</p>
-                  <!-- /FEATURED STAT TEXT -->
-                </div>
-                <!-- /FEATURED STAT WRAP -->
+                
               </div>
               <!-- /WIDGET DISPLAY -->
             </div>

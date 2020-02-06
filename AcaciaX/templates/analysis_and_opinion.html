@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% load humanize %}
 
 {% block title %}Acaciax | Analysis and Opinions{% endblock %}
@@ -51,7 +53,7 @@
           <!-- /POST PREVIEW IMG WRAP -->
 
           <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">{{ analysis.category }}</a>
+          <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
           <!-- /TAG ORNAMENT -->
 
           <!-- POST PREVIEW TITLE -->
@@ -59,13 +61,13 @@
           <!-- POST AUTHOR INFO -->
           <div class="post-author-info-wrap">
             <!-- USER AVATAR -->
-            <a href="search-results.html">
+            <a href="#0">
               <figure class="user-avatar tiny liquid">
-                <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
+                <img src="{{ analysis.starter|gravatar }}" alt="{{ analysis.starter }}">
               </figure>
             </a>
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ analysis.analysis_posts.count }} Comments</a></p>
+            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'analysis_posts' analysis.pk %}#op-comments" class="post-comment-count">{{ analysis.analysis_posts.count }} Comments</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
