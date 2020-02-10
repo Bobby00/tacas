@@ -8,6 +8,10 @@
 	text-align: left;
 }
 
+.faq-item .faq-item-img {
+	height: 100%;
+}
+
 .slider-item {
 	box-shadow: inset 100px -400px 269px -80px rgba(1, 1, 1, 1)!important;
 }
