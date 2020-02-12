@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% block title %}Acaciax | My account{% endblock %}
 
 
@@ -10,7 +12,7 @@
   <div class="banner-wrap forum-banner">
     <!-- BANNER -->
     <div class="banner grid-limit">
-      <h2 class="banner-title">Your Account</h2>
+      <h2 class="banner-title">My Account</h2>
       <p class="banner-sections">
         <a href="{% url 'home' %}" class="banner-section clr-whte">Home</a>
         <!-- ARROW ICON -->
@@ -32,7 +34,7 @@
       <!-- ACCOUNT INFO WRAP -->
       <div class="account-info-wrap">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user.username }}">
         <!-- /USER AVATAR -->
 
         <!-- ACCOUNT INFO USERNAME -->
@@ -48,7 +50,7 @@
           <!-- ACCOUNT INFO STAT -->
           <div class="account-info-stat">
             <!-- ACCOUNT INFO STAT VALUE -->
-            <p class="account-info-stat-value">0</p>
+            <p class="account-info-stat-value">{{ user.comments.count }}</p>
             <!-- /ACCOUNT INFO STAT VALUE -->
 
             <!-- ACCOUNT INFO STAT TITLE -->

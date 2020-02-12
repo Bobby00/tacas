@@ -142,12 +142,14 @@
           <!-- /DP OPTIONS -->
         </div>
         <!-- /DROPDOWN SIMPLE WRAP -->
-
+        {% if category.pk == 1 %}
+        {% else %}
         <!-- BUTTON -->
         <a href="{% url 'new_topic' category.pk %}">
           <p class="button small blue popup-create-topic-trigger">Create Topic</p>
         </a>
         <!-- /BUTTON -->
+        {% endif %}
       </div>
       <!-- /FORUM ACTIONS -->
     </div>
@@ -173,35 +175,59 @@
                   <tr>
                     <td class="category-title" data-title="Catergory">
                       <a href="{% url 'topic_posts' category.pk topic.pk %}"><p style="font-size: 16px; color: black;" class="cstm-width-a">{{ topic.subject }}</p></a>
+
+                      {% if topic.starter == user or request.user.is_superuser %}
+                      <br>
+                      <div class="mt-3">
+                        <a href="{% url 'edit_topic' topic.category.pk topic.pk %}"
+                           class="button small blue"
+                           role="button"><i class="fas fa-edit"></i> Edit topic?</a>
+
+                        <form action="{% url 'delete_topic' topic.category.pk topic.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete topic?</button>
+                          <!-- /BUTTON -->
+                        </form>
+                      </div>
+                      {% endif %}
                     </td>
                     <td class="topics-count fnt-w8-800" data-title="Topics"> 
                       <!-- FORUM USER LIST -->
                       <div class="forum-user-list">
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
-                        <a href="profile-summary.html">
-                          <!-- USER AVATAR -->
-                          <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
-                          <!-- /USER AVATAR -->
-                        </a>
+
+
+                        {% for post in post_list %}
+                            
+                            {% with posts=post.get_topic_participants %}
+                            {% for post in posts %}
+                                {% if post %}
+                                  <a href="profile-summary.html">
+                                    <!-- USER AVATAR -->
+                                    <img class="user-avatar tiny" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+                                    <!-- /USER AVATAR -->
+                                  </a>
+                                {% else %}
+                                  <p>No Posts yet</p>
+                                {% endif %}
+                              {% endfor %}
+                            {% endwith %}
+
+                        {% endfor %}
+
+
+                        
+
                       </div>
                       <!-- /FORUM USER LIST -->
                     </td>
                     <td class="forum-posts-count fnt-sze-14 text-center" data-title="Posts">
                       {{ topic.replies }}
                     </td>
-                    <td class="forum-latest fnt-sze-14 clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
                       {{ topic.views }}
                     </td>
-                    <td class="forum-latest fnt-sze-14 clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
                       {{ topic.last_updated|naturaltime }}
                     </td>
                   </tr>

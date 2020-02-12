@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% load humanize %}
 
 {% block title %}Acaciax | Articles{% endblock %}
@@ -37,10 +39,10 @@
       <div class="layout-item cstm-grid-60 centered">
 
         <!-- POST PREVIEW -->
-        {% for article in article_list %}
+        {% for article in article_list reversed %}
         <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
-          <a href="post-v2.html">
+          <a href="{% url 'article_posts' article.pk %}">
             <div class="post-preview-img-wrap">
               <!-- POST PREVIEW IMG -->
               <figure class="post-preview-img liquid">
@@ -52,26 +54,50 @@
           <!-- /POST PREVIEW IMG WRAP -->
 
           <!-- TAG ORNAMENT -->
-          <a href="news-v2.html" class="tag-ornament">{{ article.category }}</a>
+          <a href="#0" class="tag-ornament">{{ article.category }}
+          </a>
           <!-- /TAG ORNAMENT -->
 
           <!-- POST PREVIEW TITLE -->
-          <a href="{% url 'article_posts' article.pk %}" class="post-preview-title">{{ article.title }}</a>
+          <a href="{% url 'article_posts' article.pk %}" class="post-preview-title">{{ article.title }}  
+          </a>
+         
           <!-- POST AUTHOR INFO -->
           <div class="post-author-info-wrap">
             <!-- USER AVATAR -->
             <a href="search-results.html">
               <figure class="user-avatar tiny liquid">
-                <img src="{% static 'img/users/04.jpg' %}" alt="user-04">
+                <img src="{{ article.starter|gravatar }}" alt="{{ article.starter }}">
               </figure>
             </a>
 
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="post-v2.html#op-comments" class="post-comment-count">{{ article.article_posts.count }} Comment(s)</a></p>
+            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ article.starter }}</a><span class="separator">|</span>{{ article.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'article_posts' article.pk %}#op-comments" class="post-comment-count">{% if article.article_posts.count < 1 %} <span style="color: green;">be the first to comment</span> {% else %} {{ article.article_posts.count }} Comments {% endif %}</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">{{ article.description|truncatechars:350 }}</p>
+          <p class="post-preview-text">{{ article.description|truncatechars:200 }}</p>
+
+          {% if user.is_superuser %}
+          <div class="article-control-admin">
+          <!-- BUTTON -->
+              <a href="{% url 'edit_article' article.pk %}" class="button small blue"><i class="fas fa-edit"></i> edit article</a>
+              <!-- /BUTTON -->
+
+              <form action="{% url 'delete_article' article.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="patient_id" value="{{ patient.id }}" />
+
+              <!-- BUTTON -->
+              <button type="submit" onclick="return confirm('Are you sure you want to delete article?');" class="button small red"><i class="far fa-trash-alt"></i> delete article</button>
+              <!-- /BUTTON -->
+            </form>
+
+          </div>
+          {% else %}
+
+          {% endif %}
+
         </div>
         {% endfor %}
         <!-- /POST PREVIEW -->

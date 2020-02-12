@@ -1,4 +1,6 @@
 {% load static %}
+{% load gravatar %}
+
   <!-- MOBILE MENU WRAP -->
   <div class="mobile-menu-wrap">
 
@@ -18,7 +20,7 @@
     <!-- LOGO IMG -->
     <figure class="logo-img">
       <a href="{% url 'home' %}">
-        <img src="{% static 'img/acaciax/logo/full-logo.png' %}" alt="Logo">
+        <img style="width: 140%; padding-top: 5px;" src="{% static 'img/acaciax/logo/full-logo.png' %}" alt="Logo">
       </a>
     </figure>
     <!-- /LOGO IMG -->
@@ -26,8 +28,8 @@
     <!-- MOBILE MENU -->
     <ul class="mobile-menu">
       <!-- MOBILE MENU ITEM -->
-      <li class="mobile-menu-item">
-        <a href="index.html" class="mobile-menu-item-link accent-color">Home</a>
+      <li style="padding-top: 0px;" class="mobile-menu-item">
+        <a href="{% url 'home' %}" class="mobile-menu-item-link accent-color">Home</a>
       </li>
       <!-- /MOBILE MENU ITEM -->
 
@@ -105,13 +107,13 @@
             <ul class="mobile-dropdown pd-dropdown">
               <!-- MOBILE DROPDOWN ITEM -->
               <li class="mobile-dropdown-item">
-                <a href="esports-team.html" class="mobile-dropdown-item-link">Pip calculator</a>
+                <a href="#0" class="mobile-dropdown-item-link">Pip calculator</a>
               </li>
               <!-- /MOBILE DROPDOWN ITEM -->
 
               <!-- MOBILE DROPDOWN ITEM -->
               <li class="mobile-dropdown-item">
-                <a href="esports-player.html" class="mobile-dropdown-item-link">Profit calculator</a>
+                <a href="#0" class="mobile-dropdown-item-link">Profit calculator</a>
               </li>
               <!-- /MOBILE DROPDOWN ITEM -->
 
@@ -126,8 +128,20 @@
       <!-- /MOBILE MENU ITEM -->
 
       <!-- MOBILE MENU ITEM -->
+      <li style="padding-top: 0px;" class="mobile-menu-item">
+        <a href="{% url 'article' %}" class="mobile-menu-item-link accent-color">Articles</a>
+      </li>
+      <!-- /MOBILE MENU ITEM -->
+
+      <!-- MOBILE MENU ITEM -->
+      <li style="padding-top: 0px;" class="mobile-menu-item">
+        <a href="{% url 'news' %}" class="mobile-menu-item-link accent-color">News</a>
+      </li>
+      <!-- /MOBILE MENU ITEM -->
+
+      <!-- MOBILE MENU ITEM -->
       <li class="mobile-menu-item">
-        <a href="forum.html" class="mobile-menu-item-link accent-color">Forum</a>
+        <a href="{% url 'forum' %}" class="mobile-menu-item-link accent-color">Forum</a>
       </li>
       <!-- /MOBILE MENU ITEM -->
   
@@ -152,7 +166,7 @@
           <div id="account-dropdown-trigger" class="current-option">
             <!-- CURRENT OPTION VALUE -->
             <div class="current-option-value">
-              <img class="widget-option-img user-avatar micro" src="{% static 'img/users/05.jpg' %}" alt="avatar-01">
+              <img class="widget-option-img user-avatar micro" src="{{ user|gravatar }}" alt="avatar-01">
               <p class="widget-option-text cstm-camel-case">{{ user.username }}</p>
             </div>
             <!-- /CURRENT OPTION VALUE -->
@@ -360,7 +374,7 @@
       <!-- MAIN MENU --><title>{% block title %}Django Boards{% endblock %}</title>
       <ul class="main-menu">
         <!-- MAIN MENU ITEM -->
-        <li class="main-menu-item">
+        <li style="padding-top: 0px;" class="main-menu-item">
           <a href="{% url 'home' %}" class="main-menu-item-link accent-color">Home</a>
         </li>
         <!-- /MAIN MENU ITEM -->
@@ -470,6 +484,18 @@
             <!-- /SUBMENU ITEM -->
           </ul>
           <!-- /SUBMENU -->
+        </li>
+        <!-- /MAIN MENU ITEM -->
+
+        <!-- MAIN MENU ITEM -->
+        <li class="main-menu-item">
+          <a href="{% url 'article' %}" class="main-menu-item-link accent-color">Articles</a>
+        </li>
+        <!-- /MAIN MENU ITEM -->
+
+        <!-- MAIN MENU ITEM -->
+        <li class="main-menu-item">
+          <a href="{% url 'news' %}" class="main-menu-item-link accent-color">News</a>
         </li>
         <!-- /MAIN MENU ITEM -->
 

@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load gravatar %}
+
 {% block title %}Acaciax | Profile Notifications{% endblock %}
 
 {% block content_profile_notifications %}
@@ -13,7 +15,7 @@
       <!-- PROFILE USER -->
       <div class="profile-user">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user }}">
         <!-- /USER AVATAR -->
 
         <!-- PROFILE USER NAME -->
@@ -21,59 +23,10 @@
         <!-- /PROFILE USER NAME -->
 
         <!-- PROFILE USER INFO -->
-        <p class="profile-user-info">2540 Posts</p>
+        <p class="profile-user-info">{{ user.posts.count }} Posts</p>
         <!-- /PROFILE USER INFO -->
 
         <!-- BADGE LIST -->
-        <div class="badge-list">
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/legendary_user_small.png' %}" alt="legendary_user_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/user_level_02_small.png' %}" alt="user_level_02_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/liked_user_small.png' %}" alt="liked_user_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/master_reviewer_small.png' %}" alt="master_reviewer_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/caffeinated_small.png' %}" alt="caffeinated_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/super_forum_traveller_small.png' %}" alt="super_forum_traveller_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/ultra_powered_small.png' %}" alt="ultra_powered_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/super_writer_small.png' %}" alt="super_writer_small">
-          </a>
-          <!-- /BADGE IMG -->
-        </div>
         <!-- /BADGE LIST -->
       </div>
       <!-- /PROFILE USER -->
@@ -161,82 +114,8 @@
 
             <!-- LAYOUT BODY -->
             <div class="layout-body">
-              <!-- NOTIFICATION ITEMS -->
-              <div class="notification-items bordered padded">
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">3 Replies <span class="highlight">The American league movie is around the corner! Here's the last trailer</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <p class="notification-item-icon">@</p>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Beardman-Returns <span class="highlight">Power studios announced three "Game of Dragons" universe pilots</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo read"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">1 Reply <span class="highlight">Post your best GTE V online character photos and vote for the best</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-envelope"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Dexter Danvers <span class="highlight">Inquiry about the forum rules</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-like"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">Thunder-Gamer <span class="highlight">The american league movie is around the corner! Here's the last trailer</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-
-                <!-- NOTIFICATION ITEM -->
-                <div class="notification-item medium">
-                  <!-- NOTIFICATION ITEM ICON -->
-                  <i class="notification-item-icon icon-action-undo read"></i>
-                  <!-- /NOTIFICATION ITEM ICON -->
-
-                  <!-- NOTIFICATION ITEM TEXT -->
-                  <a href="topic.html" class="notification-item-text">5 Replies <span class="highlight">Introduce yourself and show us your cosplays!</span></a>
-                  <!-- /NOTIFICATION ITEM TEXT -->
-                </div>
-                <!-- /NOTIFICATION ITEM -->
-              </div>
-              <!-- /NOTIFICATION ITEMS -->
-
+                
+              <h3 style="color: red; text-align: center;">NO NOTIFICATION DATA YET</h3>
               <!-- MORE ITEMS LOADER -->
               <a href="#" class="more-items-loader medium">
                 <div class="square"></div>

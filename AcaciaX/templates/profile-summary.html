@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% load gravatar %}
+
+{% load humanize %}
+
 {% block title %}Acaciax | Profile Summary{% endblock %}
 
 {% block content_profile_summary %}
@@ -13,7 +17,7 @@
       <!-- PROFILE USER -->
       <div class="profile-user">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user }}">
         <!-- /USER AVATAR -->
 
         <!-- PROFILE USER NAME -->
@@ -21,60 +25,12 @@
         <!-- /PROFILE USER NAME -->
 
         <!-- PROFILE USER INFO -->
-        <p class="profile-user-info">2540 Posts</p>
+        <p class="profile-user-info">{{ user.posts.count }} Posts</p>
         <!-- /PROFILE USER INFO -->
 
-        <!-- BADGE LIST -->
-        <div class="badge-list">
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/legendary_user_small.png' %}" alt="legendary_user_small">
-          </a>
-          <!-- /BADGE IMG -->
+        <!-- BADGES GO HERE -->
+        <!-- BADGES GO HERE -->
 
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/user_level_02_small.png' %}" alt="user_level_02_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/liked_user_small.png' %}" alt="liked_user_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/master_reviewer_small.png' %}" alt="master_reviewer_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/caffeinated_small.png' %}" alt="caffeinated_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/super_forum_traveller_small.png' %}" alt="super_forum_traveller_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/ultra_powered_small.png' %}" alt="ultra_powered_small">
-          </a>
-          <!-- /BADGE IMG -->
-
-          <!-- BADGE IMG -->
-          <a href="profile-badges.html">
-            <img class="badge-img" src="{% static 'img/badges/super_writer_small.png' %}" alt="super_writer_small">
-          </a>
-          <!-- /BADGE IMG -->
-        </div>
-        <!-- /BADGE LIST -->
       </div>
       <!-- /PROFILE USER -->
 
@@ -158,7 +114,7 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">01/18/15</p>
+                  <p class="featured-stat-title">{{ user.date_joined|date:"M d, Y" }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
@@ -170,7 +126,7 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">73</p>
+                  <p class="featured-stat-title">{{ user.topics.count }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
@@ -182,7 +138,7 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">2540</p>
+                  <p class="featured-stat-title">{{ user.posts.count }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
@@ -194,19 +150,7 @@
                 <!-- FEATURED STAT WRAP -->
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">9.6k</p>
-                  <!-- /FEATURED STAT TITLE -->
-
-                  <!-- FEATURED STAT TEXT -->
-                  <p class="featured-stat-text">Posts Read</p>
-                  <!-- /FEATURED STAT TEXT -->
-                </div>
-                <!-- /FEATURED STAT WRAP -->
-
-                <!-- FEATURED STAT WRAP -->
-                <div class="featured-stat-wrap medium">
-                  <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">49m Ago</p>
+                  <p class="featured-stat-title">{{ user.posts.last.created_at|naturaltime }}</p>
                   <!-- /FEATURED STAT TITLE -->
 
                   <!-- FEATURED STAT TEXT -->
@@ -219,7 +163,7 @@
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
                   <p class="featured-stat-title">
-                    668
+                    0
                     <i class="icon-like like-icon"></i>
                   </p>
                   <!-- /FEATURED STAT TITLE -->
@@ -234,7 +178,7 @@
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
                   <p class="featured-stat-title">
-                    2.6k
+                    0
                     <i class="icon-like like-icon"></i>
                   </p>
                   <!-- /FEATURED STAT TITLE -->
@@ -249,7 +193,7 @@
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
                   <p class="featured-stat-title">
-                    145
+                    0
                     <i class="icon-dislike dislike-icon"></i>
                   </p>
                   <!-- /FEATURED STAT TITLE -->
@@ -264,7 +208,7 @@
                 <div class="featured-stat-wrap medium">
                   <!-- FEATURED STAT TITLE -->
                   <p class="featured-stat-title">
-                    30
+                    0
                     <i class="icon-dislike dislike-icon"></i>
                   </p>
                   <!-- /FEATURED STAT TITLE -->
@@ -275,17 +219,7 @@
                 </div>
                 <!-- /FEATURED STAT WRAP -->
 
-                <!-- FEATURED STAT WRAP -->
-                <div class="featured-stat-wrap medium">
-                  <!-- FEATURED STAT TITLE -->
-                  <p class="featured-stat-title">769</p>
-                  <!-- /FEATURED STAT TITLE -->
-
-                  <!-- FEATURED STAT TEXT -->
-                  <p class="featured-stat-text">Days Visited</p>
-                  <!-- /FEATURED STAT TEXT -->
-                </div>
-                <!-- /FEATURED STAT WRAP -->
+                
               </div>
               <!-- /WIDGET DISPLAY -->
             </div>
@@ -302,129 +236,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- TOPIC LINK ITEMS -->
-                <div class="topic-link-items">
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Aug '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>208</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Give us your suggestions on how to improve the forum</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">May '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>195</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Super Brawl Bros Tournament in Toronto will be this May Sign up here!</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Dec '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>106</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Genix studio will be in charge of the "Charlotte" animation</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Apr '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>82</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Benjamin Rodgers was casted for the "Tigerman" main role</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Aug '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>77</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Give us your suggestions on how to improve the forum</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Nov '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>40</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Recommend a song for...Commuting to work (Game)</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-                </div>
-                <!-- /TOPIC LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
 
@@ -437,109 +249,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- TOPIC LINK ITEMS -->
-                <div class="topic-link-items">
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Jan '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>240<i class="icon-action-undo reply-icon"></i>135</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Power Studios announced three "Game of Dragons" universe pilots</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Mar '16</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>164<i class="icon-action-undo reply-icon"></i>140</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Super Brawl Bros Tournament in Toronto will be this May Sign up here!</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Oct '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>122<i class="icon-action-undo reply-icon"></i>102</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Come and discuss about that new "Warrior X" transformation</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">May '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>97<i class="icon-action-undo reply-icon"></i>100</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Do you think the W-Hunter manga will be delayed much longer?</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Oct '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-like like-icon"></i>80<i class="icon-action-undo reply-icon"></i>72</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Give us your suggestions on how to improve the forum</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-                </div>
-                <!-- /TOPIC LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
 
@@ -552,129 +262,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- TOPIC LINK ITEMS -->
-                <div class="topic-link-items">
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Aug '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>42</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Come and discuss about that new "Warrior X" transformation</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">May '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>39</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Give us your suggestions on how to improve the forum</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Dec '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>20</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Super Brawl Bros Tournament in Toronto will be this May Sign up here!</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Apr '18</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>12</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Benjamin Rodgers was casted for the "Tigerman" main role</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Aug '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>8</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Give us your suggestions on how to improve the forum</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-
-                  <!-- TOPIC LINK ITEM -->
-                  <div class="topic-link-item">
-                    <!-- TOPIC LINK ITEM INFO -->
-                    <div class="topic-link-item-info">
-                      <!-- TOPIC LINK ITEM TIMESTAMP -->
-                      <p class="topic-link-item-timestamp">Nov '17</p>
-                      <!-- /TOPIC LINK ITEM TIMESTAMP -->
-
-                      <!-- TOPIC LINK ITEM STAT -->
-                      <p class="topic-link-item-stat"><i class="icon-dislike dislike-icon"></i>2</p>
-                      <!-- /TOPIC LINK ITEM STAT -->
-                    </div>
-                    <!-- /TOPIC LINK ITEM INFO -->
-
-                    <!-- TOPIC LINK ITEM TITLE -->
-                    <a href="topic.html" class="topic-link-item-title">Do you think the W-Hunter manga will be delayed much longer?</a>
-                    <!-- /TOPIC LINK ITEM TITLE -->
-                  </div>
-                  <!-- /TOPIC LINK ITEM -->
-                </div>
-                <!-- /TOPIC LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
 
@@ -687,99 +275,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- USER LINK ITEMS -->
-                <div class="user-link-items">
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/01.jpg" alt="user-01">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Dexter Danvers</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-action-undo reply-icon"></i>22</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/17.jpg" alt="user-17">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Thunder_Gamer</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-action-undo reply-icon"></i>18</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/07.jpg" alt="user-07">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Thomas Stevens</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-action-undo reply-icon"></i>17</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/14.jpg" alt="user-14">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Beardman-Returns</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-action-undo reply-icon"></i>12</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/09.jpg" alt="user-09">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Eli-Valentine1890</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-action-undo reply-icon"></i>9</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-                </div>
-                <!-- /USER LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
 
@@ -792,99 +288,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- USER LINK ITEMS -->
-                <div class="user-link-items">
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/07.jpg" alt="user-07">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Thomas Stevens</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>28</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/00.jpg" alt="user-00">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Mikedaman</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>21</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/09.jpg" alt="user-09">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Eli-Valentine1890</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>16</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/00.jpg" alt="user-00">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Jenny_The_Bat</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>12</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/10.jpg" alt="user-10">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Jack-Tripper</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>7</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-                </div>
-                <!-- /USER LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
 
@@ -897,99 +301,7 @@
                 </div>
                 <!-- /SECTION TITLE WRAP -->
 
-                <!-- USER LINK ITEMS -->
-                <div class="user-link-items">
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/03.jpg" alt="user-03">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Captain Roman</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>9</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/10.jpg" alt="user-10">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Jack-Tripper</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>4</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/14.jpg" alt="user-14">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Beardman-Returns</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>4</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/13.jpg" alt="user-13">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Dr.Charlotte95</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>2</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-
-                  <!-- USER LINK ITEM -->
-                  <div class="user-link-item">
-                    <!-- USER AVATAR -->
-                    <a href="profile-summary.html">
-                      <img class="user-avatar" src="img/users/11.jpg" alt="user-11">
-                    </a>
-                    <!-- /USER AVATAR -->
-
-                    <!-- USER LINK ITEM TITLE -->
-                    <a href="profile-summary.html" class="user-link-item-title">Electric Goo</a>
-                    <!-- /USER LINK ITEM TITLE -->
-
-                    <!-- USER LINK ITEM STAT -->
-                    <p class="user-link-item-stat"><i class="icon-like like-icon"></i>1</p>
-                    <!-- /USER LINK ITEM STAT -->
-                  </div>
-                  <!-- /USER LINK ITEM -->
-                </div>
-                <!-- /USER LINK ITEMS -->
+                <h3 style="color: red;">No data yet</h3>
               </div>
               <!-- /WIDGET ITEM -->
             </div>

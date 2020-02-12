@@ -45,12 +45,12 @@
               <!-- /SECTION TITLE WRAP -->
 
               <!-- FORM WRAP -->
-              <form class="form-wrap" method="post" enctype="multipart/form-data" novalidate>
+              <form class="form-wrap" method="post" novalidate>
                 {% csrf_token %}
                 {% include 'includes/form.html' %}
                 <button type="submit" class="button red full">Create your account!</button>
               </form>
-              <p class="text-center">Already have an account?<a href="{% url 'login' %}"> Log in</a></p>
+              <p>Already have an account?<a href="{% url 'login' %}"> Log in</a></p>
               <!-- /FORM WRAP -->
             </div>
             <!-- /FORM BOX -->

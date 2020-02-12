@@ -22,9 +22,20 @@ class NewsListView(ListView):
 def news_posts(request, news_article_pk):
     analysis_objects = AnalysisArticle.objects.all()
     news_article = get_object_or_404(NewsArticle, pk=news_article_pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.news_article = news_article
+            post.created_by = request.user
+            post.save()
+    else:
+        form = PostForm()
+
     context = {
         'analysis_objects': analysis_objects,
-        'news_article' : news_article
+        'news_article' : news_article,
+        'form' : form
     }
     return render(request, 'news_post.html', context)
 

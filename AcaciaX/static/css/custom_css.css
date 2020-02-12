@@ -8,8 +8,118 @@
 	text-align: left;
 }
 
+.hidden {
+	display: none;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.post-comment>.post-comment {
+	margin-top: unset;
+	padding-bottom: 20px;
+}
+
+.first-wrapper {
+	padding-bottom: 20px;
+}
+
+.second-wrapper {
+	padding-bottom: 20px;
+}
+
+.bg-main-thread {
+	background-color: #f9f9f9;
+}
+
+.cstm-bg-transparent {
+	padding: 15px;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.topic-comment-timestamp {
+	font-weight: 700;
+}
+
+span {
+	font-family: "Exo",sans-serif!important;
+	letter-spacing: 0.2px;
+}
+
+p {
+	font-size: 1.0em;
+	padding-top: 8px;
+	font-family: "Exo",sans-serif!important;
+	letter-spacing: 0.2px;
+}
+
+li {
+	font-size: 1.0em;
+	font-family: "Exo",sans-serif!important;
+	padding-left: 10px;
+	color: #777;
+}
+
+li:first-child {
+	font-size: 1.0em;
+	font-family: "Roboto",sans-serif;
+	padding-left: 10px;
+	color: #777;
+	padding-top: 10px;
+}
+
+.topic-comment-username {
+	font-size: 18px;
+}
+
+.darkr-bdr-btm {
+	border-bottom: 1px solid #464444;
+}
+
+.line-separator-cstm {
+	margin-top: 3%;
+	border: 1px solid #464444;
+}
+
+.client-reaction {
+	font-size: 11px;
+	color: gray;
+}
+
+.bubble-ornament .heart-icon, .bubble-ornament .like-icon, .bubble-ornament .dislike-icon {
+	font-size: 20px;
+}
+
+.bubble-ornament .reply-icon, .bubble-ornament .share-icon {
+	font-size: 20px;
+}
+
+.bubble-ornament .report-icon {
+	font-size: 20px;
+}
+
+.tag-ornament {
+	background-color: #ffb400;
+}
+
 .faq-item .faq-item-img {
 	height: 100%;
+	width: 100%;
+}
+
+.creator-tag {
+	font-size: 10px;
+	color: #10caff;
+	padding-left: 10px;
+}
+
+.activity-item-timestamp {
+	font-size: 12px;
+}
+
+.widget-options-wrap .current-option-value .widget-option-text {
+	line-height: 35px;
 }
 
 .slider-item {
@@ -32,6 +142,21 @@
 	left: 8px!important;
 	width: 5px;
 	height: 7px;
+}
+
+.topics-count {
+	font-size: 14px;
+	color: gray;
+}
+
+.forum-posts-count {
+	color: gray;
+	font-size: 13px;
+}
+
+.forum-latest {
+	color: gray;
+	font-size: 13px;
 }
 
 .button.full {
@@ -141,9 +266,7 @@
 .fnt-sze-14 {
 	font-size: 14px;
 }
-.section-title-wrap .section-title-separator {
-	height: unset;
-}
+
 .section-title-wrap .section-title-separator:before {
 	height: 5px;	
 }
@@ -256,7 +379,7 @@ label {
 	max-width: 700px;
 }
 .cstm-post-img-width {
-	width: 600px!important;
+	width: 70%!important;
 }
 .plain-btn-3 {
 	margin: 30px 10px;
@@ -313,6 +436,9 @@ label {
 }
 .fnt-16 {
 	font-size: 16px!important;
+}
+.fnt-18 {
+	font-size: 18px!important;
 }
 .table-row-header-title {
 	font-size: 18px!important;
@@ -461,7 +587,7 @@ button.accent-color-bg {
 	border: 2px solid cadetblue;
 	border-bottom-left-radius: 30px;
 	border-bottom-right-radius: 30px;
-	font-family: "Roboto",sans-serif;
+	font-family: "Exo", sans-serif!important;
 }
 
 .editor-toolbar {
@@ -478,10 +604,17 @@ button.accent-color-bg {
 	min-height: 150px;
 }
 
+.reply-comment {
+	font-size: 11px;
+	color: gray;
+	font-family: "Exo", sans-serif!important;
+}
+
 .form-box {
 	padding: 34px 0px;
 	max-width: 445px;
 }
+
 
 .fnt-sze-12 {
 	font-size: 12px;
@@ -612,10 +745,57 @@ button.accent-color-bg {
             animation: 2000ms linear 0s normal none infinite running medica-thumb;
 }
 
+.child-1-shade {
+	background-color: #f9f9f9a6;
+}
+.child-2-shade {
+	background-color: #dbdbdb3d;
+}
+.child-3-shade {
+	background-color: #dbdbdb36;
+}
 
+.bg-white {
+	background-color: white;
+}
 
 /*PRE-LOADER STYLING*/
 
+
+/* TOOLTIP STYLING */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+/* TOOLTIP STYLING */
+
+.show-comments-styl {
+	color: blue!important;
+	font-weight: 700;
+	text-decoration: underline;
+}
 
 
 /*START OF RESPONSIVE DESIGN*/
@@ -633,8 +813,14 @@ button.accent-color-bg {
 	.icon-cstm-width {
 		width: 25%;
 	}
+	.layout-content-full {
+		padding: unset;
+	}
 	.hidden-md {
 		display: block;
+	}
+	.post-preview.landscape.big {
+		height: 100%;
 	}
 	.logo .logo-img {
 		width: 100px;
@@ -655,7 +841,10 @@ button.accent-color-bg {
 		grid-template-columns: unset;
 	}
 	.mgn_left-40 {
-		margin-left: 15%;
+		margin-left: 3%;
+	}
+	.mgn_left-41 {
+		margin-left: 35%;
 	}
 	.form-box {
 		padding: unset!important;
@@ -670,3 +859,21 @@ button.accent-color-bg {
 		padding: unset;
 	}
 }
+
+@media screen and (max-width: 960px) {
+	.post-preview.img-toggle {
+		padding-top: 0px;
+	}
+	.post-preview.img-toggle .post-preview-img-wrap {
+		display: block;
+	}
+	.post-preview.huge, .post-preview.huge.centered {
+		padding: 12px 6px;
+	}
+	.banner-slider.v2 .slider-item-wrap {
+		padding: 200px 0 0;
+	}
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
+

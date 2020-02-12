@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | Edit post{% endblock %}
+
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}
+
+
+{% block content_edit_comment_comment %}
+
+    <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit">
+    <!-- GRID 2 1COL -->
+    <div class="grid2-1col centered">
+      <!-- TAB WRAP -->
+      <div id="tab-new-topic" class="tab-wrap">
+        <!-- TAB BODY -->
+        <div class="tab-body">
+          <!-- TAB ITEM -->
+          <div class="tab-item">
+            <!-- FORM BOX -->
+            <div class="form-box">
+              <!-- SECTION TITLE WRAP -->
+              <div class="section-title-wrap blue">
+                <h2 class="section-title medium">Make changes to your comment</h2>
+                <div class="section-title-separator"></div>
+              </div>
+              <!-- /SECTION TITLE WRAP -->
+
+              <!-- FORM WRAP -->
+              <form method="post">
+			    {% csrf_token %}
+			    
+			    {% include 'includes/form.html' %}
+
+			    <button type="submit" class="button blue full">Save changes</button>
+          <a href="{% url 'topic_posts' comment2.comment.post.topic.category.pk comment2.comment.post.topic.pk %}">
+            <button class="button red full">Cancel</button>
+          </a>
+			  </form>
+              <!-- /FORM WRAP -->
+            </div>
+            <!-- /FORM BOX -->
+          </div>
+          <!-- /TAB ITEM -->
+        </div>
+        <!-- /TAB BODY -->
+      </div>
+      <!-- /TAB WRAP -->
+      <div class="activity-items">
+        {% for post in topic.posts.all %}
+        <!-- ACTIVITY ITEM -->
+        <div class="activity-item">
+          <!-- USER AVATAR -->
+          <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+          <!-- /USER AVATAR -->
+
+          <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
+          <div class="activity-item-dropdown-button">
+            <!-- ARROW ICON -->
+            <svg class="arrow-icon medium">
+              <use xlink:href="#svg-arrow-medium"></use>
+            </svg>
+            <!-- /ARROW ICON -->
+          </div>
+          <!-- /ACTIVITY ITEM DROPDOWN BUTTON -->
+
+          <!-- ACTIVITY ITEM ROW -->
+          <div class="activity-item-row">
+            <!-- ACTIVITY ITEM TITLE -->
+            <a href="topic.html" class="activity-item-title secondary-color">{{ post.created_by.username }}</a>
+            <!-- /ACTIVITY ITEM TITLE -->
+
+            <!-- ACTIVITY ITEM TIMESTAMP -->
+            <p class="activity-item-timestamp">{{ post.created_at|naturaltime }}</p>
+            <!-- /ACTIVITY ITEM TIMESTAMP -->
+          </div>
+          <!-- /ACTIVITY ITEM ROW -->
+
+          <!-- ACTIVITY ITEM TEXT -->
+          <p class="activity-item-text base-color">{{ post.message }}</p>
+          <!-- /ACTIVITY ITEM TEXT -->
+        </div>
+        <!-- /ACTIVITY ITEM -->
+        {% endfor %}
+      </div>
+    </div>
+    <!-- /GRID 2 1COL -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+
+{% endblock content_edit_comment_comment %}

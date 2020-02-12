@@ -164,12 +164,15 @@
                   <td class="topics-count fnt-w8-800 text-center" data-title="Topics"> {{ category.topics.count }} </td>
                   <td class="forum-posts-count fnt-w8-800 text-center" data-title="Posts">{{ category.get_posts_count }} </td>
                   <td class="forum-latest fnt-w8-500 clr_black" data-title="Latest">
-                    {% with post=category.get_last_post %}
-                      {% if post %}
-                        <p>{{ post.message|truncatechars:30 }} <span style="font-size: 10px; color: #777;"> {{ post.created_at|naturaltime|truncatechars:8 }}</span></p>
-                      {% else %}
-                        <p>No Posts yet</p>
-                      {% endif %}
+                    
+                    {% with topic=category.get_topic_list %}
+                      {% for subtopic in topic|slice:":3" %}
+                        {% if subtopic %}
+                          <p style="font-weight: 600; line-height: 1.0em;"><a href="{% url 'topic_posts' category.pk subtopic.pk %}">{{ subtopic.subject|truncatechars:25 }}</a> <span style="font-size: 10px; color: #777;"> {{ subtopic.last_updated|naturaltime|truncatechars:8 }}</span></p>
+                        {% else %}
+                          <p>No Topics yet</p>
+                        {% endif %}
+                      {% endfor %}
                     {% endwith %}
                   </td>
                 </tr>

@@ -42,10 +42,13 @@
   </div>
   <!-- /SEARCH POPUP -->
 
+
 <!-- NAVBAR IMPORT -->
 {% include 'navbar/navbar.html' %}
 
 {% block content_home %} {% endblock content_home %}
+
+<!-- NEWS APP LINKS --> 
 
 {% block content_news %} {% endblock content_news %}
 
@@ -55,19 +58,62 @@
 
 {% block content_news_reply_article %} {% endblock content_news_reply_article %}
 
+<!-- END NEWS APP LINKS --> 
+
+
+
+<!-- ARTICLE APP LINKS --> 
+
 {% block content_article %} {% endblock content_article %}
 
+{% block content_new_article %} {% endblock content_new_article %}
+
+{% block content_edit_article %} {% endblock content_edit_article %}
+
 {% block content_article_posts %} {% endblock content_article_posts %}
+
+{% block content_reply_article %} {% endblock content_reply_article %}
+
+{% block content_edit_article_post %} {% endblock content_edit_article_post %}
+
+{% block content_reply_article_post %} {% endblock content_reply_article_post %}
+
+{% block content_edit_article_comment %} {% endblock content_edit_article_comment %}
+
+{% block content_reply_article_comment %} {% endblock content_reply_article_comment %}
+
+{% block content_edit_article_comment_2 %} {% endblock content_edit_article_comment_2 %}
+
+
+<!-- END ARTICLE APP LINKS --> 
+
+
+
+<!-- ANALYSIS APP LINKS --> 
 
 {% block content_analysis %} {% endblock content_analysis %}
 
 {% block content_analysis_posts %} {% endblock content_analysis_posts %}
+
+{% block content_analysis_reply %} {% endblock content_analysis_reply %}
+
+<!-- END ANALYSIS APP LINKS --> 
+
+
+
+<!-- TRADING TOOLS LINKS -->
 
 {% block content_economic_calendar %} {% endblock content_economic_calendar %}
 
 {% block content_market_screener %} {% endblock content_market_screener %}
 
 {% block content_real_time_widget %} {% endblock content_real_time_widget %}
+
+<!-- END TRADING TOOLS LINKS -->
+
+
+
+<!-- ACCOUNT LINKS -->
 
 {% block content_signup %} {% endblock content_signup %}
 
@@ -97,17 +143,37 @@
 
 {% block content_pass_change_complete %} {% endblock content_pass_change_complete %}
 
+<!-- END ACCOUNT LINKS -->
+
+
+
+<!-- FORUM LINKS -->
+
 {% block content_forum %} {% endblock content_forum %}
 
 {% block content_forum_topics %} {% endblock content_forum_topics %}
 
 {% block content_new_topic %} {% endblock content_new_topic %}
 
+{% block content_edit_topic %} {% endblock content_edit_topic %}
+
 {% block content_topic_posts %} {% endblock content_topic_posts %}
 
 {% block content_reply_post %} {% endblock content_reply_post %}
 
 {% block content_edit_post %} {% endblock content_edit_post %}
+
+{% block content_reply_comment %} {% endblock content_reply_comment %}
+
+{% block content_edit_comment %} {% endblock content_edit_comment %}
+
+{% block content_reply_comment_comment %} {% endblock content_reply_comment_comment %}
+
+{% block content_edit_comment_comment %} {% endblock content_edit_comment_comment %}
+
+<!-- END FORUM LINKS -->
+
+
 
 {% block javascript %}{% endblock %}
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Topic, Post
+from .models import Topic, Post, Comment, Comment2
 
 class NewTopicForm(forms.ModelForm):
 	subject = forms.CharField(
@@ -31,4 +31,14 @@ class NewTopicForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
+        fields = ['message']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['message']
+
+class Comment2Form(forms.ModelForm):
+    class Meta:
+        model = Comment2
         fields = ['message']
