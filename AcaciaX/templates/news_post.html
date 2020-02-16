@@ -1,0 +1,374 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load gravatar %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | News Posts{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE({forceSync: true});
+  </script>
+{% endblock %}
+
+{% block content_news_posts %}
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap game-review">
+  <!-- BANNER -->
+  <div class="banner grid-limit cstm-width-50">
+
+  <!-- TAG ORNAMENT -->
+    <a href="news-v2.html" class="tag-ornament cstm-bg-yellow">{{ news_article.category }}</a>
+  <!-- /TAG ORNAMENT -->
+
+  <h2 class="banner-title pad-tp_btm text-left">{{ news_article.title }}</h2>
+  <!-- POST AUTHOR INFO -->
+      <div class="post-author-info-wrap">
+        <!-- USER AVATAR -->
+        <a href="#0">
+          <figure class="user-avatar tiny liquid">
+            <img src="{{ news_article.starter|gravatar }}" alt="{{ news_article.starter }}">
+          </figure>
+        </a>
+        
+        <!-- /USER AVATAR -->
+        <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case clr-whte">{{ news_article.starter }}</a><span class="separator">|</span>{{ news_article.last_updated|naturaltime }}<span class="separator">|</span><a href="#op-comments" class="post-comment-count clr-whte">{{ news_article.news_posts.count }} Comment(s)</a></p>
+        
+      </div>
+      <br>
+      <!-- /POST AUTHOR INFO -->
+      <div class="layout-item-2-1">
+        <div class="layout-item cstm-no-grid">
+          <img class="icon-cstm-width" src="{% static 'img/acaciax/facebook_icon.png' %}">
+          <img class="icon-cstm-width" src="{% static 'img/acaciax/instagram_icon.png' %}">
+          <img class="icon-cstm-width" src="{% static 'img/acaciax/twitter_icon.png' %}">
+        </div>
+
+        <div class="layout-item">
+          
+        </div>
+      </div>
+  </div>
+  <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+
+  <!-- LAYOUT CONTENT 1 -->
+  <div class="layout-content-full grid-limit cstm-width-700">
+  <!-- FAQ ITEMS -->
+  <div class="faq-items">
+  <!-- FAQ ITEM -->
+  <div class="faq-item no-border">
+    <div class="cstm-post-title">
+      <div class="post_section">
+      <div class="posts_header_text">
+        <h1>{{ news_article.title }}</h1>
+      </div>
+      <div class="posts_text cstm-width-80">
+        <p>{{ news_article.description }}</p>
+      </div>
+    </div>
+    </div>
+    <!-- FAQ ITEM CONTENT -->
+    <div class="faq-item-content">
+      <!-- FAQ ITEM IMG -->
+      <img class="faq-item-img cstm-post-img-width" src="{{ news_article.image.url }}" alt="{{ news_article.title }}">
+      <!-- /FAQ ITEM IMG -->
+
+      
+    </div>
+    <!-- /FAQ ITEM CONTENT -->
+  </div>
+  <!-- /FAQ ITEM -->
+
+  <!-- FAQ ITEM -->
+  <div class="faq-item">
+
+    <!-- FAQ ITEM CONTENT -->
+    <!-- <div class="faq-item-content accordion-open">
+
+      <button class="plain-btn-3">STOCKS</button>
+      <button class="plain-btn-3">MARKETS</button>
+      <button class="plain-btn-3">COMMODITIES</button>
+
+    </div> -->
+    <!-- /FAQ ITEM CONTENT -->
+  </div>
+  <!-- /FAQ ITEM -->
+
+  <!-- POST ITEM SHARE-->
+  <div class="faq-item no-border">
+
+      <div class="cstm-post-title">
+        <div class="post_section">
+          
+            <h3 class="pad-tp_btm_post">Share with your friends</h3>
+          
+          <div class="posts_social-icons cstm-width-80">
+            <div class="layout-item-2-1">
+              <div class="layout-item cstm-no-grid">
+                <img class="icon-cstm-width" src="{% static 'img/acaciax/facebook_icon.png' %}">
+                <img class="icon-cstm-width" src="{% static 'img/acaciax/instagram_icon.png' %}">
+                <img class="icon-cstm-width" src="{% static 'img/acaciax/twitter_icon.png' %}">
+              </div>
+              
+            </div>
+          </div>
+
+          <br><br><br><br>
+
+          <!-- POST COMMENT THREAD -->
+                <div id="op-comments" class="post-comment-thread">
+                  <!-- SECTION TITLE WRAP -->
+                  <div class="section-title-wrap blue">
+                    <h2 class="section-title medium">Comments ({{ news_article.news_posts.count }})</h2>
+                    <div class="section-title-separator"></div>
+                  </div>
+                  <!-- /SECTION TITLE WRAP -->
+{% if news_article.news_posts.count < 1 %}
+<br><br>
+    <h3 style="color: red" class="text-center">NO COMMENTS YET.</h3>
+{% else %}
+
+{% for news_post in news_article.news_posts.all reversed %}
+                  <!-- POST COMMENT -->
+                  <div class="post-comment">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ news_post.created_by|gravatar }}" alt="{{ news_post.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ news_post.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ news_post.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ news_post.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if news_post.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href=""
+                         class="button small blue"
+                         role="button">Edit Post?</a>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+                      <!-- REPLY BUTTON -->
+                      <div class="reply-button bubble-ornament blue">
+                        <i class="icon-action-undo reply-icon"></i>
+                      </div>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p class="likes-count">0 Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable cyan">
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                  </div>
+                  <!-- /POST COMMENT -->
+
+{% endfor %}
+{% endif %}
+
+                </div>
+                <!-- /POST COMMENT THREAD -->
+
+            <br><br><br><br>
+
+            <!-- POST COMMENT FORM WRAP -->
+            <div class="post-comment-form-wrap">
+              <!-- SECTION TITLE WRAP -->
+              <div class="section-title-wrap blue">
+                <h2 class="section-title medium">{% if news_article.news_posts.count < 1 %} <span style="color: green;">Be the first to comment</span> {% else %} Write a comment {% endif %}</h2>
+                <div class="section-title-separator"></div>
+              </div>
+              <!-- /SECTION TITLE WRAP -->
+
+                {% if user.is_authenticated %}
+                <!-- FORM ROW -->
+                <div class="form-row">
+                  <!-- FORM WRAP -->
+                    <form method="post">
+                    {% csrf_token %}
+                    
+                    {% include 'includes/form.html' %}
+
+                    <button type="submit" class="button blue full">Post your comment</button>
+                  </form>
+                        <!-- /FORM WRAP -->
+                </div>
+                <!-- /FORM ROW -->
+                {% else %}
+                <br>
+                  <h4>Please Sign in or Register to share a comment</h4>
+                  <br><br>
+                  <!-- BUTTON -->
+                    <button style="font-size: 15px;" class="button blue cstm_fit_content">
+                      SIGN IN
+                      <!-- BUTTON ORNAMENT -->
+                      <span class="button-ornament">
+                        <!-- ARROW ICON -->
+                        <svg class="arrow-icon medium">
+                          <use xlink:href="#svg-arrow-medium"></use>
+                        </svg>
+                        <!-- /ARROW ICON -->
+
+                        <!-- CROSS ICON -->
+                        <svg class="cross-icon small">
+                          <use xlink:href="#svg-cross-small"></use>
+                        </svg>
+                        <!-- /CROSS ICON -->
+                      </span>
+                      <!-- /BUTTON ORNAMENT -->
+                    </button>
+                    <!-- /BUTTON -->
+
+                    <!-- BUTTON -->
+                    <button style="font-size: 15px;" class="button accent-color-bg cstm_fit_content">
+                      CREATE ACCOUNT
+                      <!-- BUTTON ORNAMENT -->
+                      <span class="button-ornament">
+                        <!-- ARROW ICON -->
+                        <svg class="arrow-icon medium">
+                          <use xlink:href="#svg-arrow-medium"></use>
+                        </svg>
+                        <!-- /ARROW ICON -->
+
+                        <!-- CROSS ICON -->
+                        <svg class="cross-icon small">
+                          <use xlink:href="#svg-cross-small"></use>
+                        </svg>
+                        <!-- /CROSS ICON -->
+                      </span>
+                      <!-- /BUTTON ORNAMENT -->
+                    </button>
+                    <!-- /BUTTON -->
+
+                {% endif %}
+            </div>
+            <!-- /POST COMMENT FORM WRAP -->
+
+            <br><br><br>
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- /FAQ ITEMS -->
+  </div>
+  <!-- /LAYOUT CONTENT FULL -->
+
+  <div class="layout-content-full grid-limit grid3-1col centered">
+  <div class="layout-item-2-1 mgn_top_10pc display-flex">
+      <div class="layout-item">
+          <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap light-gray">
+          <h2 class="">ANALYSIS AND OPINION</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+      </div>
+
+      <div class="layout-item">
+        <!-- BUTTON -->
+        <a href="{% url 'analysis' %}">
+          <button class="button light-gray cstm_fit_content mgn_left-40">
+            MORE ANALYSIS
+            <!-- BUTTON ORNAMENT -->
+            <span class="button-ornament">
+              <!-- ARROW ICON -->
+              <svg class="arrow-icon medium">
+                <use xlink:href="#svg-arrow-medium"></use>
+              </svg>
+              <!-- /ARROW ICON -->
+
+              <!-- CROSS ICON -->
+              <svg class="cross-icon small">
+                <use xlink:href="#svg-cross-small"></use>
+              </svg>
+              <!-- /CROSS ICON -->
+            </span>
+            <!-- /BUTTON ORNAMENT -->
+          </button>
+        </a>
+          <!-- /BUTTON -->
+      </div>
+    </div>
+
+  <!-- LAYOUT ITEM 1-1-1 -->
+        <div class="layout-item-1-1-1">
+          <!-- LAYOUT ITEM -->
+          {% for analysis in analysis_objects|slice:":3" %}
+          <div style="margin-bottom: 25px;" class="layout-item">
+            <!-- POST PREVIEW -->
+            <div class="post-preview gaming-news img-toggle">
+              <!-- POST PREVIEW IMG WRAP -->
+              <a href="{% url 'analysis_posts' analysis.pk %}">
+                <div class="post-preview-img-wrap">
+                  <!-- POST PREVIEW IMG -->
+                  <figure class="post-preview-img liquid">
+                    <img src="{{ analysis.image.url }}" alt="{{ analysis.title }}">
+                  </figure>
+                  <!-- /POST PREVIEW IMG -->
+                </div>
+              </a>
+              <!-- /POST PREVIEW IMG WRAP -->
+
+              <!-- TAG ORNAMENT -->
+              <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
+              <!-- /TAG ORNAMENT -->
+
+              <!-- POST PREVIEW TITLE -->
+              <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
+              <!-- POST AUTHOR INFO -->
+              <div class="post-author-info-wrap">
+                <p class="post-author-info small light">By <a href="search-results.html" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}</p>
+              </div>
+              <!-- /POST AUTHOR INFO -->
+              <!-- POST PREVIEW TEXT -->
+              <p class="post-preview-text base-color">{{ analysis.description|truncatechars:200 }}.</p>
+            </div>
+            <!-- /POST PREVIEW -->
+          </div>
+          <!-- /LAYOUT ITEM -->
+          {% endfor %}
+        </div>
+        <!-- /LAYOUT ITEM 1-1-1 -->
+        <br><br><br>
+  </div>
+
+  {% endblock content_news_posts %}

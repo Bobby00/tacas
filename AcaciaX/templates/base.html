@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block stylesheet %}{% endblock %}
+
+<!-- STYLES IMPORT -->
+{% include 'css/css.html' %}
+
+<!-- FAVICONS IMPORT -->
+{% include 'favicons/favicons.html' %}
+  
+  <title>{% block title %}Acaciax | Home{% endblock %}</title>
+
+</head>
+
+{{ formset.media }}
+
+<body>
+
+ <!-- Preloader -->
+    <div id="preloader">
+        <div class="medica-load"></div>
+        <img src="{% static 'img/acaciax/logo/acaciax-logo-short.png' %}" alt="logo">
+    </div>
+
+  <!-- SEARCH POPUP -->
+  <div class="search-popup">
+    <!-- CROSS ICON -->
+    <svg class="cross-icon big close-button search-popup-close">
+      <use xlink:href="#svg-cross-big"></use>
+    </svg>
+    <!-- /CROSS ICON -->
+
+    <form method="GET" class="search-popup-form">
+      <input type="text" id="search" class="input-line" name="search" placeholder="What are you looking for...?">
+    </form>
+    <p class="search-popup-text">Write what you are looking for and press enter to begin your search!</p>
+  </div>
+  <!-- /SEARCH POPUP -->
+
+
+<!-- NAVBAR IMPORT -->
+{% include 'navbar/navbar.html' %}
+
+{% block content_home %} {% endblock content_home %}
+
+<!-- NEWS APP LINKS --> 
+
+{% block content_news %} {% endblock content_news %}
+
+{% block content_news_posts %} {% endblock content_news_posts %}
+
+{% block content_news_category %} {% endblock content_news_category %}
+
+{% block content_news_reply_article %} {% endblock content_news_reply_article %}
+
+<!-- END NEWS APP LINKS --> 
+
+
+
+<!-- ARTICLE APP LINKS --> 
+
+{% block content_article %} {% endblock content_article %}
+
+{% block content_new_article %} {% endblock content_new_article %}
+
+{% block content_edit_article %} {% endblock content_edit_article %}
+
+{% block content_article_posts %} {% endblock content_article_posts %}
+
+{% block content_reply_article %} {% endblock content_reply_article %}
+
+{% block content_edit_article_post %} {% endblock content_edit_article_post %}
+
+{% block content_reply_article_post %} {% endblock content_reply_article_post %}
+
+{% block content_edit_article_comment %} {% endblock content_edit_article_comment %}
+
+{% block content_reply_article_comment %} {% endblock content_reply_article_comment %}
+
+{% block content_edit_article_comment_2 %} {% endblock content_edit_article_comment_2 %}
+
+
+<!-- END ARTICLE APP LINKS --> 
+
+
+
+<!-- ANALYSIS APP LINKS --> 
+
+{% block content_analysis %} {% endblock content_analysis %}
+
+{% block content_analysis_posts %} {% endblock content_analysis_posts %}
+
+{% block content_analysis_reply %} {% endblock content_analysis_reply %}
+
+<!-- END ANALYSIS APP LINKS --> 
+
+
+
+<!-- TRADING TOOLS LINKS -->
+
+{% block content_economic_calendar %} {% endblock content_economic_calendar %}
+
+{% block content_market_screener %} {% endblock content_market_screener %}
+
+{% block content_real_time_widget %} {% endblock content_real_time_widget %}
+
+<!-- END TRADING TOOLS LINKS -->
+
+
+
+<!-- ACCOUNT LINKS -->
+
+{% block content_signup %} {% endblock content_signup %}
+
+{% block content_login %} {% endblock content_login %}
+
+{% block content_my_account %} {% endblock content_my_account %}
+
+{% block content_profile_summary %} {% endblock content_profile_summary %}
+
+{% block content_profile_notifications %} {% endblock content_profile_notifications %}
+
+{% block content_profile_activity %} {% endblock content_profile_activity %}
+
+{% block content_profile_messages %} {% endblock content_profile_messages %}
+
+{% block content_profile_badges %} {% endblock content_profile_badges %}
+
+{% block content_pass_reset %} {% endblock content_pass_reset %}
+
+{% block content_pass_reset_confirm %} {% endblock content_pass_reset_confirm %}
+
+{% block content_pass_reset_done %} {% endblock content_pass_reset_done %}
+
+{% block content_pass_reset_complete %} {% endblock content_pass_reset_complete %}
+
+{% block content_change_pass %} {% endblock content_change_pass %}
+
+{% block content_pass_change_complete %} {% endblock content_pass_change_complete %}
+
+<!-- END ACCOUNT LINKS -->
+
+
+
+<!-- FORUM LINKS -->
+
+{% block content_forum %} {% endblock content_forum %}
+
+{% block content_forum_topics %} {% endblock content_forum_topics %}
+
+{% block content_new_topic %} {% endblock content_new_topic %}
+
+{% block content_edit_topic %} {% endblock content_edit_topic %}
+
+{% block content_topic_posts %} {% endblock content_topic_posts %}
+
+{% block content_reply_post %} {% endblock content_reply_post %}
+
+{% block content_edit_post %} {% endblock content_edit_post %}
+
+{% block content_reply_comment %} {% endblock content_reply_comment %}
+
+{% block content_edit_comment %} {% endblock content_edit_comment %}
+
+{% block content_reply_comment_comment %} {% endblock content_reply_comment_comment %}
+
+{% block content_edit_comment_comment %} {% endblock content_edit_comment_comment %}
+
+<!-- END FORUM LINKS -->
+
+
+
+{% block javascript %}{% endblock %}
+
+
+
+<!-- FOOTER IMPORT -->
+{% include 'footer/footer.html' %} 
+
+<!-- JS SCRIPTS IMPORT -->
+{% include 'js/js.html' %}
+
+</body>
+</html>

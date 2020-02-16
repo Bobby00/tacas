@@ -1,0 +1,876 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load gravatar %}
+
+{% load humanize %}
+
+{% block content_home %}
+
+   <!-- BANNER SLIDER -->
+  <div id="banner-slider-2" class="banner-slider text_left v2">
+    <!-- SLIDER ITEMS -->
+    <div class="slider-items">
+      
+      <!-- SLIDER ITEM -->
+      {% for slider in slider_lists %}
+      <div style="{% if slider.image.url %} background: url('{{ MEDIA }}{{ slider.image.url }}');{% else %} {% endif %}background-repeat: no-repeat; background-size: cover; " class="slider-item">
+        <div class="slider-item-wrap">
+          <!-- POST PREVIEW -->
+          <div class="post-preview huge gaming-news cstm-bg-transparent">
+            <!-- TAG ORNAMENT -->
+            <a href="#0" class="tag-ornament">{{ slider.category }}
+            <!-- /TAG ORNAMENT -->
+      
+            <!-- POST PREVIEW TITLE -->
+            <a href="{% url 'article_posts' slider.pk %}" class="post-preview-title">{{ slider.title }}</a>
+            <!-- POST AUTHOR INFO -->
+            <div class="post-author-info-wrap">
+              <!-- USER AVATAR -->
+              <a href="#0">
+                <figure class="user-avatar tiny liquid">
+                  <img src="{{ slider.starter|gravatar }}" alt="{{ slider.starter }}">
+                </figure>
+              </a>
+              <!-- /USER AVATAR -->
+              <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ slider.starter }}</a><span class="separator">|</span>{{ slider.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'article_posts' slider.pk %}#op-comments" class="post-comment-count">{{ slider.article_posts.count }} Comment(s)</a></p>
+            </div>
+            <!-- /POST AUTHOR INFO -->
+            <div class="break"></div>
+            <!-- BUTTON -->
+            <a href="{% url 'article_posts' slider.pk %}" class="button blue">
+              Go to the article
+              <!-- BUTTON ORNAMENT -->
+              <div class="button-ornament">
+                <!-- ARROW ICON -->
+                <svg class="arrow-icon medium">
+                  <use xlink:href="#svg-arrow-medium"></use>
+                </svg>
+                <!-- /ARROW ICON -->
+
+                <!-- CROSS ICON -->
+                <svg class="cross-icon small">
+                  <use xlink:href="#svg-cross-small"></use>
+                </svg>
+                <!-- /CROSS ICON -->
+              </div>
+              <!-- /BUTTON ORNAMENT -->
+            </a>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /POST PREVIEW -->
+        </div>
+      </div>
+      <!-- /SLIDER ITEM -->
+
+      {% endfor %}
+
+    </div>
+    <!-- /SLIDER ITEMS -->
+
+    <!-- BANNER SLIDER PREVIEW WRAP -->
+    <div class="banner-slider-preview-wrap">
+      <!-- BANNER SLIDER CONTROLS -->
+      <div id="sliderb2-controls" class="banner-slider-controls">
+        <div class="control-previous">
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon medium">
+            <use xlink:href="#svg-arrow-medium"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+        <div class="control-next">
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon medium">
+            <use xlink:href="#svg-arrow-medium"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+      </div>
+      <!-- /BANNER SLIDER CONTROLS -->
+
+      <!-- BANNER SLIDER PREVIEW -->
+      <div id="banner-slider-2-thumbs" class="banner-slider-preview">
+        <!-- BANNER SLIDER PREVIEW ROSTER -->
+        <div class="banner-slider-preview-roster">
+          <!-- POST PREVIEW -->
+          {% for slider in slider_lists %}
+          <div class="post-preview tiny negative no-img gaming-news">
+            <!-- POST PREVIEW TITLE -->
+            <p class="post-preview-title">{{ slider.title }}</p>
+            <!-- POST AUTHOR INFO -->
+            <div class="post-author-info-wrap">
+              <p class="post-author-info small light">By <span class="post-author cstm-camel-case">{{ slider.starter }}</span><span class="separator">|</span>{{ slider.last_updated|naturaltime }}</p>
+            </div>
+            <!-- /POST AUTHOR INFO -->
+          </div>
+          {% endfor %}
+          <!-- /POST PREVIEW -->
+        </div>
+        <!-- /BANNER SLIDER PREVIEW ROSTER -->
+      </div>
+      <!-- /BANNER SLIDER ROSTER -->
+    </div>
+    <!-- /BANNER SLIDER PREVIEW WRAP -->
+  </div>
+  <!-- /BANNER SLIDER -->
+
+
+      <!-- LAYOUT CONTENT 1 -->
+      <div class="layout-content-1 layout-item-3-1 grid-limit">
+        <!-- LAYOUT BODY -->
+        <div class="layout-body">
+          <!-- LAYOUT ITEM -->
+          <div class="layout-item gutter-big">
+            
+                  <!-- LAYOUT ITEM -->
+                  <div class="layout-item">
+
+
+                    <div class="layout-item-2-1 display-flex">
+                      <div class="layout-item layout-item-xs">
+                        <!-- SECTION TITLE WRAP -->
+                      <div class="section-title-wrap primary-color">
+                        <h2 class="primary-color">IN THE NEWS</h2>
+                        <div class="section-title-separator"></div>
+                      </div>
+                      <!-- /SECTION TITLE WRAP -->
+                      </div>
+
+                      <div class="layout-item layout-item-xs">
+
+                        <!-- BUTTON -->
+                        <a href="{% url 'news' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-41">
+                            MORE NEWS
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+                    </div>
+
+
+                    <!-- POSTSLIDE WRAP -->
+                    <div class="postslide-wrap">
+                      <!-- POSTSLIDE -->
+                      <div id="postslide-1" class="postslide">
+                        <!-- NEWS PREVIEW -->
+                        <div class="news-preview slider-items">
+
+                          {% for news_list in news_lists %}
+                          <!-- POST PREVIEW -->
+                          <div class="post-preview picture big geeky-news">
+                            <!-- POST PREVIEW IMG WRAP -->
+                            <a href="{% url 'news_posts' news_list.pk %}">
+                              <div class="post-preview-img-wrap">
+                                <!-- POST PREVIEW IMG -->
+                                <figure class="post-preview-img liquid">
+                                  <img src="{{ news_list.image.url }}" alt="{{ news_list.title }}">
+                                </figure>
+                                <!-- /POST PREVIEW IMG -->
+
+                                <!-- POST PREVIEW OVERLAY -->
+                                <div class="post-preview-overlay">
+                                  <!-- TAG ORNAMENT -->
+                                  <span class="tag-ornament">{{ news_list.category }}</span>
+                                  <!-- /TAG ORNAMENT -->
+
+                                  <!-- POST PREVIEW TITLE -->
+                                  <p class="post-preview-title">{{ news_list.title }}</p>
+                                  <!-- POST PREVIEW TEXT -->
+                                  <p class="post-preview-text">{{ news_list.description }}</p>
+                                </div>
+                                <!-- /POST PREVIEW OVERLAY -->
+
+                                <!-- LOADING LINE -->
+                                <div class="loading-line"></div>
+                                <!-- /LOADING LINE -->
+                              </div>
+                            </a>
+                            <!-- /POST PREVIEW IMG WRAP -->
+                          </div>
+                          <!-- /POST PREVIEW -->
+                          {% endfor %}
+                        </div>
+                        <!-- /NEWS PREVIEW -->
+
+                        <!-- NEWS ROSTER -->
+                        <div class="news-roster slider-roster">
+                          {% for news_list in news_lists %}
+                          <!-- POST PREVIEW -->
+                          <div class="post-preview picture short geeky-news">
+                            <!-- POST PREVIEW IMG WRAP -->
+                            <div class="post-preview-img-wrap">
+                              <!-- POST PREVIEW IMG -->
+                              <figure class="post-preview-img liquid">
+                                <img src="{{ news_list.image.url }}" alt="{{ news_list.title }}">
+                              </figure>
+                              <!-- /POST PREVIEW IMG -->
+
+                              <!-- POST PREVIEW OVERLAY -->
+                              <div class="post-preview-overlay">
+                                <!-- POST PREVIEW TITLE -->
+                                <p class="post-preview-title">{{ news_list.title }}</p>
+                              </div>
+                              <!-- /POST PREVIEW OVERLAY -->
+
+                              <!-- TAG ORNAMENT -->
+                              <span class="tag-ornament">{{ news_list.category }}</span>
+                              <!-- /TAG ORNAMENT -->
+                            </div>
+                            <!-- /POST PREVIEW IMG WRAP -->
+
+                            <!-- LOADING LINE -->
+                            <div class="loading-line"></div>
+                            <!-- /LOADING LINE -->
+
+                            <!-- OVERLAY -->
+                            <div class="overlay"></div>
+                            <!-- /OVERLAY -->
+                          </div>
+                          <!-- /POST PREVIEW -->
+                          {% endfor %}
+
+                        </div>
+                        <!-- /NEWS ROSTER -->
+                      </div>
+                      <!-- POSTSLIDE -->
+
+                      <!-- SLIDER CONTROLS -->
+                      <div id="postslide-1-controls" class="slider-controls blue">
+                        <!-- CONTROL PREVIOUS -->
+                        <div class="slider-control big control-previous">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+                        </div>
+                        <!-- /CONTROL PREVIOUS -->
+
+                        <!-- CONTROL NEXT -->
+                        <div class="slider-control big control-next">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+                        </div>
+                        <!-- /CONTROL NEXT -->
+                      </div>
+                      <!-- /SLIDER CONTROLS -->
+                    </div>
+                    <!-- /POSTSLIDE WRAP -->
+                  </div>
+                  <!-- /LAYOUT ITEM -->
+
+
+
+                  <div class="layout-item-2-1 display-flex mgn_top_10pc">
+                      <div class="layout-item">
+                          <!-- SECTION TITLE WRAP -->
+                        <div class="section-title-wrap primary-color">
+                          <h2 class="primary-color">ANALYSIS & OPINION</h2>
+                          <div class="section-title-separator"></div>
+                        </div>
+                        <!-- /SECTION TITLE WRAP -->
+                      </div>
+
+                      <div class="layout-item">
+                        <!-- BUTTON -->
+                        <a href="{% url 'analysis' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-40">
+                            MORE ANALYSIS
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+                    </div>
+
+                  
+                    <!-- LAYOUT ITEM 1-1-1 -->
+                    <div class="layout-item-1-1-1">
+                      <!-- LAYOUT ITEM -->
+                      {% for analysis in analysis_objects|slice:":3" %}
+                      <div class="layout-item">
+                        <!-- POST PREVIEW -->
+                        <div class="post-preview gaming-news img-toggle">
+                          <!-- POST PREVIEW IMG WRAP -->
+                          <a href="{% url 'analysis_posts' analysis.pk %}">
+                            <div class="post-preview-img-wrap">
+                              <!-- POST PREVIEW IMG -->
+                              <figure class="post-preview-img liquid">
+                                <img src="{{ analysis.image.url }}" alt="{{ analysis.title }}">
+                              </figure>
+                              <!-- /POST PREVIEW IMG -->
+                            </div>
+                          </a>
+                          <!-- /POST PREVIEW IMG WRAP -->
+
+                          <!-- TAG ORNAMENT -->
+                          <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
+                          <!-- /TAG ORNAMENT -->
+
+                          <!-- POST PREVIEW TITLE -->
+                          <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
+                          <!-- POST AUTHOR INFO -->
+                          <div class="post-author-info-wrap">
+                            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}</p>
+                          </div>
+                          <!-- /POST AUTHOR INFO -->
+                          <!-- POST PREVIEW TEXT -->
+                          <p class="post-preview-text base-color">{{ analysis.description|truncatechars:200 }}.</p>
+                        </div>
+                        <!-- /POST PREVIEW -->
+                      </div>
+                      <!-- /LAYOUT ITEM -->
+                      {% endfor %}
+                    </div>
+                    <!-- /LAYOUT ITEM 1-1-1 -->
+
+
+                  <div class="layout-item-2-1 display-flex mgn_top_10pc">
+                      <div class="layout-item">
+                          <!-- SECTION TITLE WRAP -->
+                        <div class="section-title-wrap primary-color">
+                          <h2 class="primary-color">ECONOMIC CALENDAR</h2>
+                          <div class="section-title-separator"></div>
+                        </div>
+                        <!-- /SECTION TITLE WRAP -->
+                      </div>
+
+                      <div class="layout-item">
+                        <!-- BUTTON -->
+                        <a href="{% url 'economic_calendar' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-40">
+                            MORE ANALYSIS
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+                    </div>
+
+                  <!-- LAYOUT ITEM 1-1-1 -->
+                  <div class="layout-item-1 padded">
+                      <!-- Responsive table starts here -->
+
+                      <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container">
+                          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                          {
+                          "colorTheme": "light",
+                          "isTransparent": false,
+                          "width": "100%",
+                          "height": "500",
+                          "locale": "en",
+                          "importanceFilter": "-1,0,1"
+                        }
+                          </script>
+                        </div>
+                      <!-- TradingView Widget END -->                 
+
+                      <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+                      
+                  </div>
+                  <!-- /LAYOUT ITEM 1-1-1 -->
+
+
+
+                  <!-- LAYOUT ITEM -->
+                  <div class="layout-item padded">
+                    <a href="#">
+                      <!-- PROMO BANNER -->
+                      <div class="promo-banner">
+                        
+                      </div>
+                      <!-- /PROMO BANNER -->
+                    </a>
+                  </div>
+                  <!-- /LAYOUT ITEM -->
+
+		
+		  <div class="layout-item-2-1 mgn_top_10pc display-flex">
+                      <div class="layout-item">
+                          <!-- SECTION TITLE WRAP -->
+                        <div class="section-title-wrap primary-color">
+                          <h2 class="primary-color">FOREX HEAT MAP</h2>
+                          <div class="section-title-separator"></div>
+                        </div>
+                        <!-- /SECTION TITLE WRAP -->
+                      </div>
+
+                      <div class="layout-item">
+                        
+                      </div>
+                    </div>
+
+
+                		  <!-- TradingView Widget BEGIN -->
+                		<div class="tradingview-widget-container">
+                		  <div class="tradingview-widget-container__widget"></div>
+                		  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-heat-map.js" async>
+                		  {
+                		  "width": "100%",
+                		  "height": "500",
+                		  "currencies": [
+                		    "EUR",
+                		    "USD",
+                		    "JPY",
+                		    "GBP",
+                		    "CHF",
+                		    "AUD",
+                		    "CAD",
+                		    "NZD",
+                		    "CNY",
+                		    "TRY",
+                		    "SEK",
+                		    "NOK"
+                		  ],
+                		  "locale": "en"
+                		}
+                		  </script>
+                		</div>
+                		<!-- TradingView Widget END -->
+
+                  <div class="layout-item-2-1 mgn_top_10pc display-flex">
+                      <div class="layout-item">
+                          <!-- SECTION TITLE WRAP -->
+                        <div class="section-title-wrap primary-color">
+                          <h2 class="primary-color">IN THE FORUMS</h2>
+                          <div class="section-title-separator"></div>
+                        </div>
+                        <!-- /SECTION TITLE WRAP -->
+                      </div>
+
+                      <div class="layout-item">
+                        <!-- BUTTON -->
+                        <a href="{% url 'forum' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-41">
+                            GO TO FORUM
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+                    </div>
+
+                  <!-- LAYOUT ITEM -->
+                  <div class="layout-item padded own-grid">
+
+                      {% for topic in topic_lists|slice:":4" %}
+
+                      <!-- TOPIC WRAP -->
+                <div class="topic-wrap">
+
+                  <!-- TOPIC HEADER -->
+                  <div class="topic-header">
+                    <!-- TOPIC TITLE -->
+                    <a href="{% url 'topic_posts' topic.category.pk topic.pk %}">
+                      <p class="topic-title">{{ topic.subject }}</p>
+                    </a>
+                    <!-- /TOPIC TITLE -->
+
+                    <!-- TAG ORNAMENT -->
+                    <a href="{% url 'category_topics' topic.category.pk %}" class="tag-ornament">{{ topic.category }}</a>
+                  <!-- /TAG ORNAMENT -->
+
+                    
+                  </div>
+                  <!-- /TOPIC HEADER -->
+
+                  <!-- TOPIC BODY -->
+                  <div class="topic-body">
+                    <!-- TOPIC COMMENT -->
+                    <div class="topic-comment">
+                      <!-- TOPIC COMMENT USER -->
+                      <div class="topic-comment-user">
+                        <!-- USER AVATAR -->
+                        <a href="#0">
+                          <img class="user-avatar medium" src="{{ topic.starter|gravatar }}" alt="{{ topic.starter.username }}">
+                        </a>
+                        <!-- /USER AVATAR -->
+
+                      </div>
+                      <!-- /TOPIC COMMENT USER -->
+
+
+                      <!-- TOPIC COMMENT CONTENT WRAP -->
+                      <div class="topic-comment-content-wrap">
+                        <!-- TOPIC COMMENT CONTENT -->
+                        <div class="topic-comment-content">
+                          <!-- TOPIC COMMENT CONTENT HEADER -->
+                          <div class="topic-comment-content-header">
+                            <!-- TOPIC COMMENT USERNAME -->
+                            <a href="#0" class="topic-comment-username">{{ topic.starter }}</a>
+                            <!-- /TOPIC COMMENT USERNAME -->
+
+                            <!-- TOPIC COMMENT INFO -->
+                            <div class="topic-comment-info">
+                              <!-- TOPIC COMMENT TIMESTAMP -->
+                              <p class="topic-comment-timestamp">{{ topic.last_updated|naturaltime }}</p>
+                              <!-- /TOPIC COMMENT TIMESTAMP -->
+                            </div>
+                            <!-- /TOPIC COMMENT INFO -->
+                          </div>
+                          <!-- /TOPIC COMMENT CONTENT HEADER -->
+
+                          <!-- TOPIC COMMENT TEXT -->
+                          <p class="topic-comment-text">
+                            {{ topic.posts.first.get_message_as_markdown }}
+                          </p>
+                          <!-- /TOPIC COMMENT TEXT -->
+
+                        </div>
+                        <!-- /TOPIC COMMENT CONTENT -->
+
+                        <!-- TOPIC COMMENT ACTIONS -->
+                        <div class="topic-comment-actions">
+                          <!-- TOPIC ACTIONS -->
+                          <div class="topic-actions">
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament cyan">
+                                <i class="icon-like like-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">0</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable red">
+                                <i class="icon-dislike dislike-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">0</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                          </div>
+                          <!-- /TOPIC ACTIONS -->
+
+                          <!-- TOPIC ACTIONS -->
+                          <div class="topic-actions">
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action inverted">
+                              <!-- TOPIC ACTION ICON -->
+                              <a href="{% url 'topic_posts' topic.category.pk topic.pk %}">
+                                <div class="topic-action-icon bubble-ornament hoverable blue popup-quick-reply-trigger">
+                                  <i class="icon-action-undo reply-icon"></i>
+                                </div>
+                              </a>
+                              <!-- /TOPIC ACTION ICON -->
+                    
+                              <!-- TOPIC ACTION TEXT -->
+                              <p class="topic-action-text">{{ topic.posts.count }} Replies</p>
+                              <!-- /TOPIC ACTION TEXT -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                            
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable black">
+                                <i class="icon-link share-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+
+                            <!-- TOPIC ACTION -->
+                            <div class="topic-action">
+                              <!-- TOPIC ACTION ICON -->
+                              <div class="topic-action-icon bubble-ornament hoverable red">
+                                <i class="icon-fire report-icon"></i>
+                              </div>
+                              <!-- /TOPIC ACTION ICON -->
+                            </div>
+                            <!-- /TOPIC ACTION -->
+                          </div>
+                          <!-- /TOPIC ACTIONS -->
+                        </div>
+                        <!-- /TOPIC COMMENT ACTIONS -->
+                      </div>
+                      <!-- /TOPIC COMMENT CONTENT WRAP -->
+
+
+                    </div>
+                    <!-- /TOPIC COMMENT -->
+                  </div>
+                </div>
+                <br>
+                {%  endfor %}
+                     
+                  <br>
+                  <br>
+                
+                  </div>
+                  <!-- /LAYOUT ITEM -->
+
+
+          </div>
+          <!-- /LAYOUT ITEM -->
+
+        </div>
+        <!-- /LAYOUT BODY -->
+
+        <!-- LAYOUT SIDEBAR -->
+        <div class="layout-sidebar layout-item gutter-medium">
+          <!-- WIDGET SIDEBAR -->
+          <div class="widget-sidebar">
+
+	    <p class="sidebar-headers">Market Overview</p>
+
+            <!-- TradingView Widget BEGIN -->
+              <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <div class="tradingview-widget-copyright"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                {
+                "colorTheme": "light",
+                "dateRange": "12m",
+                "showChart": true,
+                "locale": "en",
+                "largeChartUrl": "",
+                "isTransparent": false,
+                "width": "300",
+                "height": "500",
+                "plotLineColorGrowing": "rgba(33, 150, 243, 1)",
+                "plotLineColorFalling": "rgba(33, 150, 243, 1)",
+                "gridLineColor": "rgba(233, 233, 234, 1)",
+                "scaleFontColor": "rgba(120, 123, 134, 1)",
+                "belowLineFillColorGrowing": "rgba(33, 150, 243, 0.12)",
+                "belowLineFillColorFalling": "rgba(33, 150, 243, 0.12)",
+                "symbolActiveColor": "rgba(33, 150, 243, 0.12)",
+                "tabs": [
+                  {
+                    "title": "Indices",
+                    "symbols": [
+                      {
+                        "s": "OANDA:SPX500USD",
+                        "d": "S&P 500"
+                      },
+                      {
+                        "s": "OANDA:NAS100USD",
+                        "d": "Nasdaq 100"
+                      },
+                      {
+                        "s": "FOREXCOM:DJI",
+                        "d": "Dow 30"
+                      },
+                      {
+                        "s": "INDEX:NKY",
+                        "d": "Nikkei 225"
+                      },
+                      {
+                        "s": "INDEX:DEU30",
+                        "d": "DAX Index"
+                      },
+                      {
+                        "s": "OANDA:UK100GBP",
+                        "d": "FTSE 100"
+                      }
+                    ],
+                    "originalTitle": "Indices"
+                  },
+                  {
+                    "title": "Commodities",
+                    "symbols": [
+                      {
+                        "s": "CME_MINI:ES1!",
+                        "d": "E-Mini S&P"
+                      },
+                      {
+                        "s": "CME:6E1!",
+                        "d": "Euro"
+                      },
+                      {
+                        "s": "COMEX:GC1!",
+                        "d": "Gold"
+                      },
+                      {
+                        "s": "NYMEX:CL1!",
+                        "d": "Crude Oil"
+                      },
+                      {
+                        "s": "NYMEX:NG1!",
+                        "d": "Natural Gas"
+                      },
+                      {
+                        "s": "CBOT:ZC1!",
+                        "d": "Corn"
+                      }
+                    ],
+                    "originalTitle": "Commodities"
+                  },
+                  {
+                    "title": "Bonds",
+                    "symbols": [
+                      {
+                        "s": "CME:GE1!",
+                        "d": "Eurodollar"
+                      },
+                      {
+                        "s": "CBOT:ZB1!",
+                        "d": "T-Bond"
+                      },
+                      {
+                        "s": "CBOT:UB1!",
+                        "d": "Ultra T-Bond"
+                      },
+                      {
+                        "s": "EUREX:FGBL1!",
+                        "d": "Euro Bund"
+                      },
+                      {
+                        "s": "EUREX:FBTP1!",
+                        "d": "Euro BTP"
+                      },
+                      {
+                        "s": "EUREX:FGBM1!",
+                        "d": "Euro BOBL"
+                      }
+                    ],
+                    "originalTitle": "Bonds"
+                  },
+                  {
+                    "title": "Forex",
+                    "symbols": [
+                      {
+                        "s": "FX:EURUSD"
+                      },
+                      {
+                        "s": "FX:GBPUSD"
+                      },
+                      {
+                        "s": "FX:USDJPY"
+                      },
+                      {
+                        "s": "FX:USDCHF"
+                      },
+                      {
+                        "s": "FX:AUDUSD"
+                      },
+                      {
+                        "s": "FX:USDCAD"
+                      }
+                    ],
+                    "originalTitle": "Forex"
+                  }
+                ]
+              }
+                </script>
+              </div>
+              <!-- TradingView Widget END -->
+
+              <!-- LAYOUT ITEM -->
+                  <div class="layout-item padded">
+                    <a href="#">
+                      <!-- PROMO BANNER -->
+                      <div class="promo-banner">
+                        
+                      </div>
+                      <!-- /PROMO BANNER -->
+                    </a>
+                  </div>
+                  <!-- /LAYOUT ITEM -->
+
+<br><br>
+
+              <!--START-TRADING BUTTON -->
+
+              	<p class="text-center"><a class="start-trading-btn">START TRADING</a></p>
+
+              <!-- /START-TRADING BUTTON -->
+
+<br><br><br>
+
+
+              <!-- LAYOUT ITEM -->
+                  <div class="layout-item padded">
+                    <a href="#">
+                      <!-- PROMO BANNER -->
+                      <div class="promo-banner">
+                        
+                      </div>
+                      <!-- /PROMO BANNER -->
+                    </a>
+                  </div>
+                  <!-- /LAYOUT ITEM -->
+            
+          <!-- /WIDGET SIDEBAR -->
+        </div>
+        <!-- /LAYOUT SIDEBAR -->
+      </div>
+      <!-- /LAYOUT CONTENT 1 -->
+    </div>
+
+{% endblock content_home %}
+

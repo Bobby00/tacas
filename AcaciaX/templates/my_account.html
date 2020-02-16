@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load gravatar %}
+
+{% block title %}Acaciax | My account{% endblock %}
+
+
+{% block content_my_account %}
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap forum-banner">
+    <!-- BANNER -->
+    <div class="banner grid-limit">
+      <h2 class="banner-title">My Account</h2>
+      <p class="banner-sections">
+        <a href="{% url 'home' %}" class="banner-section clr-whte">Home</a>
+        <!-- ARROW ICON -->
+        <svg class="arrow-icon">
+          <use xlink:href="#svg-arrow"></use>
+        </svg>
+        <!-- /ARROW ICON -->
+        <span class="banner-section cstm-camel-case"><strong>{{ user.username }}</strong></span>
+      </p>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+  <!-- LAYOUT CONTENT 4 -->
+  <div class="layout-content-4 layout-item-1-3 grid-limit">
+    <!-- LAYOUT SIDEBAR -->
+    <div class="layout-sidebar">
+      <!-- ACCOUNT INFO WRAP -->
+      <div class="account-info-wrap">
+        <!-- USER AVATAR -->
+        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user.username }}">
+        <!-- /USER AVATAR -->
+
+        <!-- ACCOUNT INFO USERNAME -->
+        <p class="account-info-username">{{ user.username }}</p>
+        <!-- /ACCOUNT INFO USERNAME -->
+
+        <!-- ACCOUNT INFO NAME -->
+        <p class="account-info-name">@{{ user.username }}</p>
+        <!-- /ACCOUNT INFO NAME -->
+
+        <!-- ACCOUNT INFO STATS -->
+        <div class="account-info-stats">
+          <!-- ACCOUNT INFO STAT -->
+          <div class="account-info-stat">
+            <!-- ACCOUNT INFO STAT VALUE -->
+            <p class="account-info-stat-value">{{ user.comments.count }}</p>
+            <!-- /ACCOUNT INFO STAT VALUE -->
+
+            <!-- ACCOUNT INFO STAT TITLE -->
+            <p class="account-info-stat-title">Comments</p>
+            <!-- /ACCOUNT INFO STAT TITLE -->
+          </div>
+          <!-- /ACCOUNT INFO STAT -->
+
+          <!-- ACCOUNT INFO STAT -->
+          <div class="account-info-stat">
+            <!-- ACCOUNT INFO STAT VALUE -->
+            <p class="account-info-stat-value">0</p>
+            <!-- /ACCOUNT INFO STAT VALUE -->
+
+            <!-- ACCOUNT INFO STAT TITLE -->
+            <p class="account-info-stat-title">Likes RCV</p>
+            <!-- /ACCOUNT INFO STAT TITLE -->
+          </div>
+          <!-- /ACCOUNT INFO STAT -->
+
+        </div>
+        <!-- /ACCOUNT INFO STATS -->
+
+        <!-- DROPDOWN LIST -->
+        <ul class="dropdown-list void">
+          <!-- DROPDOWN LIST ITEM -->
+          <li class="dropdown-list-item active">
+            <a href="account-settings.html" class="dropdown-list-item-link">Account Settings</a>
+          </li>
+          <!-- /DROPDOWN LIST ITEM -->
+        </ul>
+        <!-- /DROPDOWN LIST -->
+      </div>
+      <!-- /ACCOUNT INFO WRAP -->
+    </div>
+    <!-- /LAYOUT SIDEBAR -->
+
+    <!-- LAYOUT BODY -->
+    <div class="layout-body">
+      <!-- SECTION TITLE WRAP -->
+      <div class="section-title-wrap blue">
+        <h2 class="section-title medium">Account Settings</h2>
+        <div class="section-title-separator"></div>
+      </div>
+      <!-- /SECTION TITLE WRAP -->
+
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <br>
+        <button style="font-size: 15px;" type="submit" class="button small blue">Save changes</button>
+      </form>
+
+      <br><br>
+      <!-- ACCOUNT SETTINGS FORM -->
+      <form class="account-settings-form">
+
+        <!-- FORM ROW -->
+        <div class="form-row">
+          <!-- FORM ITEM -->
+          <label for="as_password" class="rl-label">Password</label>
+          <br>
+            <a style="font-size: 15px;" href="{% url 'password_change' %}" class="button small red">Change Password</a>
+        </div>
+        <!-- /FORM ROW -->
+
+        <!-- FORM ROW -->
+        <div class="form-row">
+          <!-- FORM ITEM -->
+          <div class="form-item">
+            <label class="rl-label">Profile Photo</label>
+            <!-- AVATAR CHANGE -->
+            <div class="avatar-change">
+              <!-- USER AVATAR -->
+              <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+              <!-- /USER AVATAR -->
+
+              <!-- AVATAR CHANGE ACTION -->
+              <div class="avatar-change-action bubble-ornament blue">
+                <!-- PLUS CC 2 ICON -->
+                <svg class="plus-cc-2-icon medium">
+                  <use xlink:href="#svg-plus-cc-2"></use>
+                </svg>
+                <!-- /PLUS CC 2 ICON -->
+              </div>
+              <!-- /AVATAR CHANGE ACTION -->
+            </div>
+            <!-- /AVATAR CHANGE -->
+
+            <!-- FORM ITEM MESSAGE -->
+            <p class="form-item-message">100x100px minimum resolution</p>
+            <!-- /FORM ITEM MESSAGE -->
+          </div>
+          <!-- /FORM ITEM -->
+        </div>
+        <!-- /FORM ROW -->
+
+        <!-- SUBMIT BUTTON WRAP -->
+        <div class="submit-button-wrap">
+          <!-- BUTTON -->
+          <button class="button blue">
+            Save all changes
+            <!-- BUTTON ORNAMENT -->
+            <span class="button-ornament">
+              <!-- ARROW ICON -->
+              <svg class="arrow-icon medium">
+                <use xlink:href="#svg-arrow-medium"></use>
+              </svg>
+              <!-- /ARROW ICON -->
+
+              <!-- CROSS ICON -->
+              <svg class="cross-icon small">
+                <use xlink:href="#svg-cross-small"></use>
+              </svg>
+              <!-- /CROSS ICON -->
+            </span>
+            <!-- /BUTTON ORNAMENT -->
+          </button>
+          <!-- /BUTTON -->
+        </div>
+        <!-- /SUBMIT BUTTON WRAP -->
+      </form>
+      <!-- /ACCOUNT SETTINGS FORM -->
+    </div>
+    <!-- /LAYOUT BODY -->
+  </div>
+  <!-- LAYOUT CONTENT 4 -->
+{% endblock content_my_account %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load gravatar %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | Analysis and Opinions{% endblock %}
+
+{% block content_analysis %}
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap game-review">
+    <!-- BANNER -->
+    <div class="banner grid-limit cstm-width-60">
+      <h2 class="banner-title text-left">ANALYSIS & OPINION</h2>
+      <p class="banner-sections text-left">
+        <a class="bread-crumb-home" href="{% url 'home' %}">
+          <span class="banner-section">HOME</span>
+        </a>
+        <!-- ARROW ICON -->
+        <svg class="arrow-icon">
+          <use xlink:href="#svg-arrow"></use>
+        </svg>
+        <!-- /ARROW ICON -->
+        <span class="banner-section">ANALYSIS & OPINION</span>
+      </p>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+
+  <!-- LAYOUT CONTENT 1 -->
+  <div class="layout-content-1 grid-limit">
+    <!-- LAYOUT BODY -->
+    <div class="layout-body layout-item centered grid3-1col">
+      <!-- LAYOUT ITEM -->
+      <div class="layout-item cstm-grid-60 centered">
+        <!-- POST PREVIEW -->
+          {% for analysis in analysis_list %}
+          <div style="margin-bottom: 30px;" class="post-preview landscape big game-review">
+          <!-- POST PREVIEW IMG WRAP -->
+          <a href="#0.html">
+            <div class="post-preview-img-wrap">
+              <!-- POST PREVIEW IMG -->
+              <figure class="post-preview-img liquid">
+                <img src="{{ analysis.image.url }}" alt="post-16">
+              </figure>
+              <!-- POST PREVIEW IMG -->
+            </div>
+          </a>
+          <!-- /POST PREVIEW IMG WRAP -->
+
+          <!-- TAG ORNAMENT -->
+          <a href="#0" class="tag-ornament">{{ analysis.category }}</a>
+          <!-- /TAG ORNAMENT -->
+
+          <!-- POST PREVIEW TITLE -->
+          <a href="{% url 'analysis_posts' analysis.pk %}" class="post-preview-title">{{ analysis.title }}</a>
+          <!-- POST AUTHOR INFO -->
+          <div class="post-author-info-wrap">
+            <!-- USER AVATAR -->
+            <a href="#0">
+              <figure class="user-avatar tiny liquid">
+                <img src="{{ analysis.starter|gravatar }}" alt="{{ analysis.starter }}">
+              </figure>
+            </a>
+            <!-- /USER AVATAR -->
+            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'analysis_posts' analysis.pk %}#op-comments" class="post-comment-count">{{ analysis.analysis_posts.count }} Comments</a></p>
+          </div>
+          <!-- /POST AUTHOR INFO -->
+          <!-- POST PREVIEW TEXT -->
+          <p class="post-preview-text">{{ analysis.get_message_as_markdown|truncatechars:220 }}</p>
+        </div>
+        {% endfor %}
+        <!-- /POST PREVIEW -->
+      </div>
+
+<br><br>
+<!-- PAGE NAVIGATION -->
+{% include 'includes/pagination.html' %}
+<!-- /PAGE NAVIGATION -->
+
+      <!-- /LAYOUT ITEM -->
+      
+    </div>
+    <!-- /LAYOUT BODY -->
+  </div>
+  <!-- /LAYOUT CONTENT 1 -->
+{% endblock content_analysis %}
