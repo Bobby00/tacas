@@ -29,6 +29,15 @@ class NewTopicForm(forms.ModelForm):
 	}
 
 class PostForm(forms.ModelForm):
+    message = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'rows': 6, 
+                'placeholder': 'What is on your mind?',
+                'class' : 'bder-cstm-clr'}
+        ),
+        max_length=4000,
+    )
     class Meta:
         model = Post
         fields = ['message']

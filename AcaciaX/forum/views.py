@@ -126,19 +126,37 @@ class PostListView(ListView):
             self.topic.save()
             self.request.session[session_key] = True
         kwargs['topic'] = self.topic
+
         context = super().get_context_data(**kwargs)
+        context['form'] = PostForm()
         context['comments'] = Comment.objects.all()
         context['comments2'] = Comment2.objects.all()
         context['analysis_objects'] = AnalysisArticle.objects.all()
         context['category_list'] = Category.objects.all()
         return context
-
         return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, category__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
         queryset = self.topic.posts.order_by('created_at')
         return queryset
+
+    def post(self, request, pk, topic_pk, **kwargs):
+        if request.user.is_authenticated:
+            form = PostForm(request.POST)
+            if form.is_valid():
+                topic = get_object_or_404(Topic, pk=topic_pk)
+                post = form.save(commit=False)
+                post.topic = topic
+                post.created_by = request.user
+                post.save()
+        topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
+        topic_post_url = '{url}?page={page}#{id}'.format(
+            url=topic_url,
+            id=post.pk,
+            page=topic.get_page_count()
+        )
+        return redirect(topic_post_url)
 
 @login_required
 def topic_delete(request, pk, topic_pk):

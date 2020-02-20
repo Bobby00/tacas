@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% block stylesheet %}{% endblock %}
-
 <!-- STYLES IMPORT -->
 {% include 'css/css.html' %}
 
@@ -43,6 +42,7 @@
   <!-- /SEARCH POPUP -->
 
 
+
 <!-- NAVBAR IMPORT -->
 {% include 'navbar/navbar.html' %}
 
@@ -51,6 +51,10 @@
 <!-- NEWS APP LINKS --> 
 
 {% block content_news %} {% endblock content_news %}
+
+{% block content_new_news_article %} {% endblock content_new_news_article %}
+
+{% block content_edit_news %} {% endblock content_edit_news %}
 
 {% block content_news_posts %} {% endblock content_news_posts %}
 
@@ -93,9 +97,19 @@
 
 {% block content_analysis %} {% endblock content_analysis %}
 
+{% block content_new_analysis %} {% endblock content_new_analysis %}
+
 {% block content_analysis_posts %} {% endblock content_analysis_posts %}
 
+{% block content_edit_analysis %} {% endblock content_edit_analysis %}  
+
 {% block content_analysis_reply %} {% endblock content_analysis_reply %}
+
+{% block content_edit_analysis_post %} {% endblock content_edit_analysis_post %}
+
+{% block content_reply_analysis_post %} {% endblock content_reply_analysis_post %}
+
+{% block content_edit_analysis_comment %} {% endblock content_edit_analysis_comment %}
 
 <!-- END ANALYSIS APP LINKS --> 
 
@@ -173,11 +187,7 @@
 
 <!-- END FORUM LINKS -->
 
-
-
 {% block javascript %}{% endblock %}
-
-
 
 <!-- FOOTER IMPORT -->
 {% include 'footer/footer.html' %} 

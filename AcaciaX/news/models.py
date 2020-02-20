@@ -20,6 +20,9 @@ class NewsArticle(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_message_as_markdown(self):
+		return mark_safe(markdown(self.description, safe_mode='escape'))
+
 
 class NewsPost(models.Model):
 	message = models.TextField(max_length=4000)

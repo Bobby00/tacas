@@ -25,6 +25,14 @@
         <!-- /ARROW ICON -->
         <span class="banner-section">ANALYSIS & OPINION</span>
       </p>
+      {% if request.user.is_superuser %}
+      <br><br>
+    <!-- BUTTON -->
+      <a href="{% url 'new_analysis' %}" class="button small fnt-16 blue"><i class="fas fa-feather-alt"></i> Write an analysis piece</a>
+    <!-- /BUTTON -->
+      {% else %}
+
+      {% endif %}
     </div>
     <!-- /BANNER -->
   </div>
@@ -38,7 +46,7 @@
       <!-- LAYOUT ITEM -->
       <div class="layout-item cstm-grid-60 centered">
         <!-- POST PREVIEW -->
-          {% for analysis in analysis_list %}
+          {% for analysis in analysis_list reversed %}
           <div style="margin-bottom: 30px;" class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="#0.html">
@@ -67,11 +75,33 @@
               </figure>
             </a>
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'analysis_posts' analysis.pk %}#op-comments" class="post-comment-count">{{ analysis.analysis_posts.count }} Comments</a></p>
+            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ analysis.starter }}</a><span class="separator">|</span>{{ analysis.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'analysis_posts' analysis.pk %}#op-comments" class="post-comment-count">{% if analysis.analysis_posts.count < 1 %} <span style="color: green;">be the first to comment</span> {% else %} {{ analysis.analysis_posts.count }} Comments {% endif %}</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
           <p class="post-preview-text">{{ analysis.get_message_as_markdown|truncatechars:220 }}</p>
+
+          {% if user.is_superuser %}
+          <div class="article-control-admin">
+          <!-- BUTTON -->
+              <a href="{% url 'edit_analysis' analysis.pk %}" class="button small blue"><i class="fas fa-edit"></i> edit analysis piece</a>
+              <!-- /BUTTON -->
+
+              <form action="{% url 'delete_analysis' analysis.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="patient_id" value="{{ analysis.id }}" />
+
+              <!-- BUTTON -->
+              <button type="submit" onclick="return confirm('Are you sure you want to delete analysis piece?');" class="button small red"><i class="far fa-trash-alt"></i> delete news piece</button>
+              <!-- /BUTTON -->
+            </form>
+
+          </div>
+          {% else %}
+
+          {% endif %}
+
+
         </div>
         {% endfor %}
         <!-- /POST PREVIEW -->

@@ -16,7 +16,14 @@
 {% block javascript %}
   <script src="{% static 'js/simplemde.min.js' %}"></script>
   <script>
-    var simplemde = new SimpleMDE({forceSync: true});
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "article.pk",
+        delay: 1000,
+      }
+    });
   </script>
 {% endblock %}
 
@@ -59,7 +66,7 @@
           {% if user.is_superuser %}
           <div class="article-control-admin">
           <!-- BUTTON -->
-              <a href="{% url 'edit_article' article.pk %}" class="button small blue"><i class="fas fa-edit"></i> edit article</a>
+              <a href="{% url 'edit_article' article.pk %}" class="button small blue fnt-16"><i class="fas fa-edit"></i> edit article</a>
               <!-- /BUTTON -->
 
               <form action="{% url 'delete_article' article.id %}" method="post" style="display: inline;">
@@ -67,7 +74,7 @@
                 <input type="hidden" name="patient_id" value="{{ patient.id }}" />
 
               <!-- BUTTON -->
-              <button type="submit" onclick="return confirm('Are you sure you want to delete article?');" class="button small red"><i class="far fa-trash-alt"></i> delete article</button>
+              <button style="margin-top: 10px;" type="submit" onclick="return confirm('Are you sure you want to delete article?');" class="button small fnt-16 red"><i class="far fa-trash-alt"></i> delete article</button>
               <!-- /BUTTON -->
             </form>
 
@@ -257,6 +264,9 @@
                     <!-- POST 1ST CHILD COMMENT -->
                   {% for article_comment in article_post.article_comments.all reversed %}
                   <div class="post-comment">
+
+                    <div class="vl-1"> </div>
+
                     <div class="second-wrapper">
                     <!-- USER AVATAR -->
                     <figure class="user-avatar medium liquid">
@@ -339,6 +349,7 @@
                     <!-- POST 2ND CHILD COMMENT -->
                   {% for article_comment2 in article_comment.article_comments2.all reversed %}
                   <div class="post-comment">
+                    <div class="vl-2"> </div>
                     <!-- USER AVATAR -->
                     <figure class="user-avatar medium liquid">
                       <img src="{{ article_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">

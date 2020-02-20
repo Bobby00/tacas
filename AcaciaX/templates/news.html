@@ -25,6 +25,16 @@
         <!-- /ARROW ICON -->
         <span class="banner-section">LATEST NEWS</span>
       </p>
+
+      {% if request.user.is_superuser %}
+      <br><br>
+    <!-- BUTTON -->
+      <a href="{% url 'new_news' %}" class="button small fnt-16 blue"><i class="fas fa-feather-alt"></i> Write a news piece</a>
+    <!-- /BUTTON -->
+      {% else %}
+
+      {% endif %}
+
     </div>
     <!-- /BANNER -->
   </div>
@@ -39,7 +49,7 @@
       <div class="layout-item cstm-grid-60 centered">
 
         <!-- POST PREVIEW -->
-        {% for news in news_list %}
+        {% for news in news_list reversed %}
         <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="{% url 'news_posts' news.pk %}">
@@ -69,11 +79,32 @@
             </a>
 
             <!-- /USER AVATAR -->
-            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'news_posts' news.pk %}#op-comments" class="post-comment-count">{{ news.news_posts.count }} Comment(s)</a></p>
+            <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ news.starter }}</a><span class="separator">|</span>{{ news.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'news_posts' news.pk %}#op-comments" class="post-comment-count">{% if news.news_posts.count < 1 %} <span style="color: green;">be the first to comment</span> {% else %} {{ news.news_posts.count }} Comments {% endif %}</a></p>
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">{{ news.description }}</p>
+          <p class="post-preview-text">{{ news.get_message_as_markdown|truncatechars:200 }}</p>
+
+          {% if user.is_superuser %}
+          <div class="article-control-admin">
+          <!-- BUTTON -->
+              <a href="{% url 'edit_news' news.pk %}" class="button small blue"><i class="fas fa-edit"></i> edit news piece</a>
+              <!-- /BUTTON -->
+
+              <form action="{% url 'delete_news' news.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="patient_id" value="{{ news.id }}" />
+
+              <!-- BUTTON -->
+              <button type="submit" onclick="return confirm('Are you sure you want to delete news piece?');" class="button small red"><i class="far fa-trash-alt"></i> delete news piece</button>
+              <!-- /BUTTON -->
+            </form>
+
+          </div>
+          {% else %}
+
+          {% endif %}
+
         </div>
         {% endfor %}
         <!-- /POST PREVIEW -->

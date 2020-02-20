@@ -18,9 +18,16 @@ urlpatterns = [
     
     #WEB VIEWS URL PATTERNS
     path('', views.HomeListView.as_view(template_name='index.html'), name='home'),
+
+    #NEWS APP URL PATTERNS
     path('news/', news_views.NewsListView.as_view(), name='news'),
+    re_path(r'^news/new/$', news_views.new_news_article, name='new_news'),
+    re_path(r'^news/(?P<news_pk>\d+)/edit/$', news_views.NewsUpdateView.as_view(), name='edit_news'),
+    re_path(r'^news/(?P<pk>\d+)/delete/$', news_views.NewsDelete.as_view(), name='delete_news'),
     re_path(r'^news/(?P<news_article_pk>\d+)/$', news_views.news_posts, name='news_posts'),
     re_path(r'^news/(?P<news_article_pk>\d+)/reply/$', news_views.reply_news_article, name='reply_news_article'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/delete/$', news_views.news_post_delete, name='delete_news_post'),
+
 
     path('articles/', article_views.ArticleListView.as_view(), name='article'),
     re_path(r'^articles/new/$', article_views.new_article, name='new_article'),
@@ -37,9 +44,19 @@ urlpatterns = [
     re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/edit/$', article_views.ArticleComment2UpdateView.as_view(), name='edit_article_comment2'),
     re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/delete/$', article_views.article_comment2_delete, name='delete_article_comment2'),
 
+
+
     path('analysis/', analysis_views.AnalysisListView.as_view(), name='analysis'),
+    re_path(r'^analysis/new/$', analysis_views.new_analysis, name='new_analysis'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/edit/$', analysis_views.AnalysisUpdateView.as_view(), name='edit_analysis'),
+    re_path(r'^analysis/(?P<pk>\d+)/delete/$', analysis_views.AnalysisDelete.as_view(), name='delete_analysis'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/$', analysis_views.analysis_posts, name='analysis_posts'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/reply/$', analysis_views.reply_analysis_article, name='reply_analysis_article'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/edit/$', analysis_views.AnalysisPostUpdateView.as_view(), name='edit_analysis_post'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/delete/$', analysis_views.analysis_post_delete, name='delete_analysis_post'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/reply/$', analysis_views.reply_analysis_post, name='reply_analysis_post'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/edit/$', analysis_views.AnalysisCommentUpdateView.as_view(), name='edit_analysis_comment'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/delete/$', analysis_views.analysis_comment_delete, name='delete_analysis_comment'),
 
     path('economic_calendar/', views.economic_calendar, name='economic_calendar'),
     path('market_screener/', views.market_screener, name='market_screener'),

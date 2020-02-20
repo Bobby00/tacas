@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, ListView
 from django.views.generic.edit import DeleteView
 from .models import SliderArticle, ArticlePost, ArticleComment, ArticleComment2
