@@ -24,6 +24,8 @@ services:
       - traefik_net
     volumes:
       - 'static:/var/www/html/static'
+    depends_on:
+      - app
 networks:
   traefik_net:
 volumes:
