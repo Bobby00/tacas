@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "python manage.py migrate && gunicorn --reload -b 0.0.0.0:8000 -w 3 AcaciaX.wsgi:application"
     command: bash -c "python manage.py migrate && ls -l && python manage.py runserver 0.0.0.0:8000 --settings AcaciaX.settings"
     ports:
       - "8001:8000"

@@ -1,0 +1,4 @@
+*.pyc
+*.sqlite3
+# ignore vi temp files
+*.swp
