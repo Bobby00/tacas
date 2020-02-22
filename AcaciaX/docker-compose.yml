@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     expose:
       - "80"
+    ports:
+      - "81:80"
     networks:
       - traefik_net
     volumes:
