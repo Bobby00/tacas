@@ -14,7 +14,14 @@
 {% block javascript %}
   <script src="{% static 'js/simplemde.min.js' %}"></script>
   <script>
-    var simplemde = new SimpleMDE();
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "comment2.pk",
+        delay: 1000,
+      }
+    });
   </script>
 {% endblock %}
 

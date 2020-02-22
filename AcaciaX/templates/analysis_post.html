@@ -248,7 +248,7 @@
                     <!-- /POST COMMENT ACTIONS -->
                     <br><br>
 
-                    <!-- POST 1ST CHILD COMMENT -->
+                    <!-- Analysis POST 1ST CHILD COMMENT -->
                   {% for analysis_comment in analysis_post.analysis_comments.all reversed %}
                   <div class="post-comment">
 
@@ -319,7 +319,7 @@
                       <!-- /DISLIKES COUNT -->
 
                       <!-- REPLY BUTTON -->
-                      <a style="margin-left: 40px;" href="{% url 'reply_analysis_post' analysis_post.analysis_article.pk analysis_post.pk %}">
+                      <a style="margin-left: 40px;" href="{% url 'reply_analysis_comment' analysis_comment.analysis_post.analysis_article.pk analysis_comment.analysis_post.pk analysis_comment.pk %}">
                         <div class="reply-button {% if analysis_comment.analysis_comments2.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
                           <span class="tooltiptext">reply to comment</span>
                           <i class="icon-action-undo reply-icon"></i>
@@ -342,16 +342,16 @@
                     <div class="vl-2"> </div>
                     <!-- USER AVATAR -->
                     <figure class="user-avatar medium liquid">
-                      <img src="{{ article_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
+                      <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
                     </figure>
                     <!-- /USER AVATAR -->
 
                     <!-- POST COMMENT USERNAME -->
-                    <p class="post-comment-username">{{ article_comment2.created_by.username }}</p>
+                    <p class="post-comment-username">{{ analysis_comment2.created_by.username }}</p>
                     <!-- /POST COMMENT USERNAME -->
 
                     <!-- POST COMMENT TIMESTAMP -->
-                    <p class="post-comment-timestamp">{{ article_comment2.created_at|naturaltime }}</p>
+                    <p class="post-comment-timestamp">{{ analysis_comment2.created_at|naturaltime }}</p>
                     <!-- /POST COMMENT TIMESTAMP -->
 
                     <!-- REPORT BUTTON -->
@@ -359,17 +359,17 @@
                     <!-- /REPORT BUTTON -->
 
                     <!-- POST COMMENT TEXT -->
-                    <p class="post-comment-text">{{ article_comment2.get_message_as_markdown }}</p>
+                    <p class="post-comment-text">{{ analysis_comment2.get_message_as_markdown }}</p>
                     <!-- /POST COMMENT TEXT -->
 
-                    {% if article_comment2.created_by == user %}
+                    {% if analysis_comment2.created_by == user %}
                     <br>
                     <div class="mt-3">
-                      <a href=""
+                      <a href="{% url 'edit_analysis_comment2' analysis_comment2.analysis_comment.analysis_post.analysis_article.pk analysis_comment2.analysis_comment.analysis_post.pk analysis_comment2.analysis_comment.pk analysis_comment2.pk %}"
                          class="button small blue"
                          role="button"><i class="fas fa-edit"></i> Edit comment</a>
 
-                      <form action="" method="post" style="display: inline;">
+                      <form action="{% url 'delete_analysis_comment2' analysis_comment2.analysis_comment.analysis_post.analysis_article.pk analysis_comment2.analysis_comment.analysis_post.pk analysis_comment2.analysis_comment.pk analysis_comment2.pk %}" method="post" style="display: inline;">
                           {% csrf_token %}
                           <!-- BUTTON -->
                           <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>

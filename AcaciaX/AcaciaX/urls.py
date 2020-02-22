@@ -27,6 +27,13 @@ urlpatterns = [
     re_path(r'^news/(?P<news_article_pk>\d+)/$', news_views.news_posts, name='news_posts'),
     re_path(r'^news/(?P<news_article_pk>\d+)/reply/$', news_views.reply_news_article, name='reply_news_article'),
     re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/delete/$', news_views.news_post_delete, name='delete_news_post'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/edit/$', news_views.NewsPostUpdateView.as_view(), name='edit_news_post'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/reply/$', news_views.reply_news_post, name='reply_news_post'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/edit/$', news_views.NewsCommentUpdateView.as_view(), name='edit_news_comment'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/reply/$', news_views.reply_news_comment, name='reply_news_comment'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/delete/$', news_views.news_comment_delete, name='delete_news_comment'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/comments2/(?P<news_comment2_pk>\d+)/edit/$', news_views.NewsComment2UpdateView.as_view(), name='edit_news_comment2'),
+    re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/comments2/(?P<news_comment2_pk>\d+)/delete/$', news_views.news_comment2_delete, name='delete_news_comment2'),
 
 
     path('articles/', article_views.ArticleListView.as_view(), name='article'),
@@ -57,6 +64,10 @@ urlpatterns = [
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/reply/$', analysis_views.reply_analysis_post, name='reply_analysis_post'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/edit/$', analysis_views.AnalysisCommentUpdateView.as_view(), name='edit_analysis_comment'),
     re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/delete/$', analysis_views.analysis_comment_delete, name='delete_analysis_comment'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/reply/$', analysis_views.reply_analysis_comment, name='reply_analysis_comment'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/comments2/(?P<analysis_comment2_pk>\d+)/edit/$', analysis_views.AnalysisComment2UpdateView.as_view(), name='edit_analysis_comment2'),
+    re_path(r'^analysis/(?P<analysis_article_pk>\d+)/posts/(?P<analysis_post_pk>\d+)/comments/(?P<analysis_comment_pk>\d+)/comments2/(?P<analysis_comment2_pk>\d+)/delete/$', analysis_views.analysis_comment2_delete, name='delete_analysis_comment2'),
+
 
     path('economic_calendar/', views.economic_calendar, name='economic_calendar'),
     path('market_screener/', views.market_screener, name='market_screener'),

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% load static %}
-x
+
 {% load humanize %}
 
-{% block title %}Acaciax | Edit article post{% endblock %}
+{% block title %}Acaciax | Edit post{% endblock %}
 
 
 {% block stylesheet %}
@@ -18,7 +18,7 @@ x
       forceSync: true,
       autosave: {
         enabled: true,
-        uniqueId: "article_post.pk",
+        uniqueId: "news_post.pk",
         delay: 1000,
       }
     });
@@ -26,7 +26,7 @@ x
 {% endblock %}
 
 
-{% block content_edit_article_post %}
+{% block content_edit_news_post %}
 
     <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full grid-limit">
@@ -54,7 +54,7 @@ x
 			    {% include 'includes/form.html' %}
 
 			    <button type="submit" class="button blue full">Save changes</button>
-          <a href="{% url 'article_posts'  article_post.article.pk %}">
+          <a href="{% url 'news_posts'  news_post.news_article.pk %}">
             <button class="button red full">Cancel</button>
           </a>
 			  </form>
@@ -66,10 +66,9 @@ x
         </div>
         <!-- /TAB BODY -->
       </div>
-      <!-- /TAB WRAP -->
     </div>
     <!-- /GRID 2 1COL -->
   </div>
   <!-- LAYOUT CONTENT FULL -->
 
-{% endblock content_edit_article_post %}
+{% endblock content_edit_news_post %}

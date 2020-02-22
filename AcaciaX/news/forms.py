@@ -1,5 +1,5 @@
 from django import forms
-from .models import NewsArticle, NewsPost
+from .models import NewsArticle, NewsPost, NewsComment, NewsComment2
 
 NEWS_CATEGORY = (
 		('STOCKS', 'Stocks'),
@@ -37,4 +37,14 @@ class NewNewsForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = NewsPost
+        fields = ['message', ]
+
+class NewsCommentForm(forms.ModelForm):
+    class Meta:
+        model = NewsComment
+        fields = ['message', ]
+
+class NewsCommentForm2(forms.ModelForm):
+    class Meta:
+        model = NewsComment2
         fields = ['message', ]

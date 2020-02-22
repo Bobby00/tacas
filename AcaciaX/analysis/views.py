@@ -183,3 +183,54 @@ def analysis_comment_delete(request, analysis_article_pk, analysis_post_pk, anal
     context= {'analysis_comment': analysis_comment,
               'creator': creator,
               }
+
+
+
+@login_required
+def reply_analysis_comment(request, analysis_article_pk, analysis_post_pk, analysis_comment_pk):
+    analysis_comment = get_object_or_404(AnalysisComment, pk=analysis_comment_pk)
+    if request.method == 'POST':
+        form = AnalysisCommentForm2(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.analysis_comment = analysis_comment
+            comment.created_by = request.user
+            comment.save()
+            return redirect('analysis_posts', analysis_article_pk=analysis_article_pk)
+    else:
+        form = AnalysisCommentForm2()
+    return render(request, 'reply_analysis_comment.html', {'analysis_comment': analysis_comment, 'form': form})
+
+
+
+@login_required
+def analysis_comment2_delete(request, analysis_article_pk, analysis_post_pk, analysis_comment_pk, analysis_comment2_pk):
+    analysis_comment2 = get_object_or_404(AnalysisComment2, pk=analysis_comment2_pk)
+    creator = analysis_comment2.created_by.username
+
+    if request.method == "POST" and request.user.is_authenticated and request.user.username == creator:
+        analysis_comment2.delete()
+        return redirect('analysis_posts', analysis_article_pk=analysis_article_pk)
+    
+    context= {'analysis_comment2': analysis_comment2,
+              'creator': creator,
+              }
+
+@method_decorator(login_required, name='dispatch')
+class AnalysisComment2UpdateView(UpdateView):
+    model = AnalysisComment2
+    fields = ('message', )
+    template_name = 'edit_analysis_comment2.html'
+    pk_url_kwarg = 'analysis_comment2_pk'
+    context_object_name = 'analysis_comment2'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(created_by=self.request.user)
+
+    def form_valid(self, form):
+        analysis_comment2 = form.save(commit=False)
+        analysis_comment2.updated_by = self.request.user
+        analysis_comment2.updated_at = timezone.now()
+        analysis_comment2.save()
+        return redirect('analysis_posts', analysis_article_pk=analysis_comment2.analysis_comment.analysis_post.analysis_article.pk)

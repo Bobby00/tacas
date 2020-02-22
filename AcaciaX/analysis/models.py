@@ -69,8 +69,8 @@ class AnalysisComment2(models.Model):
         return str(self.created_by)
 
     def save(self, *args, **kwargs):
-        self.url= slugify(self.article_comment)
-        super(ArticleComment2, self).save(*args, **kwargs)
+        self.url= slugify(self.analysis_comment)
+        super(AnalysisComment2, self).save(*args, **kwargs)
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))

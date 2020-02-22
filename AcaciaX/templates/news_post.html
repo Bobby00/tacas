@@ -6,7 +6,7 @@
 
 {% load humanize %}
 
-{% block title %}Acaciax | News Posts{% endblock %}
+{% block title %}Acaciax | News Posts {% endblock %}
 
 {% block stylesheet %}
   <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
@@ -192,7 +192,7 @@
                     {% if news_post.created_by == user %}
                     <br>
                     <div class="mt-3">
-                      <a href=""
+                      <a href="{% url 'edit_news_post' news_post.news_article.pk news_post.pk %}"
                          class="button small blue"
                          role="button">Edit Post?</a>
 
@@ -232,7 +232,7 @@
                       <!-- /DISLIKES COUNT -->
 
                       <!-- REPLY BUTTON -->
-                      <a style="margin-left: 40px;" href="">
+                      <a style="margin-left: 40px;" href="{% url 'reply_news_post' news_post.news_article.pk news_post.pk %}">
                         <div class="reply-button bubble-ornament tooltip blue">
                           <span class="tooltiptext">reply to comment</span>
                           <i class="icon-action-undo reply-icon"></i>
@@ -241,18 +241,186 @@
                       <!-- /REPLY BUTTON -->
 
                       <!-- REPLIES COUNT -->
-                      <p id="replies_count-{{ news_post.pk }}" class="likes-count"> Replies</p>
+                      <p id="replies_count-{{ news_post.pk }}" class="likes-count">{{ news_post.news_comments.count }} Replies</p>
                       <!-- /REPLIES COUNT -->
 
                     </div>
                     <!-- /POST COMMENT ACTIONS -->
+                    <br><br>
+
+                    <!-- Analysis POST 1ST CHILD COMMENT -->
+                  {% for news_comment in news_post.news_comments.all reversed %}
+                  <div class="post-comment">
+
+                    <div class="vl-1"> </div>
+
+                    <div class="second-wrapper">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ news_comment.created_by|gravatar }}" alt="{{ news_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ news_comment.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ news_comment.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ news_comment.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if news_comment.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_news_comment' news_comment.news_post.news_article.pk news_comment.news_post.pk news_comment.pk %}"
+                         class="button small blue"
+                         role="button"><i class="fas fa-edit"></i> Edit comment</a>
+
+                      <form action="{% url 'delete_news_comment' news_comment.news_post.news_article.pk news_comment.news_post.pk news_comment.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                          <!-- /BUTTON -->
+                        </form>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip cyan">
+                        <span class="tooltiptext">like comment</span>
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                      <!-- REPLY BUTTON -->
+                      <a style="margin-left: 40px;" href="{% url 'reply_news_comment' news_comment.news_post.news_article.pk news_comment.news_post.pk news_comment.pk %}">
+                        <div class="reply-button {% if news_comment.news_comments2.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
+                          <span class="tooltiptext">reply to comment</span>
+                          <i class="icon-action-undo reply-icon"></i>
+                        </div>
+                      </a>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p id="replies_count-{{ analysis_post.pk }}" class="likes-count">{{ news_comment.news_comments2.count }} Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                    </div>
+
+
+                    <!-- POST 2ND CHILD COMMENT -->
+                  {% for news_comment2 in news_comment.news_comments2.all reversed %}
+                  <div class="post-comment">
+                    <div class="vl-2"> </div>
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ news_comment.created_by|gravatar }}" alt="{{ news_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ news_comment2.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ news_comment2.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ news_comment2.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if news_comment2.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_news_comment2' news_comment2.news_comment.news_post.news_article.pk news_comment2.news_comment.news_post.pk news_comment2.news_comment.pk news_comment2.pk %}"
+                         class="button small blue"
+                         role="button"><i class="fas fa-edit"></i> Edit comment</a>
+
+                      <form action="{% url 'delete_news_comment2' news_comment2.news_comment.news_post.news_article.pk news_comment2.news_comment.news_post.pk news_comment2.news_comment.pk news_comment2.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                          <!-- /BUTTON -->
+                        </form>
+
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament tooltip hoverable cyan">
+                        <span class="tooltiptext">like comment</span>
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable red tooltip">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+                      
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 2ND CHILD COMMENT -->
+
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 1ST CHILD COMMENT -->
+
                   </div>
                   <!-- /POST COMMENT -->
 
 {% endfor %}
+    </div>
 {% endif %}
-
-                </div>
                 <!-- /POST COMMENT THREAD -->
 
             <br><br><br><br>

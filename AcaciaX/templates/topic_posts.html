@@ -276,7 +276,7 @@
         <input style="display: none;" id="posts" value="{% for p in posts %}{{ p.pk }},{% endfor %}">
         {% for post in posts %}
 
-        <div class="topic-comment child-1-shade {% if forloop.first %} darkr-bdr-btm bg-white {% endif %} " onload="alert();">
+        <div class="topic-comment {% if forloop.first %} darkr-bdr-btm bg-white {% endif %} " onload="alert();">
           <!-- TOPIC COMMENT USER -->
           <div class="topic-comment-user">
             <!-- USER AVATAR -->
@@ -446,9 +446,12 @@
             
 
               {% for comment in post.comments.all reversed %}
-               <div id="op-comments" class="post-comment-thread child-2-shade">
+               <div id="op-comments" class="post-comment-thread">
                   <!-- POST COMMENT -->
                 <div class="post-comment">
+
+                  <div class="vl-1"> </div>
+
                   <!-- USER AVATAR -->
                   <figure class="user-avatar medium liquid">
                     <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by.username }}">
@@ -489,16 +492,6 @@
             
                   <!-- POST COMMENT ACTIONS -->
                   <div class="post-comment-actions">
-                    <!-- REPLY BUTTON -->
-                    <a href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
-                      <div class="reply-button bubble-ornament tooltip blue">
-                        <span class="tooltiptext">send a reply</span>
-                        <i class="icon-action-undo reply-icon"></i>
-                      </div>
-                    </a>
-                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
-
-                    <!-- /REPLY BUTTON -->
             
                     <!-- LIKE BUTTON -->
                     <div class="like-button bubble-ornament hoverable tooltip cyan">
@@ -510,13 +503,39 @@
                     <!-- LIKES COUNT -->
                     <p class="likes-count">0 Thumbs Up</p>
                     <!-- /LIKES COUNT -->
+
+                    <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                    <!-- REPLY BUTTON -->
+                    <a style="margin-left: 40px;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
+                      <div class="reply-button bubble-ornament tooltip blue">
+                        <span class="tooltiptext">send a reply</span>
+                        <i class="icon-action-undo reply-icon"></i>
+                      </div>
+                    </a>
+                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
+
+                    <!-- /REPLY BUTTON -->
+
                   </div>
                   <!-- /POST COMMENT ACTIONS -->
                   <br><br>
                   {% for comment2 in comment.comments2.all reversed %}
-                  <div id="op-comments2" class="post-comment-thread child-3-shade">
+                  <div id="op-comments2" class="post-comment-thread">
                     <!-- POST COMMENT -->
                       <div class="post-comment">
+
+                        <div class="vl-2"> </div>
+
                         <!-- USER AVATAR -->
                         <figure class="user-avatar medium liquid">
                           <img src="{{ comment2.created_by|gravatar }}" alt="{{ comment2.created_by.username }}">
@@ -569,6 +588,18 @@
                           <!-- LIKES COUNT -->
                           <p class="likes-count">0 Thumbs Up</p>
                           <!-- /LIKES COUNT -->
+
+                          <!-- DISLIKE BUTTON -->
+                          <div class="like-button bubble-ornament hoverable tooltip red">
+                            <span class="tooltiptext">dislike comment</span>
+                            <i class="icon-dislike dislike-icon"></i>
+                          </div>
+                          <!-- /DISLIKE BUTTON -->
+
+                          <!-- DISLIKES COUNT -->
+                          <p class="likes-count">0 Thumbs Up</p>
+                          <!-- /DISLIKES COUNT -->
+                          
                         </div>
                         <!-- /POST COMMENT ACTIONS -->
                       </div>

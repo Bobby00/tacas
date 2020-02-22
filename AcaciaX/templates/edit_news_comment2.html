@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% load static %}
-x
+
 {% load humanize %}
 
-{% block title %}Acaciax | Edit article post{% endblock %}
+{% block title %}Acaciax | Edit Comment{% endblock %}
 
 
 {% block stylesheet %}
@@ -18,7 +18,7 @@ x
       forceSync: true,
       autosave: {
         enabled: true,
-        uniqueId: "article_post.pk",
+        uniqueId: "news_comment2.pk",
         delay: 1000,
       }
     });
@@ -26,7 +26,7 @@ x
 {% endblock %}
 
 
-{% block content_edit_article_post %}
+{% block content_edit_news_comment_2 %}
 
     <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full grid-limit">
@@ -42,7 +42,7 @@ x
             <div class="form-box">
               <!-- SECTION TITLE WRAP -->
               <div class="section-title-wrap blue">
-                <h2 class="section-title medium">Make changes to your post</h2>
+                <h2 class="section-title medium">Make changes to your comment</h2>
                 <div class="section-title-separator"></div>
               </div>
               <!-- /SECTION TITLE WRAP -->
@@ -54,9 +54,7 @@ x
 			    {% include 'includes/form.html' %}
 
 			    <button type="submit" class="button blue full">Save changes</button>
-          <a href="{% url 'article_posts'  article_post.article.pk %}">
-            <button class="button red full">Cancel</button>
-          </a>
+          
 			  </form>
               <!-- /FORM WRAP -->
             </div>
@@ -67,9 +65,12 @@ x
         <!-- /TAB BODY -->
       </div>
       <!-- /TAB WRAP -->
+      <div class="activity-items">
+      
+      </div>
     </div>
     <!-- /GRID 2 1COL -->
   </div>
   <!-- LAYOUT CONTENT FULL -->
 
-{% endblock content_edit_article_post %}
+{% endblock content_edit_news_comment_2 %}
