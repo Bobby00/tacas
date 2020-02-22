@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | Edit post{% endblock %}
+
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}
+
+
+{% block content_edit_analysis %}
+
+    <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit">
+    <!-- GRID 2 1COL -->
+    <div class="grid2-1col centered">
+      <!-- TAB WRAP -->
+      <div id="tab-new-topic" class="tab-wrap">
+        <!-- TAB BODY -->
+        <div class="tab-body">
+          <!-- TAB ITEM -->
+          <div class="tab-item">
+            <!-- FORM BOX -->
+            <div class="form-box">
+              <!-- SECTION TITLE WRAP -->
+              <div class="section-title-wrap blue">
+                <h2 class="section-title medium">Make changes to this analysis piece</h2>
+                <div class="section-title-separator"></div>
+              </div>
+              <!-- /SECTION TITLE WRAP -->
+
+              <!-- FORM WRAP -->
+              <form method="post">
+			    {% csrf_token %}
+			    
+			    {% include 'includes/form.html' %}
+
+			    <button type="submit" class="button blue full">Save changes</button>
+          <a href="{% url 'analysis_posts' analysis.pk %}" class="button red full">Cancel</a>
+          
+			  </form>
+              <!-- /FORM WRAP -->
+            </div>
+            <!-- /FORM BOX -->
+          </div>
+          <!-- /TAB ITEM -->
+        </div>
+        <!-- /TAB BODY -->
+      </div>
+      <!-- /TAB WRAP -->
+    </div>
+    <!-- /GRID 2 1COL -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+
+{% endblock content_edit_analysis %}

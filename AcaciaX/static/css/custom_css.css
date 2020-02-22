@@ -12,6 +12,20 @@
 	display: none;
 }
 
+.vl-1 {
+	position: absolute;
+	left: -15px;
+	border-left: 7px solid #bfbfbf;
+  	height: 160px;
+}
+
+.vl-2 {
+	position: absolute;
+	left: -15px;
+	border-left: 7px solid #656464;
+  	height: 160px;
+}
+
 html {
 	scroll-behavior: smooth;
 }

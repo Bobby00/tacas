@@ -7,6 +7,24 @@
 
 {% block title %}Acaciax | Topic posts{% endblock %}
 
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "post.pk",
+        delay: 1000,
+      }
+    });
+  </script>
+{% endblock %}
+
 {% block content_topic_posts %}
 
 {% for post in posts %}
@@ -46,7 +64,7 @@
             <!-- FORM ITEM -->
             <div class="form-item blue">
               <label for="quick_reply_text" class="rl-label">Write your reply</label>
-              <textarea name="quick_reply_text" id="quick_reply_text" placeholder="Write your reply here..."></textarea>
+              <!-- <textarea name="quick_reply_text" id="quick_reply_text" placeholder="Write your reply here..."></textarea> -->
             </div>
             <!-- /FORM ITEM -->
           </div>
@@ -207,7 +225,7 @@
         <!-- /DROPDOWN SIMPLE WRAP -->
 
         <!-- BUTTON -->
-        <a href="{% url 'reply_topic' topic.category.pk topic.pk %}" class="button small blue popup-create-topic-trigger">Make a post</a>
+        <a href="#write_post" class="button fnt-16 small blue popup-create-topic-trigger"><i class="fas fa-feather-alt"></i> Make a post</a>
         <!-- /BUTTON -->
 
         
@@ -227,7 +245,7 @@
         <!-- /TOPIC TITLE -->
 
         <!-- TAG ORNAMENT -->
-        <a href="news-v2.html" class="tag-ornament">{{ topic.category.name }}</a>
+        <a href="{% url 'category_topics' topic.category.pk %}" class="tag-ornament">{{ topic.category.name }}</a>
       <!-- /TAG ORNAMENT -->
       </div>
       <!-- /TOPIC HEADER -->
@@ -258,11 +276,11 @@
         <input style="display: none;" id="posts" value="{% for p in posts %}{{ p.pk }},{% endfor %}">
         {% for post in posts %}
 
-        <div class="topic-comment child-1-shade {% if forloop.first %} darkr-bdr-btm bg-white {% endif %} " onload="alert();">
+        <div class="topic-comment {% if forloop.first %} darkr-bdr-btm bg-white {% endif %} " onload="alert();">
           <!-- TOPIC COMMENT USER -->
           <div class="topic-comment-user">
             <!-- USER AVATAR -->
-            <a href="profile-summary.html">
+            <a href="#0">
               <img class="user-avatar medium" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
             </a>
             <!-- /USER AVATAR -->
@@ -277,7 +295,7 @@
               <!-- TOPIC COMMENT CONTENT HEADER -->
               <div class="topic-comment-content-header">
                 <!-- TOPIC COMMENT USERNAME -->
-                <a href="profile-summary.html" class="topic-comment-username">{{ post.created_by.username }} {% if forloop.first %} <span class="creator-tag">CREATOR</span> {% endif %}</a> 
+                <a href="#0" class="topic-comment-username">{{ post.created_by.username }} {% if forloop.first %} <span class="creator-tag">CREATOR</span> {% endif %}</a> 
                 <!-- /TOPIC COMMENT USERNAME -->
 
                 <!-- TOPIC COMMENT INFO -->
@@ -428,9 +446,12 @@
             
 
               {% for comment in post.comments.all reversed %}
-               <div id="op-comments" class="post-comment-thread child-2-shade">
+               <div id="op-comments" class="post-comment-thread">
                   <!-- POST COMMENT -->
                 <div class="post-comment">
+
+                  <div class="vl-1"> </div>
+
                   <!-- USER AVATAR -->
                   <figure class="user-avatar medium liquid">
                     <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by.username }}">
@@ -471,16 +492,6 @@
             
                   <!-- POST COMMENT ACTIONS -->
                   <div class="post-comment-actions">
-                    <!-- REPLY BUTTON -->
-                    <a href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
-                      <div class="reply-button bubble-ornament tooltip blue">
-                        <span class="tooltiptext">send a reply</span>
-                        <i class="icon-action-undo reply-icon"></i>
-                      </div>
-                    </a>
-                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
-
-                    <!-- /REPLY BUTTON -->
             
                     <!-- LIKE BUTTON -->
                     <div class="like-button bubble-ornament hoverable tooltip cyan">
@@ -492,13 +503,39 @@
                     <!-- LIKES COUNT -->
                     <p class="likes-count">0 Thumbs Up</p>
                     <!-- /LIKES COUNT -->
+
+                    <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                    <!-- REPLY BUTTON -->
+                    <a style="margin-left: 40px;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
+                      <div class="reply-button bubble-ornament tooltip blue">
+                        <span class="tooltiptext">send a reply</span>
+                        <i class="icon-action-undo reply-icon"></i>
+                      </div>
+                    </a>
+                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
+
+                    <!-- /REPLY BUTTON -->
+
                   </div>
                   <!-- /POST COMMENT ACTIONS -->
                   <br><br>
                   {% for comment2 in comment.comments2.all reversed %}
-                  <div id="op-comments2" class="post-comment-thread child-3-shade">
+                  <div id="op-comments2" class="post-comment-thread">
                     <!-- POST COMMENT -->
                       <div class="post-comment">
+
+                        <div class="vl-2"> </div>
+
                         <!-- USER AVATAR -->
                         <figure class="user-avatar medium liquid">
                           <img src="{{ comment2.created_by|gravatar }}" alt="{{ comment2.created_by.username }}">
@@ -551,6 +588,18 @@
                           <!-- LIKES COUNT -->
                           <p class="likes-count">0 Thumbs Up</p>
                           <!-- /LIKES COUNT -->
+
+                          <!-- DISLIKE BUTTON -->
+                          <div class="like-button bubble-ornament hoverable tooltip red">
+                            <span class="tooltiptext">dislike comment</span>
+                            <i class="icon-dislike dislike-icon"></i>
+                          </div>
+                          <!-- /DISLIKE BUTTON -->
+
+                          <!-- DISLIKES COUNT -->
+                          <p class="likes-count">0 Thumbs Up</p>
+                          <!-- /DISLIKES COUNT -->
+                          
                         </div>
                         <!-- /POST COMMENT ACTIONS -->
                       </div>
@@ -581,44 +630,87 @@
     </div>
     <!-- /TOPIC WRAP -->
 
-<div class="layout-item-2-1 mgn_top_10pc display-flex">
+<div id="write_post" class="layout-content-full grid-limit grid3-1col centered">
+      <div class="layout-item-1 mgn_top_10pc">
           <div class="layout-item">
               <!-- SECTION TITLE WRAP -->
             <div class="section-title-wrap light-gray">
               <h2 class="">WRITE A POST IN THIS TOPIC</h2>
-              <div class="section-title-separator"></div>
+              <div class="section-title-separator blue"></div>
             </div>
             <!-- /SECTION TITLE WRAP -->
           </div>
-
-          <div class="layout-item">
-            <!-- BUTTON -->
-            <a href="{% url 'reply_topic' topic.category.pk topic.pk %}">
-              <button class="button blue cstm_fit_content mgn_left-40">
-                WRITE A POST
-                <!-- BUTTON ORNAMENT -->
-                <span class="button-ornament">
-                  <!-- ARROW ICON -->
-                  <svg class="arrow-icon medium">
-                    <use xlink:href="#svg-arrow-medium"></use>
-                  </svg>
-                  <!-- /ARROW ICON -->
-
-                  <!-- CROSS ICON -->
-                  <svg class="cross-icon small">
-                    <use xlink:href="#svg-cross-small"></use>
-                  </svg>
-                  <!-- /CROSS ICON -->
-                </span>
-                <!-- /BUTTON ORNAMENT -->
-              </button>
-            </a>
-              <!-- /BUTTON -->
-          </div>
         </div>
 
+        {% if user.is_authenticated %}
+                <!-- FORM ROW -->
+                <div class="form-row">
+                  <!-- FORM WRAP -->
+                    <form method="post">
+                    {% csrf_token %}
+                    
+                    {% include 'includes/form.html' %}
+
+                    <button style="font-size: 16px;" type="submit" class="button blue full">Publish your post</button>
+                  </form>
+                        <!-- /FORM WRAP -->
+                </div>
+                <!-- /FORM ROW -->
+                {% else %}
+                <br>
+                  <h4 style="color: green;">Please Sign in or Register to share a comment</h4>
+                  <br>
+                  <!-- BUTTON -->
+                  <a href="{% url 'login' %}">
+                    <button style="font-size: 15px;" class="button blue cstm_fit_content">
+                      SIGN IN
+                      <!-- BUTTON ORNAMENT -->
+                      <span class="button-ornament">
+                        <!-- ARROW ICON -->
+                        <svg class="arrow-icon medium">
+                          <use xlink:href="#svg-arrow-medium"></use>
+                        </svg>
+                        <!-- /ARROW ICON -->
+
+                        <!-- CROSS ICON -->
+                        <svg class="cross-icon small">
+                          <use xlink:href="#svg-cross-small"></use>
+                        </svg>
+                        <!-- /CROSS ICON -->
+                      </span>
+                      <!-- /BUTTON ORNAMENT -->
+                    </button>
+                  </a>
+                    <!-- /BUTTON -->
+
+                    <!-- BUTTON -->
+                    <a href="{% url 'signup' %}">
+                      <button style="font-size: 15px;" class="button accent-color-bg cstm_fit_content">
+                        CREATE ACCOUNT
+                        <!-- BUTTON ORNAMENT -->
+                        <span class="button-ornament">
+                          <!-- ARROW ICON -->
+                          <svg class="arrow-icon medium">
+                            <use xlink:href="#svg-arrow-medium"></use>
+                          </svg>
+                          <!-- /ARROW ICON -->
+
+                          <!-- CROSS ICON -->
+                          <svg class="cross-icon small">
+                            <use xlink:href="#svg-cross-small"></use>
+                          </svg>
+                          <!-- /CROSS ICON -->
+                        </span>
+                        <!-- /BUTTON ORNAMENT -->
+                      </button>
+                    </a>
+                    <!-- /BUTTON -->
+
+                {% endif %}
+</div>
+
 <div class="layout-content-full grid-limit grid3-1col centered">
-  <div class="layout-item-2-1 mgn_top_10pc display-flex">
+  <div class="layout-item-2-1 display-flex">
           <div class="layout-item">
               <!-- SECTION TITLE WRAP -->
             <div class="section-title-wrap light-gray">

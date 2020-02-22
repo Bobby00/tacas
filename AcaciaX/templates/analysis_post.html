@@ -15,7 +15,14 @@
 {% block javascript %}
   <script src="{% static 'js/simplemde.min.js' %}"></script>
   <script>
-    var simplemde = new SimpleMDE({forceSync: true});
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "analysis_article.pk",
+        delay: 1000,
+      }
+    });
   </script>
 {% endblock %}
 
@@ -52,7 +59,25 @@
         </div>
 
         <div class="layout-item">
-          
+          {% if user.is_superuser %}
+          <div class="article-control-admin">
+          <!-- BUTTON -->
+              <a href="{% url 'edit_analysis' analysis_article.pk %}" class="button small fnt-16 blue"><i class="fas fa-edit"></i> edit analysis piece</a>
+              <!-- /BUTTON -->
+
+              <form action="{% url 'delete_analysis' analysis_article.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="patient_id" value="{{ analysis.id }}" />
+
+              <!-- BUTTON -->
+              <button style="margin-top: 10px;" type="submit" onclick="return confirm('Are you sure you want to delete news piece?');" class="button fnt-16 small red"><i class="far fa-trash-alt"></i> delete analysis piece</button>
+              <!-- /BUTTON -->
+            </form>
+
+          </div>
+          {% else %}
+
+          {% endif %}
         </div>
       </div>
   </div>
@@ -124,11 +149,285 @@
 
             <br><br><br>
 
-            <!-- POST COMMENT FORM WRAP -->
+
+            <!-- POST COMMENT THREAD -->
+                <div id="op-comments" class="post-comment-thread">
+                  <!-- SECTION TITLE WRAP -->
+                  <div class="section-title-wrap blue">
+                    <h2 class="section-title medium">Comments ({{ analysis_article.analysis_posts.count }})</h2>
+                    <div class="section-title-separator"></div>
+                  </div>
+                  <!-- /SECTION TITLE WRAP -->
+
+{% if analysis_article.analysis_posts.count < 1 %}
+<br><br>
+    <h3 style="color: red" class="text-center">NO COMMENTS YET.</h3>
+{% else %}
+
+{% for analysis_post in analysis_article.analysis_posts.all reversed %}
+                  <!-- POST COMMENT -->
+                  <div class="post-comment">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ analysis_post.created_by|gravatar }}" alt="{{ analysis_post.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ analysis_post.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ analysis_post.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ analysis_post.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if analysis_post.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_analysis_post' analysis_post.analysis_article.pk analysis_post.pk %}"
+                         class="button small blue"
+                         role="button"><i class="fas fa-edit"></i> Edit comment?</a>
+
+                         <form action="{% url 'delete_analysis_post' analysis_post.analysis_article.pk analysis_post.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> delete comment?</button>
+                          <!-- /BUTTON -->
+                        </form>
+
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip cyan">
+                        <span class="tooltiptext">like comment</span>
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                      <!-- REPLY BUTTON -->
+                      <a style="margin-left: 40px;" href="{% url 'reply_analysis_post' analysis_post.analysis_article.pk analysis_post.pk %}">
+                        <div class="reply-button {% if analysis_post.analysis_comments.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
+                          <span class="tooltiptext">reply to comment</span>
+                          <i class="icon-action-undo reply-icon"></i>
+                        </div>
+                      </a>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p id="replies_count-{{ analysis_post.pk }}" class="likes-count">{{ analysis_post.analysis_comments.count }} Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                    <br><br>
+
+                    <!-- Analysis POST 1ST CHILD COMMENT -->
+                  {% for analysis_comment in analysis_post.analysis_comments.all reversed %}
+                  <div class="post-comment">
+
+                    <div class="vl-1"> </div>
+
+                    <div class="second-wrapper">
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ analysis_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ analysis_comment.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ analysis_comment.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ analysis_comment.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if analysis_comment.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_analysis_comment' analysis_comment.analysis_post.analysis_article.pk analysis_comment.analysis_post.pk analysis_comment.pk %}"
+                         class="button small blue"
+                         role="button"><i class="fas fa-edit"></i> Edit comment</a>
+
+                      <form action="{% url 'delete_analysis_comment' analysis_comment.analysis_post.analysis_article.pk analysis_comment.analysis_post.pk analysis_comment.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                          <!-- /BUTTON -->
+                        </form>
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip cyan">
+                        <span class="tooltiptext">like comment</span>
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                      <!-- REPLY BUTTON -->
+                      <a style="margin-left: 40px;" href="{% url 'reply_analysis_comment' analysis_comment.analysis_post.analysis_article.pk analysis_comment.analysis_post.pk analysis_comment.pk %}">
+                        <div class="reply-button {% if analysis_comment.analysis_comments2.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
+                          <span class="tooltiptext">reply to comment</span>
+                          <i class="icon-action-undo reply-icon"></i>
+                        </div>
+                      </a>
+                      <!-- /REPLY BUTTON -->
+
+                      <!-- REPLIES COUNT -->
+                      <p id="replies_count-{{ analysis_post.pk }}" class="likes-count">{{ analysis_comment.analysis_comments2.count }} Replies</p>
+                      <!-- /REPLIES COUNT -->
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                    </div>
+
+
+                    <!-- POST 2ND CHILD COMMENT -->
+                  {% for analysis_comment2 in analysis_comment.analysis_comments2.all reversed %}
+                  <div class="post-comment">
+                    <div class="vl-2"> </div>
+                    <!-- USER AVATAR -->
+                    <figure class="user-avatar medium liquid">
+                      <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
+                    </figure>
+                    <!-- /USER AVATAR -->
+
+                    <!-- POST COMMENT USERNAME -->
+                    <p class="post-comment-username">{{ analysis_comment2.created_by.username }}</p>
+                    <!-- /POST COMMENT USERNAME -->
+
+                    <!-- POST COMMENT TIMESTAMP -->
+                    <p class="post-comment-timestamp">{{ analysis_comment2.created_at|naturaltime }}</p>
+                    <!-- /POST COMMENT TIMESTAMP -->
+
+                    <!-- REPORT BUTTON -->
+                    <a href="#" class="report-button">Report</a>
+                    <!-- /REPORT BUTTON -->
+
+                    <!-- POST COMMENT TEXT -->
+                    <p class="post-comment-text">{{ analysis_comment2.get_message_as_markdown }}</p>
+                    <!-- /POST COMMENT TEXT -->
+
+                    {% if analysis_comment2.created_by == user %}
+                    <br>
+                    <div class="mt-3">
+                      <a href="{% url 'edit_analysis_comment2' analysis_comment2.analysis_comment.analysis_post.analysis_article.pk analysis_comment2.analysis_comment.analysis_post.pk analysis_comment2.analysis_comment.pk analysis_comment2.pk %}"
+                         class="button small blue"
+                         role="button"><i class="fas fa-edit"></i> Edit comment</a>
+
+                      <form action="{% url 'delete_analysis_comment2' analysis_comment2.analysis_comment.analysis_post.analysis_article.pk analysis_comment2.analysis_comment.analysis_post.pk analysis_comment2.analysis_comment.pk analysis_comment2.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                          <!-- /BUTTON -->
+                        </form>
+
+                    </div>
+                    {% endif %}
+
+                    <!-- POST COMMENT ACTIONS -->
+                    <div class="post-comment-actions">
+
+                      <!-- LIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable cyan">
+                        <i class="icon-like like-icon"></i>
+                      </div>
+                      <!-- /LIKE BUTTON -->
+
+                      <!-- LIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /LIKES COUNT -->
+
+                      <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable red">
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+                      
+
+                    </div>
+                    <!-- /POST COMMENT ACTIONS -->
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 2ND CHILD COMMENT -->
+
+                  </div>
+                  {% endfor %}
+                  <!-- END POST 1ST CHILD COMMENT -->
+
+                  </div>
+                  <!-- /POST COMMENT -->
+
+{% endfor %}
+    </div>
+{% endif %}
+
+
+                <!-- /POST COMMENT THREAD -->
+                <br><br><br><br><br>
+                <!-- POST COMMENT FORM WRAP -->
             <div class="post-comment-form-wrap">
               <!-- SECTION TITLE WRAP -->
               <div class="section-title-wrap blue">
-                <h2 class="section-title medium">Write a comment</h2>
+                <h2 class="section-title medium">{% if analysis_article.analysis_posts.count < 1 %} <span style="color: green;">Be the first to comment</span> {% else %} Write a comment {% endif %}</h2>
                 <div class="section-title-separator"></div>
               </div>
               <!-- /SECTION TITLE WRAP -->
@@ -196,82 +495,6 @@
                 {% endif %}
             </div>
             <!-- /POST COMMENT FORM WRAP -->
-
-            <br><br><br><br><br><br><br>
-
-            <!-- POST COMMENT THREAD -->
-                <div id="op-comments" class="post-comment-thread">
-                  <!-- SECTION TITLE WRAP -->
-                  <div class="section-title-wrap blue">
-                    <h2 class="section-title medium">Comments ({{ analysis_article.analysis_posts.count }})</h2>
-                    <div class="section-title-separator"></div>
-                  </div>
-                  <!-- /SECTION TITLE WRAP -->
-
-{% for analysis_post in analysis_article.analysis_posts.all reversed %}
-                  <!-- POST COMMENT -->
-                  <div class="post-comment">
-                    <!-- USER AVATAR -->
-                    <figure class="user-avatar medium liquid">
-                      <img src="{{ analysis_post.created_by|gravatar }}" alt="{{ analysis_post.created_by }}">
-                    </figure>
-                    <!-- /USER AVATAR -->
-
-                    <!-- POST COMMENT USERNAME -->
-                    <p class="post-comment-username">{{ analysis_post.created_by.username }}</p>
-                    <!-- /POST COMMENT USERNAME -->
-
-                    <!-- POST COMMENT TIMESTAMP -->
-                    <p class="post-comment-timestamp">{{ analysis_post.created_at|naturaltime }}</p>
-                    <!-- /POST COMMENT TIMESTAMP -->
-
-                    <!-- REPORT BUTTON -->
-                    <a href="#" class="report-button">Report</a>
-                    <!-- /REPORT BUTTON -->
-
-                    <!-- POST COMMENT TEXT -->
-                    <p class="post-comment-text">{{ analysis_post.get_message_as_markdown }}</p>
-                    <!-- /POST COMMENT TEXT -->
-
-                    {% if analysis_post.created_by == user %}
-                    <br>
-                    <div class="mt-3">
-                      <a href=""
-                         class="button small blue"
-                         role="button">Edit Post?</a>
-                    </div>
-                    {% endif %}
-
-                    <!-- POST COMMENT ACTIONS -->
-                    <div class="post-comment-actions">
-                      <!-- REPLY BUTTON -->
-                      <div class="reply-button bubble-ornament blue">
-                        <i class="icon-action-undo reply-icon"></i>
-                      </div>
-                      <!-- /REPLY BUTTON -->
-
-                      <!-- REPLIES COUNT -->
-                      <p class="likes-count">0 Replies</p>
-                      <!-- /REPLIES COUNT -->
-
-                      <!-- LIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable cyan">
-                        <i class="icon-like like-icon"></i>
-                      </div>
-                      <!-- /LIKE BUTTON -->
-
-                      <!-- LIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
-                      <!-- /LIKES COUNT -->
-                    </div>
-                    <!-- /POST COMMENT ACTIONS -->
-                  </div>
-                  <!-- /POST COMMENT -->
-
-{% endfor %}
-
-                </div>
-                <!-- /POST COMMENT THREAD -->
 
           </div>
       </div>
