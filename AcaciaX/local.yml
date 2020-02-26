@@ -5,14 +5,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "python manage.py migrate && ls -l && python manage.py runserver 0.0.0.0:8000 --settings AcaciaX.settings"
+    command: bash -c "python manage.py migrate && gunicorn --reload -b 0.0.0.0:8000 -w 3 AcaciaX.wsgi:application"
     ports:
       - "8001:8000"
     networks:
       - traefik_net
     working_dir: /home/app
     volumes:
-      - '.:/home/app'
+      - '.:/home/app:ro'
   server:
     image: ${CI_REGISTRY_IMAGE-localhost:5000/acaciax}/nginx:${IMAGE_TAG-v1}
     build:
