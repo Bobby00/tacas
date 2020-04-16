@@ -25,5 +25,19 @@ services:
       - traefik_net
     volumes:
       - './static:/var/www/html/static'
+  db:
+    image: postgres:12.2-alpine
+    volumes:
+      - 'pgdata:/var/lib/postgresql/data'
+      - "./docker/app/init.sh:/docker-entrypoint-initdb.d/init.sh"
+    environment:
+      - POSTGRES_PASSWORD
+      - DB_NAME
+      - DB_USER
+      - DB_PASS
+
 networks:
   traefik_net:
+
+volumes:
+  pgdata:
