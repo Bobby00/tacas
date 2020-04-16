@@ -9,6 +9,15 @@
 {% block title %}Acaciax | Articles{% endblock %}
 
 {% block content_article %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
   <!-- BANNER WRAP -->
   <div class="banner-wrap game-review">
     <!-- BANNER -->
@@ -86,7 +95,7 @@
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">{{ article.get_message_as_markdown|truncatechars:200 }}</p>
+          <p class="post-preview-text">{{ article.description|truncatechars:200 }}</p>
 
           {% if user.is_superuser %}
           <div class="article-control-admin">

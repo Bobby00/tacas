@@ -34,7 +34,7 @@
       <!-- ACCOUNT INFO WRAP -->
       <div class="account-info-wrap">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user.username }}">
+        <img class="user-avatar big" src="{% if user.userprofile.avatar %} {{ user.userprofile.avatar.url }} {% else %} {{ user|gravatar }} {% endif %}" alt="{{ user.username }}">
         <!-- /USER AVATAR -->
 
         <!-- ACCOUNT INFO USERNAME -->
@@ -97,27 +97,8 @@
       </div>
       <!-- /SECTION TITLE WRAP -->
 
-      <form method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
-        {% include 'includes/form.html' %}
-        <br>
-        <button style="font-size: 15px;" type="submit" class="button small blue">Save changes</button>
-      </form>
 
-      <br><br>
-      <!-- ACCOUNT SETTINGS FORM -->
-      <form class="account-settings-form">
-
-        <!-- FORM ROW -->
-        <div class="form-row">
-          <!-- FORM ITEM -->
-          <label for="as_password" class="rl-label">Password</label>
-          <br>
-            <a style="font-size: 15px;" href="{% url 'password_change' %}" class="button small red">Change Password</a>
-        </div>
-        <!-- /FORM ROW -->
-
-        <!-- FORM ROW -->
+      <!-- FORM ROW -->
         <div class="form-row">
           <!-- FORM ITEM -->
           <div class="form-item">
@@ -125,7 +106,7 @@
             <!-- AVATAR CHANGE -->
             <div class="avatar-change">
               <!-- USER AVATAR -->
-              <img class="user-avatar big" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+              <img class="user-avatar big" src="{% if user.userprofile.avatar %} {{ user.userprofile.avatar.url }} {% else %} {{ user|gravatar }} {% endif %}" alt="{{ user }}">
               <!-- /USER AVATAR -->
 
               <!-- AVATAR CHANGE ACTION -->
@@ -146,32 +127,29 @@
           </div>
           <!-- /FORM ITEM -->
         </div>
+      <!-- /FORM ROW -->
+
+
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <br>
+        <button style="font-size: 15px;" type="submit" class="button small blue">Save changes</button>
+      </form>
+
+      <br><br>
+      <!-- ACCOUNT SETTINGS FORM -->
+      <form class="account-settings-form">
+
+        <!-- FORM ROW -->
+        <div class="form-row">
+          <!-- FORM ITEM -->
+          <label for="as_password" class="rl-label">Password</label>
+          <br>
+            <a style="font-size: 15px;" href="{% url 'password_change' %}" class="button small red">Change Password</a>
+        </div>
         <!-- /FORM ROW -->
 
-        <!-- SUBMIT BUTTON WRAP -->
-        <div class="submit-button-wrap">
-          <!-- BUTTON -->
-          <button class="button blue">
-            Save all changes
-            <!-- BUTTON ORNAMENT -->
-            <span class="button-ornament">
-              <!-- ARROW ICON -->
-              <svg class="arrow-icon medium">
-                <use xlink:href="#svg-arrow-medium"></use>
-              </svg>
-              <!-- /ARROW ICON -->
-
-              <!-- CROSS ICON -->
-              <svg class="cross-icon small">
-                <use xlink:href="#svg-cross-small"></use>
-              </svg>
-              <!-- /CROSS ICON -->
-            </span>
-            <!-- /BUTTON ORNAMENT -->
-          </button>
-          <!-- /BUTTON -->
-        </div>
-        <!-- /SUBMIT BUTTON WRAP -->
       </form>
       <!-- /ACCOUNT SETTINGS FORM -->
     </div>

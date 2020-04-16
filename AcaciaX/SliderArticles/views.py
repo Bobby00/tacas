@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
@@ -65,7 +67,6 @@ class ArticleUpdateView(UpdateView):
 class ArticleDelete(DeleteView):
     model = SliderArticle
     success_url = reverse_lazy('article')
-
 
 class ArticleListView(ListView):
     model = SliderArticle

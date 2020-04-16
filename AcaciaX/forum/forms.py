@@ -18,7 +18,8 @@ class NewTopicForm(forms.ModelForm):
 				'placeholder': 'What is on your mind?',
 				'class' : 'bder-cstm-clr'}
 		),
-		max_length=4000,
+		max_length=10000,
+		label='Your message  (This will be included as the first post in this topic)'
 		
 	)
 	class Meta:
@@ -36,7 +37,7 @@ class PostForm(forms.ModelForm):
                 'placeholder': 'What is on your mind?',
                 'class' : 'bder-cstm-clr'}
         ),
-        max_length=4000,
+        max_length=10000,
     )
     class Meta:
         model = Post

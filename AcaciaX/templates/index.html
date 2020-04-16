@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% load gravatar %}
@@ -7,114 +8,7 @@
 
 {% block content_home %}
 
-   <!-- BANNER SLIDER -->
-  <div id="banner-slider-2" class="banner-slider text_left v2">
-    <!-- SLIDER ITEMS -->
-    <div class="slider-items">
-      
-      <!-- SLIDER ITEM -->
-      {% for slider in slider_lists reversed %}
-      <div style="{% if slider.image.url %} background: url('{{ MEDIA }}{{ slider.image.url }}');{% else %} {% endif %}background-repeat: no-repeat; background-size: cover; " class="slider-item">
-        <div class="slider-item-wrap">
-          <!-- POST PREVIEW -->
-          <div class="post-preview huge gaming-news cstm-bg-transparent">
-            <!-- TAG ORNAMENT -->
-            <a href="#0" class="tag-ornament">{{ slider.category }}
-            <!-- /TAG ORNAMENT -->
-      
-            <!-- POST PREVIEW TITLE -->
-            <a href="{% url 'article_posts' slider.pk %}" class="post-preview-title">{{ slider.title }}</a>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <!-- USER AVATAR -->
-              <a href="#0">
-                <figure class="user-avatar tiny liquid">
-                  <img src="{{ slider.starter|gravatar }}" alt="{{ slider.starter }}">
-                </figure>
-              </a>
-              <!-- /USER AVATAR -->
-              <p class="post-author-info small light">By <a href="#0" class="post-author cstm-camel-case">{{ slider.starter }}</a><span class="separator">|</span>{{ slider.last_updated|naturaltime }}<span class="separator">|</span><a href="{% url 'article_posts' slider.pk %}#op-comments" class="post-comment-count">{{ slider.article_posts.count }} Comment(s)</a></p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-            <div class="break"></div>
-            <!-- BUTTON -->
-            <a href="{% url 'article_posts' slider.pk %}" class="button blue">
-              Go to the article
-              <!-- BUTTON ORNAMENT -->
-              <div class="button-ornament">
-                <!-- ARROW ICON -->
-                <svg class="arrow-icon medium">
-                  <use xlink:href="#svg-arrow-medium"></use>
-                </svg>
-                <!-- /ARROW ICON -->
-
-                <!-- CROSS ICON -->
-                <svg class="cross-icon small">
-                  <use xlink:href="#svg-cross-small"></use>
-                </svg>
-                <!-- /CROSS ICON -->
-              </div>
-              <!-- /BUTTON ORNAMENT -->
-            </a>
-            <!-- /BUTTON -->
-          </div>
-          <!-- /POST PREVIEW -->
-        </div>
-      </div>
-      <!-- /SLIDER ITEM -->
-
-      {% endfor %}
-
-    </div>
-    <!-- /SLIDER ITEMS -->
-
-    <!-- BANNER SLIDER PREVIEW WRAP -->
-    <div class="banner-slider-preview-wrap">
-      <!-- BANNER SLIDER CONTROLS -->
-      <div id="sliderb2-controls" class="banner-slider-controls">
-        <div class="control-previous">
-          <!-- ARROW ICON -->
-          <svg class="arrow-icon medium">
-            <use xlink:href="#svg-arrow-medium"></use>
-          </svg>
-          <!-- /ARROW ICON -->
-        </div>
-        <div class="control-next">
-          <!-- ARROW ICON -->
-          <svg class="arrow-icon medium">
-            <use xlink:href="#svg-arrow-medium"></use>
-          </svg>
-          <!-- /ARROW ICON -->
-        </div>
-      </div>
-      <!-- /BANNER SLIDER CONTROLS -->
-
-      <!-- BANNER SLIDER PREVIEW -->
-      <div id="banner-slider-2-thumbs" class="banner-slider-preview">
-        <!-- BANNER SLIDER PREVIEW ROSTER -->
-        <div class="banner-slider-preview-roster">
-          <!-- POST PREVIEW -->
-          {% for slider in slider_lists reversed %}
-          <div class="post-preview tiny negative no-img gaming-news">
-            <!-- POST PREVIEW TITLE -->
-            <p class="post-preview-title">{{ slider.title }}</p>
-            <!-- POST AUTHOR INFO -->
-            <div class="post-author-info-wrap">
-              <p class="post-author-info small light">By <span class="post-author cstm-camel-case">{{ slider.starter }}</span><span class="separator">|</span>{{ slider.last_updated|naturaltime }}</p>
-            </div>
-            <!-- /POST AUTHOR INFO -->
-          </div>
-          {% endfor %}
-          <!-- /POST PREVIEW -->
-        </div>
-        <!-- /BANNER SLIDER PREVIEW ROSTER -->
-      </div>
-      <!-- /BANNER SLIDER ROSTER -->
-    </div>
-    <!-- /BANNER SLIDER PREVIEW WRAP -->
-  </div>
-  <!-- /BANNER SLIDER -->
-
+  
 
       <!-- LAYOUT CONTENT 1 -->
       <div class="layout-content-1 layout-item-3-1 grid-limit">
@@ -136,32 +30,6 @@
                       </div>
                       <!-- /SECTION TITLE WRAP -->
                       </div>
-
-                      <div class="layout-item layout-item-xs">
-
-                        <!-- BUTTON -->
-                        <a href="{% url 'news' %}">
-                          <button class="button accent-color-bg cstm_fit_content mgn_left-41">
-                            MORE NEWS
-                            <!-- BUTTON ORNAMENT -->
-                            <span class="button-ornament">
-                              <!-- ARROW ICON -->
-                              <svg class="arrow-icon medium">
-                                <use xlink:href="#svg-arrow-medium"></use>
-                              </svg>
-                              <!-- /ARROW ICON -->
-
-                              <!-- CROSS ICON -->
-                              <svg class="cross-icon small">
-                                <use xlink:href="#svg-cross-small"></use>
-                              </svg>
-                              <!-- /CROSS ICON -->
-                            </span>
-                            <!-- /BUTTON ORNAMENT -->
-                          </button>
-                        </a>
-                          <!-- /BUTTON -->
-                      </div>
                     </div>
 
 
@@ -172,7 +40,7 @@
                         <!-- NEWS PREVIEW -->
                         <div class="news-preview slider-items">
 
-                          {% for news_list in news_lists reversed %}
+                          {% for news_list in news_lists|slice:":5" reversed %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture big geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -191,9 +59,9 @@
                                   <!-- /TAG ORNAMENT -->
 
                                   <!-- POST PREVIEW TITLE -->
-                                  <p class="post-preview-title">{{ news_list.title }}</p>
+                                  <p class="post-preview-title">{{ news_list.title|truncatechars:100 }}</p>
                                   <!-- POST PREVIEW TEXT -->
-                                  <p class="post-preview-text">{{ news_list.description }}</p>
+                                  <p class="post-preview-text">{{ news_list.description|truncatechars:120 }}</p>
                                 </div>
                                 <!-- /POST PREVIEW OVERLAY -->
 
@@ -211,7 +79,7 @@
 
                         <!-- NEWS ROSTER -->
                         <div class="news-roster slider-roster">
-                          {% for news_list in news_lists %}
+                          {% for news_list in news_lists|slice:":5" reversed %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture short geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -249,6 +117,34 @@
                         </div>
                         <!-- /NEWS ROSTER -->
                       </div>
+
+<br><br>
+                      <div style="text-align: right;" class="layout-item layout-item-xs">
+                        <!-- BUTTON -->
+                        <a href="{% url 'news' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-41">
+                            MORE NEWS
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+
+
                       <!-- POSTSLIDE -->
 
                       <!-- SLIDER CONTROLS -->
@@ -281,7 +177,7 @@
 
 
 
-                  <div class="layout-item-2-1 display-flex mgn_top_10pc">
+                    <div class="layout-item-2-1 display-flex mgn_top_10pc">
                       <div class="layout-item">
                           <!-- SECTION TITLE WRAP -->
                         <div class="section-title-wrap primary-color">
@@ -289,31 +185,6 @@
                           <div class="section-title-separator"></div>
                         </div>
                         <!-- /SECTION TITLE WRAP -->
-                      </div>
-
-                      <div class="layout-item">
-                        <!-- BUTTON -->
-                        <a href="{% url 'analysis' %}">
-                          <button class="button accent-color-bg cstm_fit_content mgn_left-40">
-                            MORE ANALYSIS
-                            <!-- BUTTON ORNAMENT -->
-                            <span class="button-ornament">
-                              <!-- ARROW ICON -->
-                              <svg class="arrow-icon medium">
-                                <use xlink:href="#svg-arrow-medium"></use>
-                              </svg>
-                              <!-- /ARROW ICON -->
-
-                              <!-- CROSS ICON -->
-                              <svg class="cross-icon small">
-                                <use xlink:href="#svg-cross-small"></use>
-                              </svg>
-                              <!-- /CROSS ICON -->
-                            </span>
-                            <!-- /BUTTON ORNAMENT -->
-                          </button>
-                        </a>
-                          <!-- /BUTTON -->
                       </div>
                     </div>
 
@@ -356,22 +227,10 @@
                       <!-- /LAYOUT ITEM -->
                       {% endfor %}
                     </div>
-                    <!-- /LAYOUT ITEM 1-1-1 -->
 
-
-                  <div class="layout-item-2-1 display-flex mgn_top_10pc">
-                      <div class="layout-item">
-                          <!-- SECTION TITLE WRAP -->
-                        <div class="section-title-wrap primary-color">
-                          <h2 class="primary-color">ECONOMIC CALENDAR</h2>
-                          <div class="section-title-separator"></div>
-                        </div>
-                        <!-- /SECTION TITLE WRAP -->
-                      </div>
-
-                      <div class="layout-item">
+                    <div style="text-align: right;" class="layout-item">
                         <!-- BUTTON -->
-                        <a href="{% url 'economic_calendar' %}">
+                        <a href="{% url 'analysis' %}">
                           <button class="button accent-color-bg cstm_fit_content mgn_left-40">
                             MORE ANALYSIS
                             <!-- BUTTON ORNAMENT -->
@@ -392,6 +251,19 @@
                           </button>
                         </a>
                           <!-- /BUTTON -->
+                      </div>
+
+                    <!-- /LAYOUT ITEM 1-1-1 -->
+
+
+                  <div class="layout-item-2-1 display-flex mgn_top_10pc">
+                      <div class="layout-item">
+                          <!-- SECTION TITLE WRAP -->
+                        <div class="section-title-wrap primary-color">
+                          <h2 class="primary-color">ECONOMIC CALENDAR</h2>
+                          <div class="section-title-separator"></div>
+                        </div>
+                        <!-- /SECTION TITLE WRAP -->
                       </div>
                     </div>
 
@@ -417,6 +289,32 @@
                       <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
                       
                   </div>
+
+                  <div style="text-align: right;" class="layout-item">
+                        <!-- BUTTON -->
+                        <a href="{% url 'economic_calendar' %}">
+                          <button class="button accent-color-bg cstm_fit_content mgn_left-40">
+                            MORE ANALYSIS
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
+
                   <!-- /LAYOUT ITEM 1-1-1 -->
 
 
@@ -486,31 +384,6 @@
                         </div>
                         <!-- /SECTION TITLE WRAP -->
                       </div>
-
-                      <div class="layout-item">
-                        <!-- BUTTON -->
-                        <a href="{% url 'forum' %}">
-                          <button class="button accent-color-bg cstm_fit_content mgn_left-41">
-                            GO TO FORUM
-                            <!-- BUTTON ORNAMENT -->
-                            <span class="button-ornament">
-                              <!-- ARROW ICON -->
-                              <svg class="arrow-icon medium">
-                                <use xlink:href="#svg-arrow-medium"></use>
-                              </svg>
-                              <!-- /ARROW ICON -->
-
-                              <!-- CROSS ICON -->
-                              <svg class="cross-icon small">
-                                <use xlink:href="#svg-cross-small"></use>
-                              </svg>
-                              <!-- /CROSS ICON -->
-                            </span>
-                            <!-- /BUTTON ORNAMENT -->
-                          </button>
-                        </a>
-                          <!-- /BUTTON -->
-                      </div>
                     </div>
 
                   <!-- LAYOUT ITEM -->
@@ -575,7 +448,7 @@
 
                           <!-- TOPIC COMMENT TEXT -->
                           <p class="topic-comment-text">
-                            {{ topic.posts.first.get_message_as_markdown }}
+                            {{ topic.posts.first.message|truncatechars:400 }}
                           </p>
                           <!-- /TOPIC COMMENT TEXT -->
 
@@ -669,11 +542,34 @@
                 {%  endfor %}
                      
                   <br>
-                  <br>
                 
                   </div>
                   <!-- /LAYOUT ITEM -->
 
+                  <div style="text-align: right;" class="layout-item">
+                        <!-- BUTTON -->
+                        <a href="{% url 'forum' %}">
+                          <button class="button accent-color-bg cstm_fit_content">
+                            GO TO FORUM
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                        </a>
+                          <!-- /BUTTON -->
+                      </div>
 
           </div>
           <!-- /LAYOUT ITEM -->
@@ -871,6 +767,10 @@
       </div>
       <!-- /LAYOUT CONTENT 1 -->
     </div>
+
+
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us19.list-manage.com","uuid":"7f15ef3827d4dcafe31728371","lid":"541b4ddefd","uniqueMethods":true}) })
+    </script>
 
 {% endblock content_home %}
 

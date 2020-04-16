@@ -43,7 +43,7 @@ class Topic(models.Model):
 
 
 class Post(models.Model):
-    message = models.TextField(max_length=4000)
+    message = models.TextField(max_length=10000)
     topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
@@ -72,7 +72,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    message = models.TextField(max_length=4000)
+    message = models.TextField(max_length=10000)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
@@ -92,7 +92,7 @@ class Comment(models.Model):
         return mark_safe(markdown(self.message, safe_mode='escape'))
 
 class Comment2(models.Model):
-    message = models.TextField(max_length=4000)
+    message = models.TextField(max_length=10000)
     comment = models.ForeignKey(Comment, related_name='comments2', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)

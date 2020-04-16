@@ -12,7 +12,7 @@ class NewArticleForm(forms.ModelForm):
 		widget=forms.TextInput(
 			attrs={
 				'placeholder': 'Write the article title',
-				'class' : 'bder-cstm-clr'
+				'class' : 'bder-cstm-clr, required'
 			}),
 			max_length=120,
 			label='Article title'
@@ -23,11 +23,13 @@ class NewArticleForm(forms.ModelForm):
 			attrs={
 				'rows': 5, 
 				'placeholder': 'What is on your mind?',
-				'class' : 'bder-cstm-clr'}
+				'class' : 'bder-cstm-clr, required'}
 		),
 		max_length=4000,
 		label='Article body'
 		
+	)
+	image = forms.ImageField(
 	)
 	class Meta:
 		model = SliderArticle

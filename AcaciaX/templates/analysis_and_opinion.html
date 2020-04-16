@@ -79,7 +79,7 @@
           </div>
           <!-- /POST AUTHOR INFO -->
           <!-- POST PREVIEW TEXT -->
-          <p class="post-preview-text">{{ analysis.get_message_as_markdown|truncatechars:220 }}</p>
+          <p class="post-preview-text">{{ analysis.description|truncatechars:220 }}</p>
 
           {% if user.is_superuser %}
           <div class="article-control-admin">

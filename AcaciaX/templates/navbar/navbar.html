@@ -159,14 +159,13 @@
 
         {% if user.is_authenticated %}
 
-
                   <!-- WIDGET OPTIONS WRAP -->
         <div class="widget-options-wrap">
           <!-- CURRENT OPTION -->
           <div id="account-dropdown-trigger" class="current-option">
             <!-- CURRENT OPTION VALUE -->
             <div class="current-option-value">
-              <img class="widget-option-img user-avatar micro" src="{{ user|gravatar }}" alt="avatar-01">
+              <img class="widget-option-img user-avatar micro" src="{% if user.userprofile.avatar %} {{ user.userprofile.avatar.url }} {% else %} {{ user|gravatar }} {% endif %}" alt="{{ user.username }}">
               <p class="widget-option-text cstm-camel-case">{{ user.username }}</p>
             </div>
             <!-- /CURRENT OPTION VALUE -->

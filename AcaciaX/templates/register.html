@@ -48,6 +48,7 @@
               <form class="form-wrap" method="post" novalidate>
                 {% csrf_token %}
                 {% include 'includes/form.html' %}
+                {{ profile_form }}
                 <button type="submit" class="button red full">Create your account!</button>
               </form>
               <p>Already have an account?<a href="{% url 'login' %}"> Log in</a></p>

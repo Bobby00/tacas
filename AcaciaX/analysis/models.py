@@ -10,9 +10,9 @@ class AnalysisArticle(models.Model):
 		('COMMODITIES WEEKLY', 'COMMODITIES WEEKLY'),
 	)
 	title = models.CharField(max_length=255)
-	description = models.TextField(max_length=4000)
+	description = models.TextField(max_length=10000)
 	category = models.CharField(max_length=255, choices=ANALYSIS_ARTICLE_CATEGORY, default='COMMODITIES WEEKLY')
-	image = models.ImageField(blank=True, upload_to='analysis')
+	image = models.ImageField(upload_to='analysis', blank=False, null=False)
 	last_updated = models.DateTimeField(auto_now_add=True)
 	starter = models.ForeignKey(User, related_name='analysis_articles', on_delete=models.CASCADE)
 
@@ -24,7 +24,7 @@ class AnalysisArticle(models.Model):
 
 
 class AnalysisPost(models.Model):
-	message = models.TextField(max_length=4000)
+	message = models.TextField(max_length=10000)
 	analysis_article = models.ForeignKey(AnalysisArticle, related_name='analysis_posts', on_delete=models.CASCADE)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(null=True)
@@ -39,7 +39,7 @@ class AnalysisPost(models.Model):
 
 
 class AnalysisComment(models.Model):
-    message = models.TextField(max_length=4000)
+    message = models.TextField(max_length=10000)
     analysis_post = models.ForeignKey(AnalysisPost, related_name='analysis_comments', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
@@ -58,7 +58,7 @@ class AnalysisComment(models.Model):
 
 
 class AnalysisComment2(models.Model):
-    message = models.TextField(max_length=4000)
+    message = models.TextField(max_length=10000)
     analysis_comment = models.ForeignKey(AnalysisComment, related_name='analysis_comments2', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)

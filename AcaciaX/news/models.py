@@ -13,7 +13,7 @@ class NewsArticle(models.Model):
 	title = models.CharField(max_length=255)
 	description = models.TextField(max_length=4000)
 	category = models.CharField(max_length = 255, choices=NEWS_ARTICLE_CATEGORY, default='STOCK MARKET')
-	image = models.ImageField(upload_to='news', blank=True)
+	image = models.ImageField(upload_to='news', blank=False, null=False)
 	last_updated = models.DateTimeField(auto_now_add=True)
 	starter = models.ForeignKey(User, related_name='news_article', on_delete=models.CASCADE)
 

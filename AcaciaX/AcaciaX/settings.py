@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'accounts',
     # Forum app
     'forum',
+    #Django countries plugin
+    'django_countries',
 ]
 
 MIDDLEWARE = [

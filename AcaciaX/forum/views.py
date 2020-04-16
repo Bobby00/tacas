@@ -74,12 +74,10 @@ class TopicUpdateView(UpdateView):
     pk_url_kwarg = 'topic_pk'
     context_object_name = 'topic'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(starter=self.request.user)
 
     def form_valid(self, form):
         topic = form.save(commit=False)
+        user = request.user.is_superuser.all()
         topic.updated_by = self.request.user
         topic.updated_at = timezone.now()
         topic.save()
@@ -105,7 +103,7 @@ class TopicListView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, pk=self.kwargs.get('pk'))
-        queryset = self.category.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+        queryset = self.category.topics.order_by('-last_updated').annotate(replies=Count('posts'))
         return queryset
 
 # def category_topics(request, pk):
@@ -189,10 +187,15 @@ def post_delete(request, pk, topic_pk, post_pk):
         post.delete()
 
         topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
-        topic_post_url = '{url}?page={page}#{id}'.format(
-            url=topic_url,
-            id=post.pk,
-            page=topic.get_page_count()
+        if '{url}?page={page}#{id}' == True:
+            topic_post_url = '{url}?page={page}#{id}'.format(
+                url=topic_url,
+                id=post.pk,
+                page=topic.get_page_count()
+        )
+        else:
+            topic_post_url = '{url}'.format(
+                url=topic_url,
         )
         return redirect(topic_post_url)
     

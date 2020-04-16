@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "python manage.py migrate && python manage.py migrate && gunicorn -b 0.0.0.0:8000 -w 3 AcaciaX.wsgi:application"
+    command: bash -c "python manage.py migrate && gunicorn -b 0.0.0.0:8000 -w 3 AcaciaX.wsgi:application"
     expose:
       - "8000"
     networks:
