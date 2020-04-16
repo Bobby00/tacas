@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load gravatar %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | Reply to Comment{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+    <script>
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "analyis_comment.pk",
+        delay: 1000,
+      }
+    });
+  </script>
+{% endblock %}
+
+{% block content_reply_analysis_comment %}
+
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap game-review">
+    <!-- BANNER -->
+    <div class="banner grid-limit cstm-width-60">
+      <h2 class="banner-title text-left">Reply to Comment</h2>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+    <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit">
+    <!-- GRID 2 1COL -->
+    <div class="grid2-1col centered">
+
+      <!-- POST COMMENT THREAD -->
+      <div id="op-comments" class="post-comment-thread">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap blue">
+          <h2 class="section-title medium">Comment</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+
+        <!-- POST COMMENT -->
+        <div class="post-comment">
+          <!-- USER AVATAR -->
+          <figure class="user-avatar medium liquid">
+            <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ analysis_comment.created_by }}">
+          </figure>
+          <!-- /USER AVATAR -->
+
+          <!-- POST COMMENT USERNAME -->
+          <p class="post-comment-username">{{ analysis_comment.created_by }}</p>
+          <!-- /POST COMMENT USERNAME -->
+
+          <!-- POST COMMENT TIMESTAMP -->
+          <p class="post-comment-timestamp">{{ analysis_comment.created_at|naturaltime }}</p>
+          <!-- /POST COMMENT TIMESTAMP -->
+
+          <!-- REPORT BUTTON -->
+          <a href="#" class="report-button">Report</a>
+          <!-- /REPORT BUTTON -->
+
+          <!-- POST COMMENT TEXT -->
+          <p class="post-comment-text">{{ analysis_comment.get_message_as_markdown }}</p>
+          <!-- /POST COMMENT TEXT -->
+<br><br>
+          <!-- TOPIC COMMENT ACTIONS -->
+            <div class="topic-comment-actions">
+              <!-- TOPIC ACTIONS -->
+              <div class="topic-actions">
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <a href="#0" onClick="document.getElementById('likebutton').submit()">
+                    <div class="topic-action-icon bubble-ornament tooltip cyan">
+                      <span class="tooltiptext">like comment</span>
+                      <i class="icon-like like-icon"></i>
+                    </div>
+                    <span class="client-reaction">0</span>
+                  </a>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">{{eachpost.likes}} </p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                 <a href="#0" onClick="document.getElementById('dislikebutton').submit()">
+                    <div class="topic-action-icon bubble-ornament hoverable red tooltip">
+                      <span class="tooltiptext">dislike comment</span>
+                      <i class="icon-dislike dislike-icon"></i>
+                    </div>
+                    <span class="client-reaction">0</span>
+                 </a>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">{{eachpost.dislikes}} </p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div style="margin-left: 10%;" class="topic-action inverted">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable blue">
+                    <a href="#form-start">
+                      <i class="icon-action-undo reply-icon"></i>
+                    </a>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">{{ analysis_comment.analysis_comments2.count }}</p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable black tooltip">
+                    <span class="tooltiptext">share comment</span>
+                    <i class="icon-link share-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+                </div>
+                <!-- /TOPIC ACTION -->
+
+
+              </div>
+              <!-- /TOPIC ACTIONS -->
+
+              <form id="likebutton" method="POST" action="posts/{{ post.topic.id}}/preference/1/">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+
+              <form id="dislikebutton" method="POST" action="posts/{{ post.topic.id}}/preference/2/">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+            </div>
+            <!-- /TOPIC COMMENT ACTIONS -->
+        </div>
+        <!-- /POST COMMENT -->
+      </div>
+      <!-- /POST COMMENT THREAD -->
+
+      <!-- TAB WRAP -->
+      <div id="tab-new-topic" class="tab-wrap">
+        <!-- TAB BODY -->
+        <div id="form-start" class="tab-body">
+          <!-- TAB ITEM -->
+          <div class="tab-item">
+            <!-- FORM BOX -->
+            <div class="form-box">
+              <!-- SECTION TITLE WRAP -->
+              <div class="section-title-wrap blue">
+                <h2 class="section-title medium">Write a reply to this comment</h2>
+                <div class="section-title-separator"></div>
+              </div>
+              <!-- /SECTION TITLE WRAP -->
+
+              <!-- FORM WRAP -->
+              <form method="post">
+			    {% csrf_token %}
+			    
+			    {% include 'includes/form.html' %}
+
+			    <button type="submit" class="button blue full">Post a reply</button>
+			  </form>
+              <!-- /FORM WRAP -->
+            </div>
+            <!-- /FORM BOX -->
+          </div>
+          <!-- /TAB ITEM -->
+        </div>
+        <!-- /TAB BODY -->
+      </div>
+    </div>
+    <!-- /GRID 2 1COL -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+
+{% endblock content_reply_analysis_comment %}

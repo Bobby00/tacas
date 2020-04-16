@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% load gravatar %}
+
+{% block title %}Acaciax | Forum topics{% endblock %}
+  
+{% block content_forum_topics %}
+
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap game-review">
+    <!-- BANNER -->
+    <div class="banner grid-limit cstm-width-60">
+      <h2 class="banner-title text-left">{{ category.name }}</h2>
+      <p class="banner-sections text-left">
+        
+        <span class="banner-section">Home</span>
+
+        <!-- ARROW ICON -->
+        <svg class="arrow-icon">
+          <use xlink:href="#svg-arrow"></use>
+        </svg>
+        <!-- /ARROW ICON -->
+
+        <a href="{% url 'forum' %}"><span class="clr-whte banner-section">Forum</span></a>
+
+        <!-- ARROW ICON -->
+        <svg class="arrow-icon">
+          <use xlink:href="#svg-arrow"></use>
+        </svg>
+        <!-- /ARROW ICON -->
+        <span class="banner-section"><strong>{{ category.name }}</strong></span>
+      </p>
+
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-1 grid-limit cstm-width-70">
+    <!-- FILTERS ROW -->
+    <div class="filters-row">
+      <!-- DROPDOWN SIMPLE WRAP -->
+      <div class="dropdown-simple-wrap">
+        <!-- DP CURRENT OPTION -->
+        <div id="filter-01-dropdown-trigger" class="dp-current-option">
+          <!-- DP CURRENT OPTION VALUE -->
+          <div id="filter-01-dropdown-option-value" class="dp-current-option-value">
+            <p class="dp-option-text">All Topics</p>
+          </div>
+          <!-- /DP CURRENT OPTION VALUE -->
+
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon">
+            <use xlink:href="#svg-arrow"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+        <!-- /DP CURRENT OPTION -->
+
+        <!-- DP OPTIONS -->
+        <div id="filter-01-dropdown" class="dp-options small">
+          {% for topic in topics %}
+          <!-- DP OPTION -->
+          <div class="dp-option">
+            <p class="dp-option-text"><a href="{% url 'topic_posts' category.pk topic.pk %}">{{ topic.subject|truncatechars:25 }}</a></p>
+          </div>
+          <!-- /DP OPTION -->
+          {% endfor %}
+        </div>
+        <!-- /DP OPTIONS -->
+
+
+      </div>
+      <!-- /DROPDOWN SIMPLE WRAP -->
+
+      <!-- FORUM ACTIONS -->
+      <div class="forum-actions">
+        <!-- DROPDOWN SIMPLE WRAP -->
+        <div class="dropdown-simple-wrap">
+          <!-- CURRENT OPTION -->
+          <div id="forums-search-dropdown-trigger" class="current-option">
+            <!-- BUTTON -->
+            <p class="button small red">Search Forums</p>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /CURRENT OPTION -->
+  
+          <!-- DP OPTIONS -->
+          <div id="forums-search-dropdown" class="dp-options medium">
+            <!-- FORM WRAP -->
+            <form class="form-wrap">
+              <!-- FORM ROW -->
+              <div class="form-row">
+                <!-- FORM ITEM -->
+                <div class="form-item">
+                  <!-- SUBMIT INPUT -->
+                  <div class="submit-input red">
+                    <input type="text" id="forum_search_input" name="forum_search_input" placeholder="What are you looking for?...">
+                    <button class="submit-input-button">
+                      <!-- ARROW ICON -->
+                      <svg class="arrow-icon medium">
+                        <use xlink:href="#svg-arrow-medium"></use>
+                      </svg>
+                      <!-- /ARROW ICON -->
+                    </button>
+                  </div>
+                  <!-- /SUBMIT INPUT -->
+                </div>
+                <!-- /FORM ITEM -->
+              </div>
+              <!-- /FORM ROW -->
+
+              <!-- FORM CONFIRM ROW -->
+              <div class="form-confirm-row">
+                <!-- CHECKBOX ITEM -->
+                <div class="checkbox-item">
+                  <input type="checkbox" id="f_search_cat_only" name="f_search_cat_only" value="only" checked>
+                  <!-- CHECKBOX BOX -->
+                  <div class="checkbox-box blue">
+                    <!-- CROSS ICON -->
+                    <svg class="cross-cb-icon small">
+                      <use xlink:href="#svg-cross-cb-small"></use>
+                    </svg>
+                    <!-- /CROSS ICON -->
+                  </div>
+                  <!-- CHECKBOX BOX -->
+                  <label for="f_search_cat_only" class="rl-label">Search this category only</label>
+                </div>
+                <!-- /CHECKBOX ITEM -->
+
+                <!-- DECORATED LINK -->
+                <p class="decorated-link red popup-advanced-search-trigger">Advanced Search</p>
+                <!-- /DECORATED LINK -->
+              </div>
+              <!-- /FORM CONFIRM ROW -->
+            </form>
+            <!-- FORM WRAP -->
+          </div>
+          <!-- /DP OPTIONS -->
+        </div>
+        <!-- /DROPDOWN SIMPLE WRAP -->
+        {% if category.pk == 1 %}
+
+        <!-- BUTTON -->
+        <a href="{% url 'new_topic' category.pk %}">
+          <p class="button small blue popup-create-topic-trigger">Create Topic</p>
+        </a>
+        <!-- /BUTTON -->
+
+        {% else %}
+        <!-- BUTTON -->
+        <a href="{% url 'new_topic' category.pk %}">
+          <p class="button small blue popup-create-topic-trigger">Create Topic</p>
+        </a>
+        <!-- /BUTTON -->
+        {% endif %}
+      </div>
+      <!-- /FORUM ACTIONS -->
+    </div>
+    <!-- /FILTERS ROW -->
+
+        <!-- TABLE -->
+        <div class="table-responsive-vertical grid3-1col">
+          <!-- Table starts here -->
+          <table id="table" class="table forum-table-topics no-brdr-space table-hover table-mc-light-blue">
+              <thead>
+                <tr class="capitalize">
+                  <th class="forum-header-title text-left">Topics</th>
+                  <th class="forum-header-title text-center">Members</th>
+                  <th class="forum-header-title text-center">Replies</th>
+                  <th class="forum-header-title text-center">Views</th>
+                  <th class="forum-header-title text-center">Activity</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {% for topic in topics %}
+                  <tr>
+                    <td class="category-title" data-title="Catergory">
+                      <a href="{% url 'topic_posts' category.pk topic.pk %}"><p style="font-size: 16px; color: black;" class="cstm-width-a">{{ topic.subject }}</p></a>
+
+                      {% if topic.starter == user or request.user.is_superuser %}
+                      <br>
+                      <div class="mt-3">
+                        <a href="{% url 'edit_topic' topic.category.pk topic.pk %}"
+                           class="button small blue"
+                           role="button"><i class="fas fa-edit"></i> Edit topic?</a>
+
+                        <form action="{% url 'delete_topic' topic.category.pk topic.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <!-- BUTTON -->
+                          <button onclick="return DeleteAttempt();" class="button small red"><i class="far fa-trash-alt"></i> Delete topic?</button>
+                          <!-- /BUTTON -->
+                        </form>
+                      </div>
+                      {% endif %}
+                    </td>
+                    <td class="topics-count fnt-w8-800" data-title="Topics"> 
+                      <!-- FORUM USER LIST -->
+                      <div class="forum-user-list">
+
+         {% for post in topic.posts.all|slice:":5" reversed %}
+                    <a href="#0">
+                      <!-- USER AVATAR -->
+                      <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by }}">
+                      <!-- /USER AVATAR -->
+                    </a>
+          {% endfor %}
+  
+                      </div>
+                      <!-- /FORUM USER LIST -->
+                    </td>
+                    <td class="forum-posts-count fnt-sze-14 text-center" data-title="Posts">
+                      {{ topic.replies }}
+                    </td>
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
+                      {{ topic.views }}
+                    </td>
+                    <td class="forum-latest clr_black text-center" data-title="Actual">
+                      {{ topic.last_updated|naturaltime }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+      
+      <!-- PAGE NAVIGATION -->
+      {% include 'includes/pagination.html' %}
+      <!-- /PAGE NAVIGATION -->
+          </div>
+    <!-- /TABLE -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+  {% endblock content_forum_topics %}

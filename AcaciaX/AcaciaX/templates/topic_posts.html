@@ -1,0 +1,819 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load gravatar %}
+
+{% load humanize %}
+
+{% block title %}Acaciax | Topic posts{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE({
+      forceSync: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "post.pk",
+        delay: 1000,
+      }
+    });
+  </script>
+{% endblock %}
+
+{% block content_topic_posts %}
+
+{% for post in posts %}
+  <!-- POPUP WRAP -->
+  <div id="popup-quick-reply" class="popup-wrap full">
+    <!-- QUICK FORM WRAP -->
+    <div class="quick-form-wrap">
+      <!-- QUICK FORM -->
+      <div class="quick-form grid-limit">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap blue">
+          <h2 class="section-title medium">Quick Reply</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+
+        <!-- TOPIC COMMENT REPLY USER -->
+        <div class="topic-comment-reply-user">
+          <!-- TOPIC COMMENT REPLY ICON -->
+          <i class="topic-comment-reply-icon icon-action-redo"></i>
+          <!-- /TOPIC COMMENT REPLY ICON -->
+
+          <!-- USER AVATAR -->
+          <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
+          <!-- /USER AVATAR -->
+
+          <!-- TOPIC COMMENT REPLY NAME -->
+          <p class="topic-comment-reply-name">{{ post.created_by.username }}</p>
+          <!-- /TOPIC COMMENT REPLY NAME -->
+        </div>
+        <!-- /TOPIC COMMENT REPLY USER -->
+
+        <!-- FORM WRAP -->
+        <form class="form-wrap">
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item blue">
+              <label for="quick_reply_text" class="rl-label">Write your reply</label>
+              <!-- <textarea name="quick_reply_text" id="quick_reply_text" placeholder="Write your reply here..."></textarea> -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+
+          <!-- FORM ACTIONS -->
+          <div class="form-actions right">
+            <!-- BUTTON -->
+            <p class="button gray no-decoration popup-quick-reply-trigger">Discard all</p>
+            <!-- /BUTTON -->
+  
+            <!-- BUTTON -->
+            <button class="button blue">
+              Post your comment
+              <!-- BUTTON ORNAMENT -->
+              <span class="button-ornament">
+                <!-- ARROW ICON -->
+                <svg class="arrow-icon medium">
+                  <use xlink:href="#svg-arrow-medium"></use>
+                </svg>
+                <!-- /ARROW ICON -->
+        
+                <!-- CROSS ICON -->
+                <svg class="cross-icon small">
+                  <use xlink:href="#svg-cross-small"></use>
+                </svg>
+                <!-- /CROSS ICON -->
+              </span>
+              <!-- /BUTTON ORNAMENT -->
+            </button>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /FORM ACTIONS -->
+        </form>
+        <!-- /FORM WRAP -->
+      </div>
+      <!-- /QUICK FORM -->
+    </div>
+    <!-- /QUICK FORM WRAP -->
+  </div>
+  <!-- /POPUP WRAP -->
+
+  {% endfor %}
+  
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full layout-item grid-limit cstm-width-70 gutter-big">
+    <!-- FILTERS ROW -->
+    <div class="filters-row">
+      <!-- DROPDOWN SIMPLE WRAP -->
+      <div class="dropdown-simple-wrap">
+        <!-- DP CURRENT OPTION -->
+        <div id="filter-01-dropdown-trigger" class="dp-current-option">
+          <!-- DP CURRENT OPTION VALUE -->
+          <div id="filter-01-dropdown-option-value" class="dp-current-option-value">
+            <p class="dp-option-text">All Categories</p>
+          </div>
+          <!-- /DP CURRENT OPTION VALUE -->
+
+          <!-- ARROW ICON -->
+          <svg class="arrow-icon">
+            <use xlink:href="#svg-arrow"></use>
+          </svg>
+          <!-- /ARROW ICON -->
+        </div>
+        <!-- /DP CURRENT OPTION -->
+
+        <!-- DP OPTIONS -->
+        <div id="filter-01-dropdown" class="dp-options small">
+          {% for category in category_list %}
+          <!-- DP OPTION -->
+          <div class="dp-option">
+            <a href="{% url 'category_topics' category.pk %}">
+              <p class="dp-option-text">{{ category.name }}</p>
+            </a>
+          </div>
+          <!-- /DP OPTION -->
+          {% endfor %}
+        </div>
+        <!-- /DP OPTIONS -->
+      </div>
+      <!-- /DROPDOWN SIMPLE WRAP -->
+
+
+      <!-- OPTION LIST -->
+      <div class="option-list">
+        <!-- OPTION LIST ITEM -->
+        <p class="option-list-item selected">Latest Topics</p>
+        <!-- /OPTION LIST ITEM -->
+
+      </div>
+      <!-- /OPTION LIST -->
+
+      <!-- FORUM ACTIONS -->
+      <div class="forum-actions">
+        <!-- DROPDOWN SIMPLE WRAP -->
+        <div class="dropdown-simple-wrap">
+          <!-- CURRENT OPTION -->
+          <div id="forums-search-dropdown-trigger" class="current-option">
+            <!-- BUTTON -->
+            <p class="button small red">Search Topic</p>
+            <!-- /BUTTON -->
+          </div>
+          <!-- /CURRENT OPTION -->
+  
+          <!-- DP OPTIONS -->
+          <div id="forums-search-dropdown" class="dp-options medium">
+            <!-- FORM WRAP -->
+            <form class="form-wrap">
+              <!-- FORM ROW -->
+              <div class="form-row">
+                <!-- FORM ITEM -->
+                <div class="form-item">
+                  <!-- SUBMIT INPUT -->
+                  <div class="submit-input red">
+                    <input type="text" id="forum_search_input" name="forum_search_input" placeholder="What are you looking for?...">
+                    <button class="submit-input-button">
+                      <!-- ARROW ICON -->
+                      <svg class="arrow-icon medium">
+                        <use xlink:href="#svg-arrow-medium"></use>
+                      </svg>
+                      <!-- /ARROW ICON -->
+                    </button>
+                  </div>
+                  <!-- /SUBMIT INPUT -->
+                </div>
+                <!-- /FORM ITEM -->
+              </div>
+              <!-- /FORM ROW -->
+
+              <!-- FORM CONFIRM ROW -->
+              <div class="form-confirm-row">
+                <!-- CHECKBOX ITEM -->
+                <div class="checkbox-item">
+                  <input type="checkbox" id="f_search_cat_only" name="f_search_cat_only" value="only" checked>
+                  <!-- CHECKBOX BOX -->
+                  <div class="checkbox-box blue">
+                    <!-- CROSS ICON -->
+                    <svg class="cross-cb-icon small">
+                      <use xlink:href="#svg-cross-cb-small"></use>
+                    </svg>
+                    <!-- /CROSS ICON -->
+                  </div>
+                  <!-- CHECKBOX BOX -->
+                  <label for="f_search_cat_only" class="rl-label">Search this topic only</label>
+                </div>
+                <!-- /CHECKBOX ITEM -->
+
+                <!-- DECORATED LINK -->
+                <p class="decorated-link red popup-advanced-search-trigger">Advanced Search</p>
+                <!-- /DECORATED LINK -->
+              </div>
+              <!-- /FORM CONFIRM ROW -->
+            </form>
+            <!-- FORM WRAP -->
+          </div>
+          <!-- /DP OPTIONS -->
+        </div>
+        <!-- /DROPDOWN SIMPLE WRAP -->
+
+        <!-- BUTTON -->
+        <a href="#write_post" class="button fnt-16 small blue popup-create-topic-trigger"><i class="fas fa-feather-alt"></i> Make a post</a>
+        <!-- /BUTTON -->
+
+        
+      </div>
+      <!-- /FORUM ACTIONS -->
+    </div>
+    <!-- /FILTERS ROW -->
+
+    <!-- TOPIC WRAP -->
+    <div class="topic-wrap">
+      
+
+      <!-- TOPIC HEADER -->
+      <div class="topic-header">
+        <!-- TOPIC TITLE -->
+        <h1>{{ topic.subject }}</h1>
+        <!-- /TOPIC TITLE -->
+
+        <!-- TAG ORNAMENT -->
+        <a href="{% url 'category_topics' topic.category.pk %}" class="tag-ornament">{{ topic.category.name }}</a>
+      <!-- /TAG ORNAMENT -->
+      </div>
+      <!-- /TOPIC HEADER -->
+
+      {% if topic.starter == user or request.user.is_superuser %}
+        <br>
+        <div class="mt-3">
+          <a href="{% url 'edit_topic' topic.category.pk topic.pk %}"
+             class="button small blue"
+             role="button"><i class="fas fa-edit"></i> Edit topic?</a>
+
+          <form action="{% url 'delete_topic' topic.category.pk topic.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <!-- BUTTON -->
+            <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete topic?</button>
+            <!-- /BUTTON -->
+          </form>
+        </div>
+        {% endif %}
+
+<br>
+<hr style="border: 2px solid;">
+
+      <!-- TOPIC BODY -->
+      <div style="width: 100%;" class="topic-body">
+        <!-- TOPIC Comment -->
+
+        <input style="display: none;" id="posts" value="{% for p in posts %}{{ p.pk }},{% endfor %}">
+        {% for post in posts %}
+
+        <div class="topic-comment {% if forloop.first %} darkr-bdr-btm bg-white {% endif %} " onload="alert();">
+          <!-- TOPIC COMMENT USER -->
+          <div class="topic-comment-user">
+            <!-- USER AVATAR -->
+            <a href="#0">
+              <img class="user-avatar medium" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
+            </a>
+            <!-- /USER AVATAR -->
+            
+          </div>
+          <!-- /TOPIC COMMENT USER -->
+
+          <!-- TOPIC COMMENT CONTENT WRAP -->
+          <div class="topic-comment-content-wrap">
+            <!-- TOPIC COMMENT CONTENT -->
+            <div class="topic-comment-content">
+              <!-- TOPIC COMMENT CONTENT HEADER -->
+              <div class="topic-comment-content-header">
+                <!-- TOPIC COMMENT USERNAME -->
+                <a href="#0" class="topic-comment-username">{{ post.created_by.username }} {% if forloop.first %} <span class="creator-tag">CREATOR</span> {% endif %}</a> 
+                <!-- /TOPIC COMMENT USERNAME -->
+
+                <!-- TOPIC COMMENT INFO -->
+                <div class="topic-comment-info">
+                  <!-- TOPIC COMMENT TIMESTAMP -->
+                  <p class="topic-comment-timestamp">{{ post.created_at|naturaltime }}</p>
+                  <!-- /TOPIC COMMENT TIMESTAMP -->
+                </div>
+                <!-- /TOPIC COMMENT INFO -->
+              </div>
+              <!-- /TOPIC COMMENT CONTENT HEADER -->
+
+              <!-- TOPIC COMMENT TEXT -->
+              <p style="font-size: 16px;" class="topic-comment-text">
+                {{ post.get_message_as_markdown }}
+              </p>
+
+              <!-- /TOPIC COMMENT TEXT -->
+
+            {% if post.created_by == user %}
+            <br>
+            <div class="mt-3">
+              <a href="{% url 'edit_post' post.topic.category.pk post.topic.pk post.pk %}"
+                 class="button small blue"
+                 role="button"><i class="fas fa-edit"></i> Edit Post?</a>
+
+              <form action="{% url 'delete_post' post.topic.category.pk post.topic.pk post.pk %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <!-- BUTTON -->
+                <button type="submit" onclick="return confirm('Are you sure you want to delete post?');" class="button small red"><i class="far fa-trash-alt"></i> Delete post?</button>
+                <!-- /BUTTON -->
+              </form>
+            </div>
+            {% endif %}
+            
+            </div>
+            <!-- /TOPIC COMMENT CONTENT -->
+
+            <!-- TOPIC COMMENT ACTIONS -->
+            <div class="topic-comment-actions">
+              <!-- TOPIC ACTIONS -->
+              <div class="topic-actions">
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <a href="#0" onClick="doLike(event, {{post.pk}});">
+                    <div class="topic-action-icon bubble-ornament tooltip cyan">
+                      <span class="tooltiptext">Like post</span>
+                      <i class="icon-like like-icon"></i>
+                    </div>
+                    <span class="client-reaction"><span id="post-{{post.pk}}-like">0</span> Thumbs up</span>
+                  </a>
+                  <!-- /TOPIC ACTION ICON -->
+      
+                </div>
+                <!-- /TOPIC ACTION -->
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                 <a href="#0" onClick="doDislike(event, {{post.pk}});">
+                    <div class="topic-action-icon bubble-ornament tooltip red">
+                      <span class="tooltiptext">Dislike post</span>
+                      <i class="icon-dislike dislike-icon"></i>
+                    </div>
+                    <span class="client-reaction">
+                    <span id="post-{{post.pk}}-dislike">0</span>
+                    Thumbs down</span>
+                 </a>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">{{eachpost.dislikes}} </p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+              </div>
+              <!-- /TOPIC ACTIONS -->
+
+              <form id="likebutton" method="POST" action="posts/{{ post.topic.id}}/preference/1/">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+
+              <form id="dislikebutton" method="POST" action="posts/{{ post.topic.id}}/preference/2/">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+
+
+              <!-- <a href="#0">
+                <p class="fnt-sze-14 show-comments-styl {% if post.comments.count < 1 %} hidden {% endif %}"><span style="font-size: 10px;">({{ post.comments.count }})</span> show comments <i class="fas fa-chevron-down"></i></p>
+              </a> -->
+
+              <!-- TOPIC ACTIONS -->
+              <div class="topic-actions">
+
+                
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action inverted">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable tooltip blue">
+                    <span class="tooltiptext">Reply to post</span>
+                    <a href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">
+                      <i class="icon-action-undo reply-icon"></i>
+                    </a>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+        
+                  <!-- TOPIC ACTION TEXT -->
+                  <p class="topic-action-text">{% if post.comments.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">be the first to comment</a> {% else %} {{ post.comments.count }} {% endif %}</p>
+                  <!-- /TOPIC ACTION TEXT -->
+                </div>
+                <!-- /TOPIC ACTION -->
+                 
+
+                
+                
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament tooltip hoverable black">
+                    <span class="tooltiptext">share this post</span>
+                    <i class="icon-link share-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+                </div>
+                <!-- /TOPIC ACTION -->
+                
+
+                <!-- TOPIC ACTION -->
+                <div class="topic-action">
+                  <!-- TOPIC ACTION ICON -->
+                  <div class="topic-action-icon bubble-ornament hoverable tooltip red">
+                    <span class="tooltiptext">Report post</span>
+                    <i class="icon-fire report-icon"></i>
+                  </div>
+                  <!-- /TOPIC ACTION ICON -->
+                </div>
+                <!-- /TOPIC ACTION -->
+              </div>
+              <!-- /TOPIC ACTIONS -->
+            </div>
+            <!-- /TOPIC COMMENT ACTIONS -->
+
+
+            
+
+              {% for comment in post.comments.all reversed %}
+               <div id="op-comments" class="post-comment-thread">
+                  <!-- POST COMMENT -->
+                <div class="post-comment">
+
+                  <div class="vl-1"> </div>
+
+                  <!-- USER AVATAR -->
+                  <figure class="user-avatar medium liquid">
+                    <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by.username }}">
+                  </figure>
+                  <!-- /USER AVATAR -->
+            
+                  <!-- POST COMMENT USERNAME -->
+                  <p class="post-comment-username">{{ comment.created_by.username }}</p>
+                  <!-- /POST COMMENT USERNAME -->
+            
+                  <!-- POST COMMENT TIMESTAMP -->
+                  <p class="post-comment-timestamp">{{ comment.created_at|naturaltime }}</p>
+                  <!-- /POST COMMENT TIMESTAMP -->
+            
+                  <!-- REPORT BUTTON -->
+                  <a href="#" class="report-button">Report</a>
+                  <!-- /REPORT BUTTON -->
+            
+                  <!-- POST COMMENT TEXT -->
+                  <p class="post-comment-text">{{ comment.get_message_as_markdown }}</p>
+                  <!-- /POST COMMENT TEXT -->
+
+                  {% if comment.created_by == user %}
+                  <br>
+                  <div class="mt-3">
+                    <a href="{% url 'edit_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}"
+                       class="button small blue"
+                       role="button"><i class="fas fa-edit"></i> Edit comment?</a>
+
+                    <form action="{% url 'delete_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}" method="post" style="display: inline;">
+                      {% csrf_token %}
+                      <!-- BUTTON -->
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                      <!-- /BUTTON -->
+                    </form>
+                  </div>
+                  {% endif %}
+            
+                  <!-- POST COMMENT ACTIONS -->
+                  <div class="post-comment-actions">
+            
+                    <!-- LIKE BUTTON -->
+                    <div class="like-button bubble-ornament hoverable tooltip cyan">
+                      <span class="tooltiptext">like comment</span>
+                      <i class="icon-like like-icon"></i>
+                    </div>
+                    <!-- /LIKE BUTTON -->
+            
+                    <!-- LIKES COUNT -->
+                    <p class="likes-count">0 Thumbs Up</p>
+                    <!-- /LIKES COUNT -->
+
+                    <!-- DISLIKE BUTTON -->
+                      <div class="like-button bubble-ornament hoverable tooltip red">
+                        <span class="tooltiptext">dislike comment</span>
+                        <i class="icon-dislike dislike-icon"></i>
+                      </div>
+                      <!-- /DISLIKE BUTTON -->
+
+                      <!-- DISLIKES COUNT -->
+                      <p class="likes-count">0 Thumbs Up</p>
+                      <!-- /DISLIKES COUNT -->
+
+                    <!-- REPLY BUTTON -->
+                    <a style="margin-left: 40px;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
+                      <div class="reply-button bubble-ornament tooltip blue">
+                        <span class="tooltiptext">send a reply</span>
+                        <i class="icon-action-undo reply-icon"></i>
+                      </div>
+                    </a>
+                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
+
+                    <!-- /REPLY BUTTON -->
+
+                  </div>
+                  <!-- /POST COMMENT ACTIONS -->
+                  <br><br>
+                  {% for comment2 in comment.comments2.all reversed %}
+                  <div id="op-comments2" class="post-comment-thread">
+                    <!-- POST COMMENT -->
+                      <div class="post-comment">
+
+                        <div class="vl-2"> </div>
+
+                        <!-- USER AVATAR -->
+                        <figure class="user-avatar medium liquid">
+                          <img src="{{ comment2.created_by|gravatar }}" alt="{{ comment2.created_by.username }}">
+                        </figure>
+                        <!-- /USER AVATAR -->
+                  
+                        <!-- POST COMMENT USERNAME -->
+                        <p class="post-comment-username">{{ comment2.created_by.username }}</p>
+                        <!-- /POST COMMENT USERNAME -->
+                  
+                        <!-- POST COMMENT TIMESTAMP -->
+                        <p class="post-comment-timestamp">{{ comment2.created_at|naturaltime }}</p>
+                        <!-- /POST COMMENT TIMESTAMP -->
+                  
+                        <!-- REPORT BUTTON -->
+                        <a href="#" class="report-button">Report</a>
+                        <!-- /REPORT BUTTON -->
+                  
+                        <!-- POST COMMENT TEXT -->
+                        <p class="post-comment-text">{{ comment2.get_message_as_markdown }}</p>
+                        <!-- /POST COMMENT TEXT -->
+
+                          {% if comment2.created_by == user %}
+                            <br>
+                            <div class="mt-3">
+                              <a href="{% url 'edit_comment2' comment2.comment.post.topic.category.pk comment2.comment.post.topic.pk comment2.comment.post.pk comment2.comment.pk comment2.pk %}"
+                                 class="button small blue"
+                                 role="button">Edit Comment?</a>
+
+                              <form action="{% url 'delete_comment2' comment2.comment.post.topic.category.pk comment2.comment.post.topic.pk comment2.comment.post.pk comment2.comment.pk comment2.pk %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <!-- BUTTON -->
+                                <button type="submit" onclick="return confirm('Are you sure you want to delete comment?');" class="button small red"><i class="far fa-trash-alt"></i> Delete comment?</button>
+                                <!-- /BUTTON -->
+                              </form>
+                            </div>
+                          {% endif %}
+                  
+                        <!-- POST COMMENT ACTIONS -->
+                        <div class="post-comment-actions">
+                         
+                  
+                          <!-- LIKE BUTTON -->
+                          <div class="like-button bubble-ornament hoverable tooltip cyan">
+                            <span class="tooltiptext">like comment</span>
+                            <i class="icon-like like-icon"></i>
+                          </div>
+                          <!-- /LIKE BUTTON -->
+                  
+                          <!-- LIKES COUNT -->
+                          <p class="likes-count">0 Thumbs Up</p>
+                          <!-- /LIKES COUNT -->
+
+                          <!-- DISLIKE BUTTON -->
+                          <div class="like-button bubble-ornament hoverable tooltip red">
+                            <span class="tooltiptext">dislike comment</span>
+                            <i class="icon-dislike dislike-icon"></i>
+                          </div>
+                          <!-- /DISLIKE BUTTON -->
+
+                          <!-- DISLIKES COUNT -->
+                          <p class="likes-count">0 Thumbs Up</p>
+                          <!-- /DISLIKES COUNT -->
+                          
+                        </div>
+                        <!-- /POST COMMENT ACTIONS -->
+                      </div>
+                      <!-- /POST COMMENT -->
+                    </div>
+                      {% endfor %}
+
+                </div>
+                <!-- /POST COMMENT -->
+              </div>
+              {% endfor %}
+
+
+            
+
+            </div>
+            <!-- /TOPIC COMMENT CONTENT WRAP -->
+          </div>
+          <!-- /TOPIC COMMENT -->
+
+        {% endfor %}
+
+      </div>
+      <!-- /TOPIC BODY -->
+      <br><br>
+    {% include 'includes/pagination.html' %}
+
+    </div>
+    <!-- /TOPIC WRAP -->
+
+<div id="write_post" class="layout-content-full grid-limit grid3-1col centered">
+      <div class="layout-item-1 mgn_top_10pc">
+          <div class="layout-item">
+              <!-- SECTION TITLE WRAP -->
+            <div class="section-title-wrap light-gray">
+              <h2 class="">WRITE A POST IN THIS TOPIC</h2>
+              <div class="section-title-separator blue"></div>
+            </div>
+            <!-- /SECTION TITLE WRAP -->
+          </div>
+        </div>
+
+        {% if user.is_authenticated %}
+                <!-- FORM ROW -->
+                <div class="form-row">
+                  <!-- FORM WRAP -->
+                    <form method="post">
+                    {% csrf_token %}
+                    
+                    {% include 'includes/form.html' %}
+
+                    <button style="font-size: 16px;" type="submit" class="button blue full">Publish your post</button>
+                  </form>
+                        <!-- /FORM WRAP -->
+                </div>
+                <!-- /FORM ROW -->
+                {% else %}
+                <br>
+                  <h4 style="color: green;">Please Sign in or Register to share a comment</h4>
+                  <br>
+                  <!-- BUTTON -->
+                  <a href="{% url 'login' %}">
+                    <button style="font-size: 15px;" class="button blue cstm_fit_content">
+                      SIGN IN
+                      <!-- BUTTON ORNAMENT -->
+                      <span class="button-ornament">
+                        <!-- ARROW ICON -->
+                        <svg class="arrow-icon medium">
+                          <use xlink:href="#svg-arrow-medium"></use>
+                        </svg>
+                        <!-- /ARROW ICON -->
+
+                        <!-- CROSS ICON -->
+                        <svg class="cross-icon small">
+                          <use xlink:href="#svg-cross-small"></use>
+                        </svg>
+                        <!-- /CROSS ICON -->
+                      </span>
+                      <!-- /BUTTON ORNAMENT -->
+                    </button>
+                  </a>
+                    <!-- /BUTTON -->
+
+                    <!-- BUTTON -->
+                    <a href="{% url 'signup' %}">
+                      <button style="font-size: 15px;" class="button accent-color-bg cstm_fit_content">
+                        CREATE ACCOUNT
+                        <!-- BUTTON ORNAMENT -->
+                        <span class="button-ornament">
+                          <!-- ARROW ICON -->
+                          <svg class="arrow-icon medium">
+                            <use xlink:href="#svg-arrow-medium"></use>
+                          </svg>
+                          <!-- /ARROW ICON -->
+
+                          <!-- CROSS ICON -->
+                          <svg class="cross-icon small">
+                            <use xlink:href="#svg-cross-small"></use>
+                          </svg>
+                          <!-- /CROSS ICON -->
+                        </span>
+                        <!-- /BUTTON ORNAMENT -->
+                      </button>
+                    </a>
+                    <!-- /BUTTON -->
+
+                {% endif %}
+</div>
+
+<div class="layout-content-full grid-limit grid3-1col centered">
+  <div class="layout-item-2-1 display-flex">
+          <div class="layout-item">
+              <!-- SECTION TITLE WRAP -->
+            <div class="section-title-wrap light-gray">
+              <h2 class="">MORE TOPICS IN THIS CATEGORY</h2>
+              <div class="section-title-separator"></div>
+            </div>
+            <!-- /SECTION TITLE WRAP -->
+          </div>
+
+          <div class="layout-item">
+            <!-- BUTTON -->
+            <a href="{% url 'category_topics' topic.category.pk %}">
+              <button class="button light-gray cstm_fit_content mgn_left-40">
+                MORE TOPICS
+                <!-- BUTTON ORNAMENT -->
+                <span class="button-ornament">
+                  <!-- ARROW ICON -->
+                  <svg class="arrow-icon medium">
+                    <use xlink:href="#svg-arrow-medium"></use>
+                  </svg>
+                  <!-- /ARROW ICON -->
+
+                  <!-- CROSS ICON -->
+                  <svg class="cross-icon small">
+                    <use xlink:href="#svg-cross-small"></use>
+                  </svg>
+                  <!-- /CROSS ICON -->
+                </span>
+                <!-- /BUTTON ORNAMENT -->
+              </button>
+            </a>
+              <!-- /BUTTON -->
+          </div>
+        </div>
+        
+      <h3 style="color: red; text-align: center;">No topics available</h3>
+
+      </div>
+      <br><br>
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+  <script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    function doPref(postID, value) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      var payload = {value: value};
+      var headers = {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json'
+      };
+
+      fetch(url, {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify(payload)
+      }).then(function(resp) {
+        return resp.json();
+      }).then(function(data){
+        updatePreferences(data, postID);
+      })
+    }
+
+    function doLike(e, postID) {
+      e.preventDefault();
+      doPref(postID, 1);
+    }
+
+    function doDislike(e, postID) {
+      e.preventDefault();
+      doPref(postID, -1);
+    }
+
+    function updatePreferences(payload, postID) {
+      var base = '#post-' + postID + '-';
+      $(base + 'like').text(payload['likes']);
+      $(base + 'dislike').text(payload['dislikes']);
+    }
+
+    function getPref(postID) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      fetch(url).then(function(resp) { return resp.json() })
+      .then(function(data) { updatePreferences(data, postID)} );
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        $('#posts').val().split(',').forEach(function(i) { getPref(i)});
+    })
+  </script>
+
+{% endblock content_topic_posts %}
