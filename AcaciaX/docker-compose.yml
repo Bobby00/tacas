@@ -13,6 +13,10 @@ services:
     working_dir: /home/app
     volumes:
       - 'static:/home/app/static:ro'
+    environment:
+      - DB_NAME
+      - DB_USER
+      - DB_PASS
   server:
     image: ${CI_REGISTRY_IMAGE-localhost:5000/acaciax}/nginx:${IMAGE_TAG-v1}
     build:
@@ -27,7 +31,7 @@ services:
   db:
     image: postgres:12.2-alpine
     volumes:
-      - '/var/lib/postgresql/data:/var/lib/postgresql/data'
+      - '/var/lib/pqsql/data:/var/lib/postgresql/data:rw'
       - "./docker/app/init.sh:/docker-entrypoint-initdb.d/init.sh"
     environment:
       - POSTGRES_PASSWORD
