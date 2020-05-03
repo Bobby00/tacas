@@ -9,7 +9,7 @@ services:
       - "--docker"
       - "--api"
       - "--docker.watch"
-      # - "--docker.domain=acaciax.co"
+      - "--docker.domain=acaciax.co"
       - "--docker.exposedbydefault=false"
       - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
       - "--insecureSkipVerify"
@@ -17,7 +17,7 @@ services:
       - "--defaultentrypoints=http,https"
       - "--acme"
       - "--acme.acmelogging=true"
-      - "--logLevel=INFO"
+      - "--logLevel=DEBUG"
       - "--accessLog"
       - "--acme.storage=le/acme.json"
       - "--acme.entryPoint=https"
@@ -26,7 +26,7 @@ services:
       - "--acme.onDemand=false"
       - "--acme.email=njugunasamuel12@gmail.com"
       - "--acme.domains=acaciax.co,www.acaciax.co,dash.acaciax.co"
-      # - "--acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      #- "--acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       
     restart: always
     ports:
