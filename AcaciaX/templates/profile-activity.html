@@ -15,7 +15,7 @@
       <!-- PROFILE USER -->
       <div class="profile-user">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user }}">
+        <img class="user-avatar big" src="{% if user.userprofile.avatar %} {{ user.userprofile.avatar.url }} {% else %} {{ user|gravatar }} {% endif %}" alt="{{ user.username }}">
         <!-- /USER AVATAR -->
 
         <!-- PROFILE USER NAME -->

@@ -73,8 +73,9 @@
           <div class="post-author-info-wrap">
             <!-- USER AVATAR -->
             <a href="#0">
-              <figure class="user-avatar tiny liquid">
-                <img src="{{ news.starter|gravatar }}" alt="{{ news.starter }}">
+
+              <figure class="user-avatar tiny">
+                <img src="{% if news.starter.userprofile.avatar %} {{ news.starter.userprofile.avatar.url }} {% else %} {{ news.starter|gravatar }} {% endif %}" alt="{{ news.starter }}">
               </figure>
             </a>
 

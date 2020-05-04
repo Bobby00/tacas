@@ -40,7 +40,7 @@
                         <!-- NEWS PREVIEW -->
                         <div class="news-preview slider-items">
 
-                          {% for news_list in news_lists|slice:":5" reversed %}
+                          {% for news_list in news_lists|slice:":5" %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture big geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -79,7 +79,7 @@
 
                         <!-- NEWS ROSTER -->
                         <div class="news-roster slider-roster">
-                          {% for news_list in news_lists|slice:":5" reversed %}
+                          {% for news_list in news_lists|slice:":5" %}
                           <!-- POST PREVIEW -->
                           <div class="post-preview picture short geeky-news">
                             <!-- POST PREVIEW IMG WRAP -->
@@ -324,7 +324,7 @@
                     <a href="#">
                       <!-- PROMO BANNER -->
                       <div class="promo-banner">
-                        
+                        <h1 class="text-center clr-whte cstm-pd-tp-2">ADVERTISE HERE</h1>
                       </div>
                       <!-- /PROMO BANNER -->
                     </a>
@@ -416,9 +416,10 @@
                     <div class="topic-comment">
                       <!-- TOPIC COMMENT USER -->
                       <div class="topic-comment-user">
+
                         <!-- USER AVATAR -->
                         <a href="#0">
-                          <img class="user-avatar medium" src="{{ topic.starter|gravatar }}" alt="{{ topic.starter.username }}">
+                          <img class="user-avatar medium" src="{% if topic.starter.userprofile.avatar %} {{ topic.starter.userprofile.avatar.url }} {% else %} {{ topic.starter|gravatar }} {% endif %}" alt="{{ topic.starter.username }}">
                         </a>
                         <!-- /USER AVATAR -->
 
@@ -731,7 +732,7 @@
                     <a href="#">
                       <!-- PROMO BANNER -->
                       <div class="promo-banner">
-                        
+                        <h2 class="clr-whte text-center mt--2 cstm-pd-tp">Advertise Here</h2>
                       </div>
                       <!-- /PROMO BANNER -->
                     </a>
@@ -754,7 +755,7 @@
                     <a href="#">
                       <!-- PROMO BANNER -->
                       <div class="promo-banner">
-                        
+                        <h2 class="clr-whte text-center mt--2 cstm-pd-tp">Advertise Here</h2>
                       </div>
                       <!-- /PROMO BANNER -->
                     </a>

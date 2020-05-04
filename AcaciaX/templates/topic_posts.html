@@ -48,7 +48,7 @@
           <!-- /TOPIC COMMENT REPLY ICON -->
 
           <!-- USER AVATAR -->
-          <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
+          <img class="user-avatar tiny" src="{% if post.created_by.userprofile.avatar %} {{ post.created_by.userprofile.avatar.url }} {% else %} {{ post.created_by|gravatar }} {% endif %}" alt="{{ post.created_by.username }}">
           <!-- /USER AVATAR -->
 
           <!-- TOPIC COMMENT REPLY NAME -->
@@ -281,7 +281,7 @@
           <div class="topic-comment-user">
             <!-- USER AVATAR -->
             <a href="#0">
-              <img class="user-avatar medium" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}">
+              <img class="user-avatar medium" src="{% if post.created_by.userprofile.avatar %} {{ post.created_by.userprofile.avatar.url }} {% else %} {{ post.created_by|gravatar }} {% endif %}" alt="{{ post.created_by.username }}">
             </a>
             <!-- /USER AVATAR -->
             
@@ -342,11 +342,10 @@
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
                   <a href="#0" onClick="doLike(event, {{post.pk}});">
-                    <div class="topic-action-icon bubble-ornament tooltip cyan">
-                      <span class="tooltiptext">Like post</span>
-                      <i class="icon-like like-icon"></i>
+                    <div class="topic-action-icon bubble-ornament tooltip banana-icon">
+                      <span class="tooltiptext">Give a banana</span>
                     </div>
-                    <span class="client-reaction"><span id="post-{{post.pk}}-like">0</span> Thumbs up</span>
+                    <span class="client-reaction"><span id="post-{{post.pk}}-like"></span></span>
                   </a>
                   <!-- /TOPIC ACTION ICON -->
       
@@ -357,13 +356,12 @@
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
                  <a href="#0" onClick="doDislike(event, {{post.pk}});">
-                    <div class="topic-action-icon bubble-ornament tooltip red">
-                      <span class="tooltiptext">Dislike post</span>
-                      <i class="icon-dislike dislike-icon"></i>
+                    <div class="topic-action-icon bubble-ornament tooltip poop-icon">
+                      <span class="tooltiptext">Throw s*#t</span>
                     </div>
                     <span class="client-reaction">
-                    <span id="post-{{post.pk}}-dislike">0</span>
-                    Thumbs down</span>
+                    <span id="post-{{post.pk}}-dislike"></span>
+                    </span>
                  </a>
                   <!-- /TOPIC ACTION ICON -->
         
@@ -398,16 +396,15 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action inverted">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament hoverable tooltip blue">
-                    <span class="tooltiptext">Reply to post</span>
+                  <div class="topic-action-icon bubble-ornament tooltip reply-icon">
+                    <span class="tooltiptext">Send a reply</span>
                     <a href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">
-                      <i class="icon-action-undo reply-icon"></i>
                     </a>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
         
                   <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{% if post.comments.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">be the first to comment</a> {% else %} {{ post.comments.count }} {% endif %}</p>
+                  <p class="topic-action-text">{% if post.comments.count < 1 %} <a class="comment-text-styl" href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">be the first to comment</a> {% else %} {{ post.comments.count }} {% endif %}</p>
                   <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
@@ -418,9 +415,8 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament tooltip hoverable black">
-                    <span class="tooltiptext">share this post</span>
-                    <i class="icon-link share-icon"></i>
+                  <div class="topic-action-icon bubble-ornament tooltip share-icon">
+                    <span class="tooltiptext">share post</span>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
                 </div>
@@ -430,9 +426,8 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament hoverable tooltip red">
+                  <div class="topic-action-icon bubble-ornament tooltip report-icon">
                     <span class="tooltiptext">Report post</span>
-                    <i class="icon-fire report-icon"></i>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
                 </div>
@@ -453,8 +448,8 @@
                   <div class="vl-1"> </div>
 
                   <!-- USER AVATAR -->
-                  <figure class="user-avatar medium liquid">
-                    <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by.username }}">
+                  <figure class="user-avatar medium">
+                    <img src="{% if comment.created_by.userprofile.avatar %} {{ comment.created_by.userprofile.avatar.url }} {% else %} {{ comment.created_by|gravatar }} {% endif %}" alt="{{ comment.created_by.username }}">
                   </figure>
                   <!-- /USER AVATAR -->
             
@@ -537,8 +532,8 @@
                         <div class="vl-2"> </div>
 
                         <!-- USER AVATAR -->
-                        <figure class="user-avatar medium liquid">
-                          <img src="{{ comment2.created_by|gravatar }}" alt="{{ comment2.created_by.username }}">
+                        <figure class="user-avatar medium">
+                          <img src="{% if comment2.created_by.userprofile.avatar %} {{ comment2.created_by.userprofile.avatar.url }} {% else %} {{ comment2.created_by|gravatar }} {% endif %}" alt="{{ comment2.created_by.username }}">
                         </figure>
                         <!-- /USER AVATAR -->
                   

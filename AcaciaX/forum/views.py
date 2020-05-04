@@ -33,9 +33,8 @@ class HomeListView(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['news_lists'] = NewsArticle.objects.all()
+        context['news_lists'] = NewsArticle.objects.order_by("-id")
         context['topic_lists'] = Topic.objects.order_by("-id").all()
-        context['slider_lists'] = SliderArticle.objects.all()
         context['analysis_objects'] = AnalysisArticle.objects.all()
         return context    
 

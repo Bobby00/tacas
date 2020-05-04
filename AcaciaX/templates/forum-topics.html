@@ -206,10 +206,10 @@
                       <!-- FORUM USER LIST -->
                       <div class="forum-user-list">
 
-         {% for post in topic.posts.all|slice:":5" reversed %}
+         {% for post in topic.posts.all|slice:":5"%}
                     <a href="#0">
                       <!-- USER AVATAR -->
-                      <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by }}">
+                      <img class="user-avatar tiny" src="{% if post.created_by.userprofile.avatar %} {{ post.created_by.userprofile.avatar.url }} {% else %} {{ post.created_by|gravatar }} {% endif %}" alt="{{ post.created_by }}">
                       <!-- /USER AVATAR -->
                     </a>
           {% endfor %}

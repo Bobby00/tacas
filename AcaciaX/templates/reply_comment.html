@@ -55,8 +55,8 @@
         <!-- POST COMMENT -->
         <div class="post-comment">
           <!-- USER AVATAR -->
-          <figure class="user-avatar medium liquid">
-            <img src="{{ comment.created_by|gravatar }}" alt="{{ comment.created_by }}">
+          <figure class="user-avatar medium">
+            <img src="{% if comment.created_by.userprofile.avatar %} {{ comment.created_by.userprofile.avatar.url }} {% else %} {{ comment.created_by|gravatar }} {% endif %}" alt="{{ comment.created_by }}">
           </figure>
           <!-- /USER AVATAR -->
 

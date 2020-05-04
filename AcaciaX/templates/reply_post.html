@@ -55,8 +55,8 @@
         <!-- POST COMMENT -->
         <div class="post-comment">
           <!-- USER AVATAR -->
-          <figure class="user-avatar medium liquid">
-            <img src="{{ post.created_by|gravatar }}" alt="{{ post.created_by }}">
+          <figure class="user-avatar medium">
+            <img src="{% if post.created_by.userprofile.avatar %} {{ post.created_by.userprofile.avatar.url }} {% else %} {{ post.created_by|gravatar }} {% endif %}" alt="{{ post.created_by }}">
           </figure>
           <!-- /USER AVATAR -->
 
@@ -83,7 +83,7 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <a href="#0" onClick="document.getElementById('likebutton').submit()">
+                  <a href="#0">
                     <div class="topic-action-icon bubble-ornament cyan">
                       <i class="icon-like like-icon"></i>
                     </div>
@@ -100,7 +100,7 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                 <a href="#0" onClick="document.getElementById('dislikebutton').submit()">
+                 <a href="#0">
                     <div class="topic-action-icon bubble-ornament hoverable red">
                       <i class="icon-dislike dislike-icon"></i>
                     </div>
