@@ -14,15 +14,6 @@ from decouple import config, Csv
 
 import os
 import dj_database_url
-from django.core.exceptions import ImproperlyConfigured
-
-def get_env_variable(name, default=None):
-    try:
-        return os.environ[name]
-    except KeyError:
-        if default is not None:
-            return default
-        raise ImproperlyConfigured(f'Missing environment variable {name}')
 
 
 
@@ -106,16 +97,9 @@ WSGI_APPLICATION = 'AcaciaX.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'sqlite': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DB_NAME'),
-        'HOST': 'db',
-        'USER': get_env_variable('DB_USER'),
-        'PASSWORD': get_env_variable('DB_PASS')
     }
 }
 
