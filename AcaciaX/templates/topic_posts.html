@@ -396,15 +396,15 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action inverted">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament tooltip reply-icon">
-                    <span class="tooltiptext">Send a reply</span>
-                    <a href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">
-                    </a>
-                  </div>
+                  <a href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">
+                    <div class="topic-action-icon bubble-ornament tooltip reply-icon">
+                      <span class="tooltiptext">Send a reply</span>
+                    </div>
+                  </a>
                   <!-- /TOPIC ACTION ICON -->
         
                   <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{% if post.comments.count < 1 %} <a class="comment-text-styl" href="{% url 'reply_post' post.topic.category.pk post.topic.pk post.pk %}">be the first to comment</a> {% else %} {{ post.comments.count }} {% endif %}</p>
+                  <p style="margin-left: 6px;" class="topic-action-text"> {{ post.comments.count }} comment(s)</p>
                   <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
@@ -489,35 +489,32 @@
                   <div class="post-comment-actions">
             
                     <!-- LIKE BUTTON -->
-                    <div class="like-button bubble-ornament hoverable tooltip cyan">
-                      <span class="tooltiptext">like comment</span>
-                      <i class="icon-like like-icon"></i>
+                    <div class="like-button bubble-ornament tooltip banana-icon">
+                      <span class="tooltiptext">Give a banana</span>
                     </div>
                     <!-- /LIKE BUTTON -->
             
                     <!-- LIKES COUNT -->
-                    <p class="likes-count">0 Thumbs Up</p>
+                    <p class="likes-count">0</p>
                     <!-- /LIKES COUNT -->
 
                     <!-- DISLIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable tooltip red">
-                        <span class="tooltiptext">dislike comment</span>
-                        <i class="icon-dislike dislike-icon"></i>
+                      <div class="like-button bubble-ornament tooltip poop-icon">
+                        <span class="tooltiptext">Throw s*#t</span>
                       </div>
                       <!-- /DISLIKE BUTTON -->
 
                       <!-- DISLIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /DISLIKES COUNT -->
 
                     <!-- REPLY BUTTON -->
                     <a style="margin-left: 40px;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">
-                      <div class="reply-button bubble-ornament tooltip blue">
+                      <div class="reply-button bubble-ornament tooltip reply-icon">
                         <span class="tooltiptext">send a reply</span>
-                        <i class="icon-action-undo reply-icon"></i>
                       </div>
                     </a>
-                    <span class="reply-comment">{% if comment.comment2.count < 1 %} <a style="color: green; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} {% endif %} Comments</span>
+                    <span class="reply-comment client-reaction">{% if comment.comments2.count < 1 %} <a style="color: green; margin-left: 6px; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} comment(s) {% endif %}</span>
 
                     <!-- /REPLY BUTTON -->
 
@@ -574,25 +571,23 @@
                          
                   
                           <!-- LIKE BUTTON -->
-                          <div class="like-button bubble-ornament hoverable tooltip cyan">
-                            <span class="tooltiptext">like comment</span>
-                            <i class="icon-like like-icon"></i>
+                          <div class="like-button bubble-ornament tooltip banana-icon">
+                            <span class="tooltiptext">Give a banana</span>
                           </div>
                           <!-- /LIKE BUTTON -->
                   
                           <!-- LIKES COUNT -->
-                          <p class="likes-count">0 Thumbs Up</p>
+                          <p class="likes-count">0</p>
                           <!-- /LIKES COUNT -->
 
                           <!-- DISLIKE BUTTON -->
-                          <div class="like-button bubble-ornament hoverable tooltip red">
-                            <span class="tooltiptext">dislike comment</span>
-                            <i class="icon-dislike dislike-icon"></i>
+                          <div class="like-button bubble-ornament tooltip poop-icon">
+                            <span class="tooltiptext">Throw s*#t</span>
                           </div>
                           <!-- /DISLIKE BUTTON -->
 
                           <!-- DISLIKES COUNT -->
-                          <p class="likes-count">0 Thumbs Up</p>
+                          <p class="likes-count">0</p>
                           <!-- /DISLIKES COUNT -->
                           
                         </div>

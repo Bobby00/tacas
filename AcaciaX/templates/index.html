@@ -463,8 +463,8 @@
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament cyan">
-                                <i class="icon-like like-icon"></i>
+                              <div class="topic-action-icon tooltip bubble-ornament banana-icon">
+                                <span class="tooltiptext">Give a banana</span>
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                     
@@ -477,8 +477,8 @@
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament hoverable red">
-                                <i class="icon-dislike dislike-icon"></i>
+                              <div class="topic-action-icon tooltip bubble-ornament poop-icon">
+                                <span class="tooltiptext">Throw s*#t</span>
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                     
@@ -496,23 +496,23 @@
                             <div class="topic-action inverted">
                               <!-- TOPIC ACTION ICON -->
                               <a href="{% url 'topic_posts' topic.category.pk topic.pk %}">
-                                <div class="topic-action-icon bubble-ornament hoverable blue popup-quick-reply-trigger">
-                                  <i class="icon-action-undo reply-icon"></i>
+                                <div class="topic-action-icon tooltip bubble-ornament reply-icon">
+                                 <span class="tooltiptext">Send a reply</span>
                                 </div>
                               </a>
                               <!-- /TOPIC ACTION ICON -->
-                    
+
                               <!-- TOPIC ACTION TEXT -->
-                              <p class="topic-action-text">{{ topic.posts.count }} Replies</p>
+                              <p style="margin-left: 6px;" class="topic-action-text"> {{ topic.posts.count }} comment(s)</p>
                               <!-- /TOPIC ACTION TEXT -->
+                    
                             </div>
                             <!-- /TOPIC ACTION -->
                             
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament hoverable black">
-                                <i class="icon-link share-icon"></i>
+                              <div class="topic-action-icon bubble-ornament share-icon">
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                             </div>
@@ -521,8 +521,7 @@
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament hoverable red">
-                                <i class="icon-fire report-icon"></i>
+                              <div class="topic-action-icon bubble-ornament report-icon">
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                             </div>
@@ -772,6 +771,70 @@
 
     <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us19.list-manage.com","uuid":"7f15ef3827d4dcafe31728371","lid":"541b4ddefd","uniqueMethods":true}) })
     </script>
+
+      <script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    function doPref(postID, value) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      var payload = {value: value};
+      var headers = {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json'
+      };
+
+      fetch(url, {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify(payload)
+      }).then(function(resp) {
+        return resp.json();
+      }).then(function(data){
+        updatePreferences(data, postID);
+      })
+    }
+
+    function doLike(e, postID) {
+      e.preventDefault();
+      doPref(postID, 1);
+    }
+
+    function doDislike(e, postID) {
+      e.preventDefault();
+      doPref(postID, -1);
+    }
+
+    function updatePreferences(payload, postID) {
+      var base = '#post-' + postID + '-';
+      $(base + 'like').text(payload['likes']);
+      $(base + 'dislike').text(payload['dislikes']);
+    }
+
+    function getPref(postID) {
+      var url = '/api/forum/posts/' + postID + '/preference/';
+      fetch(url).then(function(resp) { return resp.json() })
+      .then(function(data) { updatePreferences(data, postID)} );
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        $('#posts').val().split(',').forEach(function(i) { getPref(i)});
+    })
+  </script>
 
 {% endblock content_home %}
 

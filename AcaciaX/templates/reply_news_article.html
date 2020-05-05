@@ -59,7 +59,7 @@
     <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full grid-limit">
     <!-- GRID 2 1COL -->
-    <div class="grid2-1col centered">
+    <div class="grid3-1col centered">
       <!-- TAB WRAP -->
       <div id="tab-new-topic" class="tab-wrap">
         <!-- TAB BODY -->
@@ -97,7 +97,7 @@
         <!-- ACTIVITY ITEM -->
         <div class="activity-item">
           <!-- USER AVATAR -->
-          <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+          <img class="user-avatar" src="{% if news_post.created_by.userprofile.avatar %} {{ news_post.created_by.userprofile.avatar.url }} {% else %} {{ news_post.created_by|gravatar }} {% endif %}" alt="{{ news_post.created_by }}">
           <!-- /USER AVATAR -->
 
           <!-- ACTIVITY ITEM DROPDOWN BUTTON -->
