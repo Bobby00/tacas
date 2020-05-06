@@ -404,7 +404,7 @@
                   <!-- /TOPIC ACTION ICON -->
         
                   <!-- TOPIC ACTION TEXT -->
-                  <p style="margin-left: 6px;" class="topic-action-text"> {{ post.comments.count }} comment(s)</p>
+                  <p style="margin-left: 6px;" class="topic-action-text"> {{ post.comments.count }} replies</p>
                   <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
@@ -514,7 +514,7 @@
                         <span class="tooltiptext">send a reply</span>
                       </div>
                     </a>
-                    <span class="reply-comment client-reaction">{% if comment.comments2.count < 1 %} <a style="color: green; margin-left: 6px; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} comment(s) {% endif %}</span>
+                    <span class="reply-comment client-reaction">{% if comment.comments2.count < 1 %} <a style="color: green; margin-left: 6px; text-decoration: underline;" href="{% url 'reply_comment' comment.post.topic.category.pk comment.post.topic.pk comment.post.pk comment.pk %}">be the first to comment</a> {% else %} {{ comment.comments2.count }} replies {% endif %}</span>
 
                     <!-- /REPLY BUTTON -->
 

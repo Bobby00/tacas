@@ -5,6 +5,8 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.conf.urls.defaults import handler404, handler500
+
 from news import views as news_views
 from analysis import views as analysis_views
 from SliderArticles import views as article_views
@@ -18,6 +20,7 @@ urlpatterns = [
     
     #WEB VIEWS URL PATTERNS
     path('', views.HomeListView.as_view(template_name='index.html'), name='home'),
+    path('404/', views.not_found_404, name='404'),
 
     #NEWS APP URL PATTERNS
     path('news/', news_views.NewsListView.as_view(), name='news'),
@@ -36,20 +39,20 @@ urlpatterns = [
     re_path(r'^news/(?P<news_article_pk>\d+)/posts/(?P<news_post_pk>\d+)/comments/(?P<news_comment_pk>\d+)/comments2/(?P<news_comment2_pk>\d+)/delete/$', news_views.news_comment2_delete, name='delete_news_comment2'),
 
 
-    path('articles/', article_views.ArticleListView.as_view(), name='article'),
-    re_path(r'^articles/new/$', article_views.new_article, name='new_article'),
-    re_path(r'^articles/(?P<article_pk>\d+)/edit/$', article_views.ArticleUpdateView.as_view(), name='edit_article'),
-    re_path(r'^articles/(?P<pk>\d+)/delete/$', article_views.ArticleDelete.as_view(), name='delete_article'),
-    re_path(r'^articles/(?P<article_pk>\d+)/$', article_views.article_posts, name='article_posts'),
-    re_path(r'^articles/(?P<article_pk>\d+)/reply/$', article_views.reply_article, name='reply_article'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/edit/$', article_views.ArticlePostUpdateView.as_view(), name='edit_article_post'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/delete/$', article_views.article_post_delete, name='delete_article_post'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/reply/$', article_views.reply_article_post, name='reply_article_post'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/edit/$', article_views.ArticleCommentUpdateView.as_view(), name='edit_article_comment'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/reply/$', article_views.reply_article_comment, name='reply_article_comment'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/delete/$', article_views.article_comment_delete, name='delete_article_comment'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/edit/$', article_views.ArticleComment2UpdateView.as_view(), name='edit_article_comment2'),
-    re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/delete/$', article_views.article_comment2_delete, name='delete_article_comment2'),
+    # path('articles/', article_views.ArticleListView.as_view(), name='article'),
+    # re_path(r'^articles/new/$', article_views.new_article, name='new_article'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/edit/$', article_views.ArticleUpdateView.as_view(), name='edit_article'),
+    # re_path(r'^articles/(?P<pk>\d+)/delete/$', article_views.ArticleDelete.as_view(), name='delete_article'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/$', article_views.article_posts, name='article_posts'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/reply/$', article_views.reply_article, name='reply_article'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/edit/$', article_views.ArticlePostUpdateView.as_view(), name='edit_article_post'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/delete/$', article_views.article_post_delete, name='delete_article_post'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/reply/$', article_views.reply_article_post, name='reply_article_post'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/edit/$', article_views.ArticleCommentUpdateView.as_view(), name='edit_article_comment'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/reply/$', article_views.reply_article_comment, name='reply_article_comment'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/delete/$', article_views.article_comment_delete, name='delete_article_comment'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/edit/$', article_views.ArticleComment2UpdateView.as_view(), name='edit_article_comment2'),
+    # re_path(r'^articles/(?P<article_pk>\d+)/posts/(?P<article_post_pk>\d+)/comments/(?P<article_comment_pk>\d+)/comments2/(?P<article_comment2_pk>\d+)/delete/$', article_views.article_comment2_delete, name='delete_article_comment2'),
 
 
 
@@ -120,5 +123,7 @@ urlpatterns = [
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/comments2/(?P<comment2_pk>\d+)/edit/$', views.Comment2UpdateView.as_view(), name='edit_comment2'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/comments2/(?P<comment2_pk>\d+)/delete/$', views.comment2_delete, name='delete_comment2'),
     re_path(r'^api/forum/posts/(?P<post_id>\d+)/preference/$', views.preference_view), 
-    re_path(r'^api/forum/posts/', views.ListPosts.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = 'forum.views.not_found_404'

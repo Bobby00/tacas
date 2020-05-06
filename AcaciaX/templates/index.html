@@ -192,7 +192,7 @@
                     <!-- LAYOUT ITEM 1-1-1 -->
                     <div class="layout-item-1-1-1">
                       <!-- LAYOUT ITEM -->
-                      {% for analysis in analysis_objects|slice:":3" reversed %}
+                      {% for analysis in analysis_objects|slice:":3" %}
                       <div class="layout-item">
                         <!-- POST PREVIEW -->
                         <div class="post-preview gaming-news img-toggle">
@@ -419,7 +419,7 @@
 
                         <!-- USER AVATAR -->
                         <a href="#0">
-                          <img class="user-avatar medium" src="{% if topic.starter.userprofile.avatar %} {{ topic.starter.userprofile.avatar.url }} {% else %} {{ topic.starter|gravatar }} {% endif %}" alt="{{ topic.starter.username }}">
+                          <img class="user-avatar medium" src="{% if topic.posts.first.created_by.userprofile.avatar %} {{ topic.posts.first.created_by.userprofile.avatar.url }} {% else %} {{ topic.posts.first.created_by|gravatar }} {% endif %}" alt="{{ topic.posts.first.created_by.username }}">
                         </a>
                         <!-- /USER AVATAR -->
 
@@ -434,13 +434,13 @@
                           <!-- TOPIC COMMENT CONTENT HEADER -->
                           <div class="topic-comment-content-header">
                             <!-- TOPIC COMMENT USERNAME -->
-                            <a href="#0" class="topic-comment-username">{{ topic.starter }}</a>
+                            <a href="#0" class="topic-comment-username">{{ topic.posts.first.created_by }}</a>
                             <!-- /TOPIC COMMENT USERNAME -->
 
                             <!-- TOPIC COMMENT INFO -->
                             <div class="topic-comment-info">
                               <!-- TOPIC COMMENT TIMESTAMP -->
-                              <p class="topic-comment-timestamp">{{ topic.last_updated|naturaltime }}</p>
+                              <p class="topic-comment-timestamp">{{ topic.posts.first.last_updated|naturaltime }}</p>
                               <!-- /TOPIC COMMENT TIMESTAMP -->
                             </div>
                             <!-- /TOPIC COMMENT INFO -->
@@ -512,7 +512,8 @@
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament share-icon">
+                              <div class="topic-action-icon tooltip bubble-ornament share-icon">
+                                <span class="tooltiptext">Share post</span>
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                             </div>
@@ -521,7 +522,8 @@
                             <!-- TOPIC ACTION -->
                             <div class="topic-action">
                               <!-- TOPIC ACTION ICON -->
-                              <div class="topic-action-icon bubble-ornament report-icon">
+                              <div class="topic-action-icon bubble-ornament tooltip report-icon">
+                                <span class="tooltiptext">Report</span>
                               </div>
                               <!-- /TOPIC ACTION ICON -->
                             </div>
@@ -772,7 +774,7 @@
     <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us19.list-manage.com","uuid":"7f15ef3827d4dcafe31728371","lid":"541b4ddefd","uniqueMethods":true}) })
     </script>
 
-      <script>
+  <script>
     function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

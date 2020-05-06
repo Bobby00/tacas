@@ -1,4 +1,4 @@
-/*table custom style*/
+  /*table custom style*/
 
 
 /* -- Material Design Table style -------------- */
@@ -107,7 +107,7 @@
     background-color: #fff;
     display: block;
     vertical-align: middle;
-    text-align: right;
+    padding: 0.7rem 1rem;
   }
   .table-responsive-vertical > .table > tbody > tr > td[data-title]:before {
     content: attr(data-title);

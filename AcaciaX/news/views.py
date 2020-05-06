@@ -76,11 +76,11 @@ class NewsListView(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['analysis_objects'] = AnalysisArticle.objects.all()
+        context['analysis_objects'] = AnalysisArticle.objects.order_by('-id')
         return context
 
 def news_posts(request, news_article_pk):
-    analysis_objects = AnalysisArticle.objects.all()
+    analysis_objects = AnalysisArticle.objects.order_by('id')
     news_article = get_object_or_404(NewsArticle, pk=news_article_pk)
     if request.method == 'POST':
         form = PostForm(request.POST)

@@ -34,22 +34,25 @@ class HomeListView(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['news_lists'] = NewsArticle.objects.order_by("-id")
-        context['topic_lists'] = Topic.objects.order_by("-id").all()
-        context['analysis_objects'] = AnalysisArticle.objects.all()
-        return context    
+        context['topic_lists'] = Topic.objects.order_by("-id")
+        context['analysis_objects'] = AnalysisArticle.objects.order_by("-id")
+        return context
+
+def not_found_404(request):
+    return render(request, '404.html')    
 
 def economic_calendar(request):
-    analysis_objects = AnalysisArticle.objects.all()
+    analysis_objects = AnalysisArticle.objects.order_by("-id")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'economic-calendar.html', context)
 
 def market_screener(request):
-    analysis_objects = AnalysisArticle.objects.all()
+    analysis_objects = AnalysisArticle.objects.order_by("-id")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'market-screener.html', context)
 
 def real_time_widget(request):
-    analysis_objects = AnalysisArticle.objects.all()
+    analysis_objects = AnalysisArticle.objects.order_by("-id")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'real-time-widget.html', context)
 
@@ -57,13 +60,6 @@ class CategoryListView(ListView):
     model = Category
     context_object_name = 'categories'
     template_name = 'forum.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['topic_lists'] = Topic.objects.all()
-        return context
 
 @method_decorator(login_required, name='dispatch')
 class TopicUpdateView(UpdateView):
@@ -126,10 +122,9 @@ class PostListView(ListView):
 
         context = super().get_context_data(**kwargs)
         context['form'] = PostForm()
-        context['comments'] = Comment.objects.all()
-        context['comments2'] = Comment2.objects.all()
-        context['analysis_objects'] = AnalysisArticle.objects.all()
-        context['category_list'] = Category.objects.all()
+        context['comments'] = Comment.objects.order_by('id')
+        context['comments2'] = Comment2.objects.order_by('id')
+        context['category_list'] = Category.objects.order_by('id')
         return context
         return super().get_context_data(**kwargs)
 
