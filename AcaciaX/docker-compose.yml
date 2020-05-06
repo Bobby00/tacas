@@ -13,6 +13,7 @@ services:
     working_dir: /home/app
     volumes:
       - 'static:/home/app/static:ro'
+      - 'media:/home/app/media'
     environment:
       - DB_NAME
       - DB_USER
@@ -28,6 +29,7 @@ services:
       - traefik_net
     volumes:
       - 'static:/var/www/html/static'
+      - 'media:/var/www/html/media'
   db:
     image: postgres:12.2-alpine
     volumes:
@@ -44,3 +46,4 @@ networks:
   traefik_net:
 volumes:
   static:
+  media:
