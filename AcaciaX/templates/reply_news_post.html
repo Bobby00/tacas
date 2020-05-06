@@ -41,7 +41,7 @@
     <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full grid-limit">
     <!-- GRID 2 1COL -->
-    <div class="grid2-1col centered">
+    <div class="grid3-1col centered gutter-medium">
 
       <!-- POST COMMENT THREAD -->
       <div id="op-comments" class="post-comment-thread">
@@ -84,17 +84,12 @@
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
                   <a href="#0" onClick="document.getElementById('likebutton').submit()">
-                    <div class="topic-action-icon bubble-ornament hoverable tooltip cyan">
-                      <span class="tooltiptext">like comment</span>
-                      <i class="icon-like like-icon"></i>
+                    <div class="topic-action-icon bubble-ornament tooltip banana-icon">
+                      <span class="tooltiptext">Give a banana</span>
                     </div>
                     <span class="client-reaction">0</span>
                   </a>
                   <!-- /TOPIC ACTION ICON -->
-        
-                  <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{{eachpost.likes}} </p>
-                  <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
 
@@ -102,28 +97,20 @@
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
                  <a href="#0" onClick="document.getElementById('dislikebutton').submit()">
-                    <div class="topic-action-icon bubble-ornament tooltip hoverable red">
-                      <span class="tooltiptext">dislike comment</span>
-                      <i class="icon-dislike dislike-icon"></i>
+                    <div class="topic-action-icon bubble-ornament tooltip poop-icon">
+                      <span class="tooltiptext">Throw s*#t</span>
                     </div>
                     <span class="client-reaction">0</span>
                  </a>
                   <!-- /TOPIC ACTION ICON -->
-        
-                  <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{{eachpost.dislikes}} </p>
-                  <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
 
                 <!-- TOPIC ACTION -->
                 <div style="margin-left: 10%;" class="topic-action inverted">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament tooltip hoverable blue">
+                  <div class="topic-action-icon bubble-ornament tooltip reply-icon">
                     <span class="tooltiptext">reply to comment</span>
-                    <a href="#0">
-                      <i class="icon-action-undo reply-icon"></i>
-                    </a>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
         
@@ -136,9 +123,8 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament tooltip hoverable black">
+                  <div class="topic-action-icon bubble-ornament tooltip share-icon">
                     <span class="tooltiptext">share comment</span>
-                    <i class="icon-link share-icon"></i>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
                 </div>

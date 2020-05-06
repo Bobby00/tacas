@@ -97,7 +97,7 @@
         <!-- ACTIVITY ITEM -->
         <div class="activity-item">
           <!-- USER AVATAR -->
-          <img class="user-avatar" src="{% static 'img/users/05.jpg' %}" alt="user-05">
+          <img class="user-avatar" src="{% if news_post.created_by.userprofile.avatar %} {{ news_post.created_by.userprofile.avatar.url }} {% else %} {{ news_post.created_by|gravatar }} {% endif %}" alt="{{ news_post.created_by.username }}">
           <!-- /USER AVATAR -->
 
           <!-- ACTIVITY ITEM DROPDOWN BUTTON -->

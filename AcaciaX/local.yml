@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - BASE_IMAGE=8c8a660d54f6
     command: bash -c "gunicorn --reload -b 0.0.0.0:8000 -w 3 AcaciaX.wsgi:application"
     command: bash -c "python manage.py migrate && ls -l && python manage.py runserver 0.0.0.0:8000 --settings AcaciaX.settings"
     ports:
@@ -16,10 +14,6 @@ services:
     working_dir: /home/app
     volumes:
       - '.:/home/app'
-    environment:
-      - DB_NAME
-      - DB_USER
-      - DB_PASS
   server:
     image: ${CI_REGISTRY_IMAGE-localhost:5000/acaciax}/nginx:${IMAGE_TAG-v1}
     build:
@@ -31,21 +25,5 @@ services:
       - traefik_net
     volumes:
       - './static:/var/www/html/static'
-  db:
-    image: postgres:12.2-alpine
-    volumes:
-      - 'pgdata:/var/lib/postgresql/data'
-      - "./docker/app/init.sh:/docker-entrypoint-initdb.d/init.sh"
-    environment:
-      - POSTGRES_PASSWORD
-      - DB_NAME
-      - DB_USER
-      - DB_PASS
-    networks:
-      - traefik_net
-
 networks:
   traefik_net:
-
-volumes:
-  pgdata:

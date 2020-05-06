@@ -6,7 +6,7 @@ from markdown import markdown
 
 class NewsArticle(models.Model):
 	NEWS_ARTICLE_CATEGORY = (
-		('STOCK MARKET', 'STOCK MARKET'),
+		('STOCKS', 'STOCKS'),
 		('COMMODITIES', 'COMMODITIES'),
 		('FUTURES', 'FUTURES'),
 	)

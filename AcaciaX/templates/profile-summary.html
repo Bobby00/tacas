@@ -17,7 +17,7 @@
       <!-- PROFILE USER -->
       <div class="profile-user">
         <!-- USER AVATAR -->
-        <img class="user-avatar big" src="{{ user|gravatar }}" alt="{{ user }}">
+        <img class="user-avatar big" src="{% if user.userprofile.avatar %} {{ user.userprofile.avatar.url }} {% else %} {{ user|gravatar }} {% endif %}" alt="{{ user.username }}">
         <!-- /USER AVATAR -->
 
         <!-- PROFILE USER NAME -->
@@ -35,7 +35,7 @@
       <!-- /PROFILE USER -->
 
       <!-- BUTTON -->
-      <a href="#" class="button small cyan">Send Message</a>
+      <a href="#0" class="button small cyan">Send Message</a>
       <!-- /BUTTON -->
     </div>
     <!-- /PROFILE HEADER -->

@@ -41,13 +41,13 @@
     <!-- LAYOUT CONTENT FULL -->
   <div class="layout-content-full grid-limit">
     <!-- GRID 2 1COL -->
-    <div class="grid2-1col centered">
+    <div class="grid3-1col centered">
 
       <!-- POST COMMENT THREAD -->
       <div id="op-comments" class="post-comment-thread">
         <!-- SECTION TITLE WRAP -->
         <div class="section-title-wrap blue">
-          <h2 class="section-title medium">Comment</h2>
+          <h2 class="section-title medium">Comment Preview</h2>
           <div class="section-title-separator"></div>
         </div>
         <!-- /SECTION TITLE WRAP -->
@@ -55,8 +55,8 @@
         <!-- POST COMMENT -->
         <div class="post-comment">
           <!-- USER AVATAR -->
-          <figure class="user-avatar medium liquid">
-            <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ analysis_comment.created_by }}">
+          <figure class="user-avatar medium">
+            <img src="{% if analysis_comment.created_by.userprofile.avatar %} {{ analysis_comment.created_by.userprofile.avatar.url }} {% else %} {{ analysis_comment.created_by|gravatar }} {% endif %}" alt="{{ analysis_comment.created_by.username }}">
           </figure>
           <!-- /USER AVATAR -->
 
@@ -83,46 +83,36 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <a href="#0" onClick="document.getElementById('likebutton').submit()">
-                    <div class="topic-action-icon bubble-ornament tooltip cyan">
-                      <span class="tooltiptext">like comment</span>
-                      <i class="icon-like like-icon"></i>
+                  <a href="#0">
+                    <div class="topic-action-icon bubble-ornament tooltip banana-icon">
+                      <span class="tooltiptext">Give a banana</span>
                     </div>
                     <span class="client-reaction">0</span>
                   </a>
                   <!-- /TOPIC ACTION ICON -->
         
-                  <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{{eachpost.likes}} </p>
-                  <!-- /TOPIC ACTION TEXT -->
+                  
                 </div>
                 <!-- /TOPIC ACTION -->
 
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                 <a href="#0" onClick="document.getElementById('dislikebutton').submit()">
-                    <div class="topic-action-icon bubble-ornament hoverable red tooltip">
-                      <span class="tooltiptext">dislike comment</span>
-                      <i class="icon-dislike dislike-icon"></i>
+                 <a href="#0">
+                    <div class="topic-action-icon bubble-ornament tooltip poop-icon">
+                      <span class="tooltiptext">Throw s*#t</span>
                     </div>
                     <span class="client-reaction">0</span>
                  </a>
                   <!-- /TOPIC ACTION ICON -->
-        
-                  <!-- TOPIC ACTION TEXT -->
-                  <p class="topic-action-text">{{eachpost.dislikes}} </p>
-                  <!-- /TOPIC ACTION TEXT -->
                 </div>
                 <!-- /TOPIC ACTION -->
 
                 <!-- TOPIC ACTION -->
                 <div style="margin-left: 10%;" class="topic-action inverted">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament hoverable blue">
-                    <a href="#form-start">
-                      <i class="icon-action-undo reply-icon"></i>
-                    </a>
+                  <div class="topic-action-icon bubble-ornament tooltip reply-icon">
+                    <span class="tooltiptext">reply</span>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
         
@@ -135,9 +125,8 @@
                 <!-- TOPIC ACTION -->
                 <div class="topic-action">
                   <!-- TOPIC ACTION ICON -->
-                  <div class="topic-action-icon bubble-ornament hoverable black tooltip">
+                  <div class="topic-action-icon bubble-ornament tooltip share-icon">
                     <span class="tooltiptext">share comment</span>
-                    <i class="icon-link share-icon"></i>
                   </div>
                   <!-- /TOPIC ACTION ICON -->
                 </div>

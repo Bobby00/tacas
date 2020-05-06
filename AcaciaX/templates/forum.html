@@ -157,9 +157,9 @@
 
                 {% for category in categories %}
                 <tr>
-                  <td class="category-title" data-title="Catergory">
-                    <h3 class="pd-btm-12"><a href="{% url 'category_topics' category.pk %}">{{ category.name }}</a></h3>
-                    <p class="cstm-width-a">{{ category.description }}</p>
+                  <td class="category-title">
+                    <h3 class="pd-btm-12 text-left"><a href="{% url 'category_topics' category.pk %}">{{ category.name }}</a></h3>
+                    <p class="cstm-width-a text-left"><em>{{ category.description }}</em></p>
                   </td>
                   <td class="topics-count fnt-w8-800 text-center" data-title="Topics"> {{ category.topics.count }} </td>
                   <td class="forum-posts-count fnt-w8-800 text-center" data-title="Posts">{{ category.get_posts_count }} </td>

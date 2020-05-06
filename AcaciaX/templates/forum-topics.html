@@ -183,7 +183,7 @@
 
                 {% for topic in topics %}
                   <tr>
-                    <td class="category-title" data-title="Catergory">
+                    <td class="category-title">
                       <a href="{% url 'topic_posts' category.pk topic.pk %}"><p style="font-size: 16px; color: black;" class="cstm-width-a">{{ topic.subject }}</p></a>
 
                       {% if topic.starter == user or request.user.is_superuser %}
@@ -202,14 +202,14 @@
                       </div>
                       {% endif %}
                     </td>
-                    <td class="topics-count fnt-w8-800" data-title="Topics"> 
+                    <td style="margin-bottom: 12px;" class="topics-count fnt-w8-800" data-title="Members"> 
                       <!-- FORUM USER LIST -->
                       <div class="forum-user-list">
 
-         {% for post in topic.posts.all|slice:":5" reversed %}
+         {% for post in topic.posts.all|slice:":5"%}
                     <a href="#0">
                       <!-- USER AVATAR -->
-                      <img class="user-avatar tiny" src="{{ post.created_by|gravatar }}" alt="{{ post.created_by }}">
+                      <img class="user-avatar tiny" src="{% if post.created_by.userprofile.avatar %} {{ post.created_by.userprofile.avatar.url }} {% else %} {{ post.created_by|gravatar }} {% endif %}" alt="{{ post.created_by }}">
                       <!-- /USER AVATAR -->
                     </a>
           {% endfor %}
@@ -217,13 +217,13 @@
                       </div>
                       <!-- /FORUM USER LIST -->
                     </td>
-                    <td class="forum-posts-count fnt-sze-14 text-center" data-title="Posts">
+                    <td class="forum-posts-count fnt-sze-14 text-center" data-title="Replies">
                       {{ topic.replies }}
                     </td>
-                    <td class="forum-latest clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black fnt-sze-14 text-center" data-title="Views">
                       {{ topic.views }}
                     </td>
-                    <td class="forum-latest clr_black text-center" data-title="Actual">
+                    <td class="forum-latest clr_black text-center" data-title="Activity">
                       {{ topic.last_updated|naturaltime }}
                     </td>
                   </tr>

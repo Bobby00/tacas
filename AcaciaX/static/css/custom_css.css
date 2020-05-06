@@ -19,6 +19,14 @@
   	height: 160px;
 }
 
+
+.live-news-widget-wrap:before {
+	background-color: unset;
+}
+.live-news-widget-wrap:after {
+	background-color: unset;
+}
+
 .vl-2 {
 	position: absolute;
 	left: -15px;
@@ -28,6 +36,10 @@
 
 html {
 	scroll-behavior: smooth;
+}
+
+.layout-content-1 {
+	padding: 20px 0 100px;
 }
 
 .post-comment>.post-comment {
@@ -83,6 +95,99 @@ li:first-child {
 	padding-top: 10px;
 }
 
+/*REACTION ICONS
+*/
+
+.banana-icon {
+	background-image: url('../img/acaciax/acaciax_banana.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: unset;
+}
+.banana-icon:hover {
+	background-image: url('../img/acaciax/banana_active.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	transition: .4s;
+}
+
+
+.poop-icon {
+	background-image: url('../img/acaciax/acaciax_poo.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: unset;
+}
+.poop-icon:hover {
+	background-image: url('../img/acaciax/poo_active.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	transition: .4s;
+}
+
+.reply-icon {
+	background-image: url('../img/acaciax/acaciax_reply.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: unset;
+}
+.reply-icon:hover {
+	background-image: url('../img/acaciax/reply_active.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	transition: .4s;
+}
+
+.share-icon {
+	background-image: url('../img/acaciax/acaciax_share.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: unset;
+}
+.share-icon:hover {
+	background-image: url('../img/acaciax/share_active.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	transition: .4s;
+}
+
+.report-icon {
+	background-image: url('../img/acaciax/acaciax_report.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: unset;
+}
+.report-icon:hover {
+	background-image: url('../img/acaciax/report_active.png');
+	background-size: cover;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	transition: .4s;
+}
+
+
+
+.comment-text-styl {
+	color: green;
+	text-decoration: underline;
+}
+
+
+
 .topic-comment-username {
 	font-size: 18px;
 }
@@ -97,8 +202,9 @@ li:first-child {
 }
 
 .client-reaction {
-	font-size: 11px;
+	font-size: 14px;
 	color: gray;
+	font-weight: 600;
 }
 
 .bubble-ornament .heart-icon, .bubble-ornament .like-icon, .bubble-ornament .dislike-icon {
@@ -167,10 +273,23 @@ label+select {
 	color: gray;
 }
 
+.cstm-pd-tp {
+	padding-top: 20%;
+}
+
+.cstm-pd-tp-2 {
+	padding-top: 5%;
+}
+
 .forum-posts-count {
 	color: gray;
-	font-size: 13px;
+	font-size: 14px;
 }
+
+.bubble-ornament {
+	background-color: transparent;
+}
+
 
 .forum-latest {
 	color: gray;
@@ -531,7 +650,7 @@ label {
 	padding-top: 60%;
 }
 .logo .logo-img {
-	width: 130px
+	width: 140px
 }
 .submenu.void {
 	width: 50%;
@@ -634,7 +753,7 @@ button.accent-color-bg {
 
 .form-box {
 	padding: 34px 0px;
-	max-width: 445px;
+	max-width: 600px;
 }
 
 
@@ -651,13 +770,23 @@ button.accent-color-bg {
 }
 
 
+.topic-action-text {
+	font-size: 12px!important;
+}
+
+.user-avatar > img {
+	border-radius: 50%;
+}
+
+.post-comment .post-comment-actions .likes-count {
+	font-size: 14px!important;
+}
 
 
 /* TOOLTIP STYLING */
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -752,6 +881,9 @@ button.accent-color-bg {
 	}
 	.filters-row {
 		padding: unset;
+	}
+	.comment-text-styl {
+		display: none;
 	}
 }
 

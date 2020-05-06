@@ -42,8 +42,8 @@
       <div class="post-author-info-wrap">
         <!-- USER AVATAR -->
         <a href="search-results.html">
-          <figure class="user-avatar tiny liquid">
-            <img src="{{ analysis_article.starter|gravatar }}" alt="user-04">
+          <figure class="user-avatar tiny">
+            <img src="{% if analysis_article.starter.userprofile.avatar %} {{ analysis_article.starter.userprofile.avatar.url }} {% else %} {{ analysis_article.starter|gravatar }} {% endif %}" alt="{{ analysis_article.starter.username }}">
           </figure>
         </a>
         <!-- /USER AVATAR -->
@@ -168,8 +168,8 @@
                   <!-- POST COMMENT -->
                   <div class="post-comment">
                     <!-- USER AVATAR -->
-                    <figure class="user-avatar medium liquid">
-                      <img src="{{ analysis_post.created_by|gravatar }}" alt="{{ analysis_post.created_by }}">
+                    <figure class="user-avatar medium">
+                      <img src="{% if analysis_post.created_by.userprofile.avatar %} {{ analysis_post.created_by.userprofile.avatar.url }} {% else %} {{ analysis_post.created_by|gravatar }} {% endif %}" alt="{{ analysis_post.created_by.username }}">
                     </figure>
                     <!-- /USER AVATAR -->
 
@@ -210,38 +210,35 @@
                     <div class="post-comment-actions">
 
                       <!-- LIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable tooltip cyan">
-                        <span class="tooltiptext">like comment</span>
-                        <i class="icon-like like-icon"></i>
+                      <div class="like-button bubble-ornament tooltip banana-icon">
+                        <span class="tooltiptext">Give a banana</span>
                       </div>
                       <!-- /LIKE BUTTON -->
 
                       <!-- LIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /LIKES COUNT -->
 
                       <!-- DISLIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable tooltip red">
-                        <span class="tooltiptext">dislike comment</span>
-                        <i class="icon-dislike dislike-icon"></i>
+                      <div class="like-button bubble-ornament tooltip poop-icon">
+                        <span class="tooltiptext">Throw s*#t</span>
                       </div>
                       <!-- /DISLIKE BUTTON -->
 
                       <!-- DISLIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /DISLIKES COUNT -->
 
                       <!-- REPLY BUTTON -->
                       <a style="margin-left: 40px;" href="{% url 'reply_analysis_post' analysis_post.analysis_article.pk analysis_post.pk %}">
-                        <div class="reply-button {% if analysis_post.analysis_comments.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
-                          <span class="tooltiptext">reply to comment</span>
-                          <i class="icon-action-undo reply-icon"></i>
+                        <div class="reply-button bubble-ornament tooltip reply-icon">
+                          <span class="tooltiptext">reply</span>
                         </div>
                       </a>
                       <!-- /REPLY BUTTON -->
 
                       <!-- REPLIES COUNT -->
-                      <p id="replies_count-{{ analysis_post.pk }}" class="likes-count">{{ analysis_post.analysis_comments.count }} Replies</p>
+                      <p id="replies_count-{{ analysis_post.pk }}" class="likes-count">{{ analysis_post.analysis_comments.count }} replies</p>
                       <!-- /REPLIES COUNT -->
 
                     </div>
@@ -256,8 +253,8 @@
 
                     <div class="second-wrapper">
                     <!-- USER AVATAR -->
-                    <figure class="user-avatar medium liquid">
-                      <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ analysis_comment.created_by }}">
+                    <figure class="user-avatar medium">
+                      <img src="{% if analysis_comment.created_by.userprofile.avatar %} {{ analysis_comment.created_by.userprofile.avatar.url }} {% else %} {{ analysis_comment.created_by|gravatar }} {% endif %}" alt="{{ analysis_comment.created_by.username }}">
                     </figure>
                     <!-- /USER AVATAR -->
 
@@ -297,32 +294,29 @@
                     <div class="post-comment-actions">
 
                       <!-- LIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable tooltip cyan">
-                        <span class="tooltiptext">like comment</span>
-                        <i class="icon-like like-icon"></i>
+                      <div class="like-button bubble-ornament tooltip banana-icon">
+                        <span class="tooltiptext">Give a banana</span>
                       </div>
                       <!-- /LIKE BUTTON -->
 
                       <!-- LIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /LIKES COUNT -->
 
                       <!-- DISLIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable tooltip red">
-                        <span class="tooltiptext">dislike comment</span>
-                        <i class="icon-dislike dislike-icon"></i>
+                      <div class="like-button bubble-ornament tooltip poop-icon">
+                        <span class="tooltiptext">Throw s*#t</span>
                       </div>
                       <!-- /DISLIKE BUTTON -->
 
                       <!-- DISLIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /DISLIKES COUNT -->
 
                       <!-- REPLY BUTTON -->
                       <a style="margin-left: 40px;" href="{% url 'reply_analysis_comment' analysis_comment.analysis_post.analysis_article.pk analysis_comment.analysis_post.pk analysis_comment.pk %}">
-                        <div class="reply-button {% if analysis_comment.analysis_comments2.count < 1 %} hoverable {% endif %} bubble-ornament tooltip blue">
-                          <span class="tooltiptext">reply to comment</span>
-                          <i class="icon-action-undo reply-icon"></i>
+                        <div class="reply-button bubble-ornament tooltip reply-icon">
+                          <span class="tooltiptext">reply</span>
                         </div>
                       </a>
                       <!-- /REPLY BUTTON -->
@@ -341,8 +335,8 @@
                   <div class="post-comment">
                     <div class="vl-2"> </div>
                     <!-- USER AVATAR -->
-                    <figure class="user-avatar medium liquid">
-                      <img src="{{ analysis_comment.created_by|gravatar }}" alt="{{ article_comment.created_by }}">
+                    <figure class="user-avatar medium">
+                      <img src="{% if analysis_comment2.created_by.userprofile.avatar %} {{ analysis_comment2.created_by.userprofile.avatar.url }} {% else %} {{ analysis_comment2.created_by|gravatar }} {% endif %}" alt="{{ analysis_comment2.created_by.username }}">
                     </figure>
                     <!-- /USER AVATAR -->
 
@@ -383,25 +377,25 @@
                     <div class="post-comment-actions">
 
                       <!-- LIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable cyan">
-                        <i class="icon-like like-icon"></i>
+                      <div class="like-button bubble-ornament tooltip banana-icon">
+                        <span class="tooltiptext">Give a banana</span>
                       </div>
                       <!-- /LIKE BUTTON -->
 
                       <!-- LIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /LIKES COUNT -->
 
                       <!-- DISLIKE BUTTON -->
-                      <div class="like-button bubble-ornament hoverable red">
-                        <i class="icon-dislike dislike-icon"></i>
+                      <div class="like-button bubble-ornament tooltip poop-icon">
+                        <span class="tooltiptext">Throw s*#t</span>
                       </div>
                       <!-- /DISLIKE BUTTON -->
 
                       <!-- DISLIKES COUNT -->
-                      <p class="likes-count">0 Thumbs Up</p>
+                      <p class="likes-count">0</p>
                       <!-- /DISLIKES COUNT -->
-                      
+
 
                     </div>
                     <!-- /POST COMMENT ACTIONS -->
