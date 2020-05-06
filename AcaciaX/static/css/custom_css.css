@@ -19,6 +19,14 @@
   	height: 160px;
 }
 
+
+.live-news-widget-wrap:before {
+	background-color: unset;
+}
+.live-news-widget-wrap:after {
+	background-color: unset;
+}
+
 .vl-2 {
 	position: absolute;
 	left: -15px;
