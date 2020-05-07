@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 
+from django.views.static import serve
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -117,6 +119,9 @@ urlpatterns = [
 
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/reply/$', views.reply_comment, name='reply_comment'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='delete_comment'),
+
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/comments2/(?P<comment2_pk>\d+)/edit/$', views.Comment2UpdateView.as_view(), name='edit_comment2'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/comments2/(?P<comment2_pk>\d+)/delete/$', views.comment2_delete, name='delete_comment2'),
