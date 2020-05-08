@@ -5,6 +5,8 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.static import serve
+
 from news import views as news_views
 from analysis import views as analysis_views
 from SliderArticles import views as article_views
@@ -114,6 +116,9 @@ urlpatterns = [
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/delete/$', views.post_delete, name='delete_post'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/edit/$', views.CommentUpdateView.as_view(), name='edit_comment'),
+
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/reply/$', views.reply_comment, name='reply_comment'),
     re_path(r'^forum/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/comments/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='delete_comment'),

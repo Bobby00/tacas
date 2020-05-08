@@ -824,6 +824,12 @@ button.accent-color-bg {
 	.navigation .logo {
 		
 	}
+	.topic-comment .topic-comment-actions {
+		justify-content: space-evenly;
+	}
+	.topic-actions .topic-action {
+		margin: 0 10px 25px 0;
+	}
 	.post-comment .user-avatar {
 		position: unset;
 		display: block;
@@ -831,11 +837,15 @@ button.accent-color-bg {
 	.cstm-post-img-width {
 		width: 100%!important;
 	}
+	.cstm-mgn-left-xs {
+		margin-left: 30%;
+	}
+
 	.cstm-width-50 {
 		width: 80%;
 	}
 	.icon-cstm-width {
-		width: 25%;
+		width: 20%;
 	}
 	.layout-content-full {
 		padding: unset;
@@ -847,7 +857,7 @@ button.accent-color-bg {
 		height: 100%;
 	}
 	.logo .logo-img {
-		width: 100px;
+		width: 120px;
 	}
 	.banner-slider.v2 .slider-item-wrap {
 		padding: 120px 0 0;

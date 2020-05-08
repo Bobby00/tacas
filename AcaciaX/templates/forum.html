@@ -168,7 +168,7 @@
                     {% with topic=category.get_topic_list %}
                       {% for subtopic in topic|slice:":3" %}
                         {% if subtopic %}
-                          <p style="font-weight: 600; line-height: 1.0em;"><a href="{% url 'topic_posts' category.pk subtopic.pk %}">{{ subtopic.subject|truncatechars:25 }}</a> <span style="font-size: 10px; color: #777;"> {{ subtopic.last_updated|naturaltime|truncatechars:8 }}</span></p>
+                          <p style="font-weight: 600; line-height: 1.0em; margin-left:30%;"><a href="{% url 'topic_posts' category.pk subtopic.pk %}">{{ subtopic.subject|truncatechars:25 }}</a> <span style="font-size: 10px; color: #777;"> {{ subtopic.last_updated|naturaltime|truncatechars:8 }}</span></p>
                         {% else %}
                           <p>No Topics yet</p>
                         {% endif %}
