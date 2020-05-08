@@ -390,7 +390,7 @@
                   <div class="layout-item padded own-grid">
 
                       {% for topic in topic_lists|slice:":4" %}
-
+                      {% if topic.posts.first %}
                       <!-- TOPIC WRAP -->
                 <div class="topic-wrap">
 
@@ -541,6 +541,7 @@
                   </div>
                 </div>
                 <br>
+                {% endif %}
                 {%  endfor %}
                      
                   <br>

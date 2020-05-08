@@ -17,6 +17,7 @@ services:
       - DB_NAME
       - DB_USER
       - DB_PASS
+      - DB_ENGINE
   server:
     image: ${CI_REGISTRY_IMAGE-localhost:5000/acaciax}/nginx:${IMAGE_TAG-v1}
     build:
@@ -38,6 +39,8 @@ services:
       - DB_NAME
       - DB_USER
       - DB_PASS
+    networks:
+      - traefik_net
 networks:
   traefik_net:
 volumes:
