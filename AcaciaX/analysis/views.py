@@ -69,7 +69,8 @@ class AnalysisListView(ListView):
     context_object_name = 'analysis_list'
     template_name = 'analysis_and_opinion.html'
     paginate_by = 10
-
+    class Meta:
+        ordering = ['-id']
 
 def analysis_posts(request, analysis_article_pk):
     analysis_article = get_object_or_404(AnalysisArticle, pk=analysis_article_pk)

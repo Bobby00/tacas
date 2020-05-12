@@ -79,6 +79,9 @@ class NewsListView(ListView):
         context['analysis_objects'] = AnalysisArticle.objects.order_by('-id')
         return context
 
+        class Meta:
+            ordering = ['-id']
+
 def news_posts(request, news_article_pk):
     analysis_objects = AnalysisArticle.objects.order_by('id')
     news_article = get_object_or_404(NewsArticle, pk=news_article_pk)

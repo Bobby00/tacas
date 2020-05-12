@@ -37,6 +37,8 @@ class HomeListView(ListView):
         context['topic_lists'] = Topic.objects.order_by("-id")
         context['analysis_objects'] = AnalysisArticle.objects.order_by("-id")
         return context
+    class Meta:
+            ordering = ['-id']
 
 def not_found_404(request):
     return render(request, '404.html')    
@@ -101,6 +103,9 @@ class TopicListView(ListView):
         queryset = self.category.topics.order_by('-last_updated').annotate(replies=Count('posts'))
         return queryset
 
+    class Meta:
+            ordering = ['-id']
+
 # def category_topics(request, pk):
 #     category = get_object_or_404(Category, pk=pk)
 #     topics = category.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
@@ -127,6 +132,9 @@ class PostListView(ListView):
         context['category_list'] = Category.objects.order_by('id')
         return context
         return super().get_context_data(**kwargs)
+
+    class Meta:
+            ordering = ['id']
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, category__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))

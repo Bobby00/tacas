@@ -1,3 +1,4 @@
 *.pyc
 # vim temp files
 *.sw?
+*.db.sqlite3
