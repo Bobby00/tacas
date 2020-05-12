@@ -390,7 +390,7 @@
                   <div class="layout-item padded own-grid">
 
                       {% for topic in topic_lists|slice:":4" %}
-
+                      {% if topic.posts.first %}
                       <!-- TOPIC WRAP -->
                 <div class="topic-wrap">
 
@@ -503,7 +503,7 @@
                               <!-- /TOPIC ACTION ICON -->
 
                               <!-- TOPIC ACTION TEXT -->
-                              <p style="margin-left: 6px;" class="topic-action-text"> {{ topic.posts.count }} comment(s)</p>
+                              <p style="margin-left: 6px;" class="topic-action-text"> {{ topic.posts.count }} replies</p>
                               <!-- /TOPIC ACTION TEXT -->
                     
                             </div>
@@ -541,6 +541,7 @@
                   </div>
                 </div>
                 <br>
+                {% endif %}
                 {%  endfor %}
                      
                   <br>

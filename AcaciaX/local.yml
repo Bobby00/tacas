@@ -13,7 +13,12 @@ services:
       - traefik_net
     working_dir: /home/app
     volumes:
-      - '.:/home/app'
+      - '.:/home/app:rw'
+    env_file:
+      - .env
+    environment:
+      DB_ENGINE: django.db.backends.sqlite3
+      DB_NAME: /home/app/db.sqlite3
   server:
     image: ${CI_REGISTRY_IMAGE-localhost:5000/acaciax}/nginx:${IMAGE_TAG-v1}
     build:
@@ -25,5 +30,6 @@ services:
       - traefik_net
     volumes:
       - './static:/var/www/html/static'
+      - './media:/var/html/media'
 networks:
   traefik_net:
