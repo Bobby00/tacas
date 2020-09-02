@@ -19,6 +19,9 @@
   	height: 160px;
 }
 
+.wdth_100pc {
+	width: 100%!important;
+}
 
 .live-news-widget-wrap:before {
 	background-color: unset;
