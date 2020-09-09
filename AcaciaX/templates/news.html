@@ -49,7 +49,7 @@
       <div class="layout-item cstm-grid-60 centered">
 
         <!-- POST PREVIEW -->
-        {% for news in news_list reversed %}
+        {% for news in news_list %}
         <div class="post-preview landscape big game-review">
           <!-- POST PREVIEW IMG WRAP -->
           <a href="{% url 'news_posts' news.pk %}">
@@ -116,6 +116,20 @@
       <!-- /PAGE NAVIGATION -->
 
       <!-- /LAYOUT ITEM -->
+
+      <!-- LAYOUT ITEM -->
+        <div class="layout-item padded">
+          <a target="_blank" href="https://portal1.scopemarkets.co.ke/en/auth/register?linkId=38RNnnIwI8">
+            <img class="wdth_100pc" src="{% static 'img/banners/scope_market/3.jpg' %}">
+            <!-- PROMO BANNER -->
+            <!-- <div class="promo-banner">
+              <h1 class="text-center clr-whte cstm-pd-tp-2">ADVERTISE</h1>
+            </div> -->
+            <!-- /PROMO BANNER -->
+          </a>
+        </div>
+        <!-- /LAYOUT ITEM -->
+
 
       <div class="layout-item-2-1 mgn_top_10pc display-flex">
           <div class="layout-item">

@@ -32,10 +32,10 @@ class HomeListView(ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['news_lists'] = NewsArticle.objects.order_by("-id")
-        context['topic_lists'] = Topic.objects.order_by("-id")
-        context['analysis_objects'] = AnalysisArticle.objects.order_by("-id")
+        # Add in a QuerySet of all the objects
+        context['news_lists'] = NewsArticle.objects.order_by("-last_updated")
+        context['topic_lists'] = Topic.objects.order_by("-last_updated")
+        context['analysis_objects'] = AnalysisArticle.objects.order_by("-last_updated")
         return context
     class Meta:
             ordering = ['-id']
@@ -44,17 +44,17 @@ def not_found_404(request):
     return render(request, '404.html')    
 
 def economic_calendar(request):
-    analysis_objects = AnalysisArticle.objects.order_by("-id")
+    analysis_objects = AnalysisArticle.objects.order_by("-last_updated")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'economic-calendar.html', context)
 
 def market_screener(request):
-    analysis_objects = AnalysisArticle.objects.order_by("-id")
+    analysis_objects = AnalysisArticle.objects.order_by("-last_updated")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'market-screener.html', context)
 
 def real_time_widget(request):
-    analysis_objects = AnalysisArticle.objects.order_by("-id")
+    analysis_objects = AnalysisArticle.objects.order_by("-last_updated")
     context = {'analysis_objects':analysis_objects}
     return render(request, 'real-time-widget.html', context)
 
@@ -104,7 +104,7 @@ class TopicListView(ListView):
         return queryset
 
     class Meta:
-            ordering = ['-id']
+            ordering = ['-last_updated']
 
 # def category_topics(request, pk):
 #     category = get_object_or_404(Category, pk=pk)

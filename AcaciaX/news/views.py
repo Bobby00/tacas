@@ -71,20 +71,17 @@ class NewsListView(ListView):
     context_object_name = 'news_list'
     template_name = 'news.html'
     paginate_by = 10
-    ordering = ['id']
+    ordering = ['-last_updated']
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['analysis_objects'] = AnalysisArticle.objects.order_by('-id')
+        context['analysis_objects'] = AnalysisArticle.objects.order_by('-last_updated')
         return context
 
-        class Meta:
-            ordering = ['-id']
-
 def news_posts(request, news_article_pk):
-    analysis_objects = AnalysisArticle.objects.order_by('id')
+    analysis_objects = AnalysisArticle.objects.order_by('last_updated')
     news_article = get_object_or_404(NewsArticle, pk=news_article_pk)
     if request.method == 'POST':
         form = PostForm(request.POST)
