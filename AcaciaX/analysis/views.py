@@ -21,7 +21,6 @@ def superuser_required():
         return WrappedClass
     return wrapper
 
-
 @user_passes_test(lambda u: u.is_superuser)
 @login_required
 def new_analysis(request):
@@ -70,7 +69,7 @@ class AnalysisListView(ListView):
     template_name = 'analysis_and_opinion.html'
     paginate_by = 10
     class Meta:
-        ordering = ['-id']
+        ordering = ['-last_updated']
 
 def analysis_posts(request, analysis_article_pk):
     analysis_article = get_object_or_404(AnalysisArticle, pk=analysis_article_pk)

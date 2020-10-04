@@ -66,6 +66,7 @@ class NewsDelete(DeleteView):
     success_url = reverse_lazy('news')
 
 
+
 class NewsListView(ListView):
     model = NewsArticle
     context_object_name = 'news_list'
